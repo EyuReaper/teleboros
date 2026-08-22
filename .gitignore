@@ -16,3 +16,4 @@ public/og-auto.*
 .agent/
 .agents/
 tsconfig.tsbuildinfo
+AGENTS.md

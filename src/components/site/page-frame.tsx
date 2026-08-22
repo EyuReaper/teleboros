@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
-import { Github, House, Languages, Rss, Send, Tag } from 'lucide-react'
+import { Github, House, Languages, Rss, Send, Tag, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -131,6 +131,7 @@ export function PageFrame({
   const sidebarIconActiveClass = 'bg-muted/70 text-foreground'
   const isHomeActive = currentPath === '/'
   const isTagsActive = currentPath === '/tags'
+  const isComposeActive = currentPath === '/compose'
   const bannerMarkdownHtml = renderInlineMarkdown(config.customBanner)
   const footerMarkdownHtml = renderInlineMarkdown(config.customFooter)
 
@@ -197,6 +198,23 @@ export function PageFrame({
                   </a>
                 </TooltipTrigger>
                 <TooltipContent side="right">{resolvedMessages.nav.tags}</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a
+                    href={localizePath(resolvedLocale, '/compose')}
+                    aria-label="Compose"
+                    className={cn(
+                      'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                      sidebarIconButtonClass,
+                      isComposeActive && sidebarIconActiveClass,
+                    )}
+                  >
+                    <Pencil className={cn(sidebarIconGlyphClass, isComposeActive ? 'fill-current' : 'fill-none')} />
+                    <span className="sr-only">Compose</span>
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="right">Compose</TooltipContent>
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
