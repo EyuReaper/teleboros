@@ -1,5 +1,5 @@
 allowBuilds:
-  dplayer: true
+  "dplayer@https://codeload.github.com/tsukumijima/DPlayer/tar.gz/041cfabc5dbbe9564d83c60eba9e2b5cb8db2ffc": true
   esbuild: true
   sharp: true
   simple-git-hooks: true
