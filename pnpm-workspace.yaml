@@ -1,0 +1,5 @@
+allowBuilds:
+  dplayer: true
+  esbuild: true
+  sharp: true
+  simple-git-hooks: true
