@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         contents: [
           {
             parts: [
-              { text: 'Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Markdown formatting (like **bold** or *italic*) if appropriate:\n\n' + text }
+              { text: 'Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n' + text }
             ]
           }
         ]
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
       tgFormData.append('caption', condensedText)
-      tgFormData.append('parse_mode', 'Markdown')
+      tgFormData.append('parse_mode', 'HTML')
       // Node.js fetch supports passing a File/Blob inside FormData
       tgFormData.append('photo', image)
 
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           chat_id: telegramChatId,
           text: condensedText,
-          parse_mode: 'Markdown',
+          parse_mode: 'HTML',
         })
       })
     }

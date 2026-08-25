@@ -1,4 +1,4 @@
-# Telecast
+# Teleboros
 
 > [!WARNING]
 > This documentation is currently a work in progress. Some sections may be incomplete or subject to change.
@@ -140,7 +140,7 @@ Most deployments should leave this empty since media is mirrored locally at buil
 
 ```ts
 seo: {
-  title: 'My Telecast',
+  title: 'My Teleboros',
   description: 'Posts from my Telegram channel.',
   ogImage: '/og-auto.png',
   keywords: ['telegram', 'microblog', 'my-channel'],
@@ -178,7 +178,7 @@ analytics: {
 maxPages: 50,
 mediaMirror: {
   directory: '/media',
-  userAgent: 'TelecastStaticSync/1.0',
+  userAgent: 'TeleborosStaticSync/1.0',
 },
 ```
 
@@ -209,7 +209,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   customFooter: '',
   rssBeautify: true,
   seo: {
-    title: 'My Telecast',
+    title: 'My Teleboros',
     description: 'Posts from my Telegram channel.',
     ogImage: '/og-auto.png',
     keywords: ['telegram', 'microblog'],
@@ -225,7 +225,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   maxPages: 50,
   mediaMirror: {
     directory: '/media',
-    userAgent: 'TelecastStaticSync/1.0',
+    userAgent: 'TeleborosStaticSync/1.0',
   },
 }
 ```
@@ -273,4 +273,4 @@ This project is licensed under [AGPL-3.0](./LICENSE).
 
 ## 7: Page Speed Insights
 
-![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/telecast@master/.github/assets/pagespeed-metrics.svg)
+![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

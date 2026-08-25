@@ -2,8 +2,8 @@ import type { LocaleMessages } from './en'
 
 export const jaMessages: LocaleMessages = {
   metadata: {
-    titleDefault: 'Telecast',
-    titleTemplate: '%s | Telecast',
+    titleDefault: 'Teleboros',
+    titleTemplate: '%s | Teleboros',
     description: 'Telegram チャンネルを React と shadcn/ui でマイクロブログ化します。',
   },
   nav: {

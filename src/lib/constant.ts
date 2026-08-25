@@ -52,7 +52,7 @@ interface SiteConstantConfig {
 
 export const SITE_CONSTANTS: SiteConstantConfig = {
   // Telegram channel username (without @) to mirror content from.
-  channel: 'toshikidev',
+  channel: 'techops_re',
   // Default locale for the site (e.g. en, ja, zh).
   locale: 'en',
   // Timezone for date formatting (e.g. UTC, America/New_York).
@@ -60,7 +60,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   // Canonical base URL of the published site.
   siteUrl: 'https://tg.toshiki.dev',
   // Telegram host used for channel fetches and public links (e.g. t.me).
-  telegramHost: 'telegram.me',
+  telegramHost: 't.me',
   // Proxy base URL for Telegram-origin media. Leave empty unless you need a runtime proxy.
   staticProxy: '',
   cloudFlare: {
@@ -82,28 +82,28 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   // GitHub username only (no URL prefix).
   github: 'andatoshiki',
   // Telegram username only (no URL prefix).
-  telegram: 'toshikidev',
+  telegram: 'techops_re',
   // Mastodon profile host/path without protocol (e.g. mastodon.social/@username).
   mastodon: 'mastodon.social/@andatoshiki',
   // Bluesky handle (e.g. username.bsky.social).
   bluesky: 'andatoshiki.bsky.social',
   // Optional inline markdown shown above main content (e.g. **alert**, [link](https://...)).
-  customBanner: '**This project is open source under AGPL-3.0.** [Get Telecast on GitHub](https://github.com/andatoshiki/telecast) and launch your own instance in minutes with minimal configuration!',
+  customBanner: '**This project is open source under AGPL-3.0.** [Get Teleboros on GitHub](https://github.com/andatoshiki/teleboros) and launch your own instance in minutes with minimal configuration!',
   // Optional inline markdown to replace the default footer.
   customFooter: '',
   // Whether to beautify RSS output with XSLT styling.
   rssBeautify: true,
   seo: {
     // Site title shown in browser tab and search results.
-    title: 'Telecast – Anda Toshiki',
+    title: 'Teleboros – Anda Toshiki',
     // Meta description for search engines and social previews.
     description: 'Tech notes, development logs, and microblog posts by Anda Toshiki via Telegram!',
     // Open Graph image path for social sharing (e.g. /og-auto.png).
     ogImage: '/og-auto.png',
     // SEO keywords for meta tags.
     keywords: [
-      'telecast',
-      'toshikidev',
+      'teleboros',
+      'techops_re',
       'anda toshiki',
       'telegram channel',
       'microblog',
@@ -134,6 +134,6 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     // Public URL prefix for mirrored media (e.g. /media => files under public/media).
     directory: '/media',
     // User-Agent string used when fetching media from Telegram.
-    userAgent: 'TelecastStaticSync/1.0',
+    userAgent: 'TeleborosStaticSync/1.0',
   },
 }

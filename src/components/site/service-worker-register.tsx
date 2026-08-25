@@ -3,9 +3,9 @@
 import { useEffect } from 'react'
 
 const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '[::1]'])
-const CACHE_PREFIX = 'telecast-'
+const CACHE_PREFIX = 'teleboros-'
 
-async function clearTelecastCaches() {
+async function clearTeleborosCaches() {
   if (!('caches' in window)) {
     return
   }
@@ -25,12 +25,12 @@ async function unregisterServiceWorkers() {
 
   const registrations = await navigator.serviceWorker.getRegistrations()
   if (registrations.length === 0) {
-    await clearTelecastCaches()
+    await clearTeleborosCaches()
     return false
   }
 
   await Promise.all(registrations.map(registration => registration.unregister()))
-  await clearTelecastCaches()
+  await clearTeleborosCaches()
   return true
 }
 

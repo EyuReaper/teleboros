@@ -22,7 +22,7 @@ const cache = new LRUCache<string, ChannelInfo | ChannelPost>({
   sizeCalculation: item => JSON.stringify(item).length,
 })
 
-const TELEGRAM_FETCH_TIMEOUT_MS = 12000
+const TELEGRAM_FETCH_TIMEOUT_MS = 60000
 
 const unnecessaryHeaders = new Set(['host', 'cookie', 'origin', 'referer'])
 const codeLanguageClassPattern = /\b(?:language|lang)-([a-z0-9#+-]+)\b/i
@@ -614,15 +614,15 @@ export async function getChannelInfo(options: ChannelQuery = {}): Promise<Channe
         after: after || undefined,
         q: q || undefined,
       },
-      retry: 1,
-      retryDelay: 250,
+      retry: 5,
+      retryDelay: 1000,
       timeout: TELEGRAM_FETCH_TIMEOUT_MS,
     })
   }
   catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     const fetchContext = `before=${before || '-'} after=${after || '-'} q=${q || '-'} id=${id || '-'}`
-    console.error(`[telecast] failed to fetch channel data ${url} ${fetchContext} error=${errorMessage}`)
+    console.error(`[teleboros] failed to fetch channel data ${url} ${fetchContext} error=${errorMessage}`)
 
     const baselineCacheKey = JSON.stringify({
       channel: cfg.channel,

@@ -1,15 +1,15 @@
 /// <reference lib="webworker" />
 
 /**
- * Telecast PWA Service Worker
+ * Teleboros PWA Service Worker
  *
  * Provides offline caching with a network-first strategy for pages
  * and a cache-first strategy for static assets / media.
  */
 
 const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '[::1]'])
-const CACHE_PREFIX = 'telecast-'
-const CACHE_VERSION = 'telecast-v2'
+const CACHE_PREFIX = 'teleboros-'
+const CACHE_VERSION = 'teleboros-v2'
 const IS_LOCAL_DEVELOPMENT = LOCAL_HOSTNAMES.has(globalThis.location.hostname)
 
 /** Assets cached on SW install for instant offline shell. */
@@ -19,7 +19,7 @@ const PRECACHE_URLS = ['/', '/favicon.svg', '/favicon.ico']
 const STATIC_EXTENSIONS
   = /\.(?:js|css|woff2?|ttf|otf|ico|svg|png|jpe?g|webp|avif|gif|mp4|webm)$/i
 
-async function clearTelecastCaches() {
+async function clearTeleborosCaches() {
   const keys = await caches.keys()
   await Promise.all(
     keys
@@ -51,7 +51,7 @@ globalThis.addEventListener('install', (event) => {
 globalThis.addEventListener('activate', (event) => {
   if (IS_LOCAL_DEVELOPMENT) {
     event.waitUntil(
-      clearTelecastCaches()
+      clearTeleborosCaches()
         .then(() => globalThis.registration.unregister())
         .then(() => globalThis.clients.matchAll({ type: 'window' }))
         .then(clients => Promise.all(clients.map(client => client.navigate(client.url)))),

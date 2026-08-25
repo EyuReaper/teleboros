@@ -30,7 +30,7 @@ const devServiceWorkerCleanupScript = `(() => {
     return
   }
 
-  const reloadKey = 'telecast:dev-sw-reset'
+  const reloadKey = 'teleboros:dev-sw-reset'
   const clearCaches = async () => {
     if (!('caches' in window)) {
       return
@@ -39,7 +39,7 @@ const devServiceWorkerCleanupScript = `(() => {
     const keys = await caches.keys()
     await Promise.all(
       keys
-        .filter(key => key.startsWith('telecast-'))
+        .filter(key => key.startsWith('teleboros-'))
         .map(key => caches.delete(key)),
     )
   }

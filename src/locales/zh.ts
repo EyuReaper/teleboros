@@ -2,8 +2,8 @@ import type { LocaleMessages } from './en'
 
 export const zhMessages: LocaleMessages = {
   metadata: {
-    titleDefault: 'Telecast',
-    titleTemplate: '%s | Telecast',
+    titleDefault: 'Teleboros',
+    titleTemplate: '%s | Teleboros',
     description: '使用 React 与 shadcn/ui 将 Telegram 频道转换为微博客。',
   },
   nav: {

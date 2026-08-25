@@ -93,7 +93,7 @@ export async function renderPostPage(locale: AppLocale, id: string) {
     },
     'publisher': {
       '@type': 'Organization',
-      'name': seo.title || 'Telecast',
+      'name': seo.title || 'Teleboros',
       ...(resolvedOgImage ? { logo: { '@type': 'ImageObject', 'url': resolvedOgImage } } : {}),
     },
     ...(resolvedOgImage ? { image: resolvedOgImage } : {}),

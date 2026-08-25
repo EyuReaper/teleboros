@@ -93,8 +93,8 @@ export interface LocaleMessages {
 
 export const enMessages: LocaleMessages = {
   metadata: {
-    titleDefault: 'Telecast',
-    titleTemplate: '%s | Telecast',
+    titleDefault: 'Teleboros',
+    titleTemplate: '%s | Teleboros',
     description: 'Turn your Telegram channel into a microblog powered by React and shadcn/ui.',
   },
   nav: {

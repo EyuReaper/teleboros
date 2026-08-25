@@ -87,8 +87,8 @@ export function PageFrame({
   const resolvedLocale = locale || normalizeAppLocale(config.locale)
   const resolvedMessages = messages || getLocaleMessages(resolvedLocale)
   const activePathForLocaleSwitch = currentLocalePath || currentPath
-  const githubRepoHref = 'https://github.com/andatoshiki/telecast'
-  const githubRepoTitle = `${resolvedMessages.external.github} telecast`
+  const githubRepoHref = 'https://github.com/andatoshiki/teleboros'
+  const githubRepoTitle = `${resolvedMessages.external.github} teleboros`
 
   const avatar = channel.avatar?.startsWith('http')
     ? buildStaticProxyUrl(config.staticProxy, channel.avatar)

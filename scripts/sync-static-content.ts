@@ -163,7 +163,7 @@ function isCloudflareTransformEnabled() {
     return false
   }
 
-  const forceValue = (process.env.TELECAST_FORCE_CLOUDFLARE_TRANSFORM || '').trim().toLowerCase()
+  const forceValue = (process.env.TELEBOROS_FORCE_CLOUDFLARE_TRANSFORM || '').trim().toLowerCase()
   if (forceValue === '1' || forceValue === 'true' || forceValue === 'yes') {
     return true
   }
@@ -386,7 +386,7 @@ function createMirrorProgressTracker(total: number): MirrorProgressTracker {
   let lastLoggedPercent = 0
   const isTty = Boolean(process.stdout.isTTY)
 
-  const getLine = () => `[telecast] mirroring media ${formatMirrorProgressBar(completed, total)}`
+  const getLine = () => `[teleboros] mirroring media ${formatMirrorProgressBar(completed, total)}`
 
   const writeLine = (newline = false) => {
     if (isTty) {
@@ -576,7 +576,7 @@ async function mirrorSnapshotAssets(snapshot: StaticSnapshot) {
   const progress = createMirrorProgressTracker(mediaCandidateCount)
   const { mirrorUrl, getStats } = await buildMediaMirror({ onResolved: progress.tick })
   if (mediaCandidateCount === 0) {
-    console.info('[telecast] no remote media assets detected for mirroring.')
+    console.info('[teleboros] no remote media assets detected for mirroring.')
   }
 
   try {
@@ -614,7 +614,7 @@ async function writeStaticSearchIndex(snapshot: StaticSnapshot) {
   const posts = snapshot.pages.flatMap(page => page.channel.posts)
   const { documents } = buildPostSearchDataset(posts)
 
-  console.info(`[telecast] building search index: ${documents.length} documents from ${posts.length} posts`)
+  console.info(`[teleboros] building search index: ${documents.length} documents from ${posts.length} posts`)
 
   const index = lunr(function buildIndex() {
     this.ref('id')
@@ -635,7 +635,7 @@ async function writeStaticSearchIndex(snapshot: StaticSnapshot) {
 
   await mkdir(path.dirname(SEARCH_INDEX_OUTPUT_PATH), { recursive: true })
   await writeFile(SEARCH_INDEX_OUTPUT_PATH, JSON.stringify(payload, null, 2), 'utf8')
-  console.info(`[telecast] search index written to ${SEARCH_INDEX_OUTPUT_PATH}`)
+  console.info(`[teleboros] search index written to ${SEARCH_INDEX_OUTPUT_PATH}`)
 }
 
 function hasPosts(snapshot: StaticSnapshot | null | undefined) {
@@ -657,13 +657,13 @@ const PUBLIC_DIR = path.resolve(process.cwd(), 'public')
 async function generateFaviconFromAvatar(channel: ChannelInfo) {
   const avatarPath = channel.avatar?.replace(/^\/cdn-cgi\/image\/[^/]+\//, '/')
   if (!avatarPath || !avatarPath.startsWith(MEDIA_URL_PREFIX)) {
-    console.info('[telecast] avatar favicon: skipped (no local avatar)')
+    console.info('[teleboros] avatar favicon: skipped (no local avatar)')
     return
   }
 
   const absolutePath = path.join(PUBLIC_DIR, avatarPath)
   if (!(await fileExists(absolutePath))) {
-    console.info(`[telecast] avatar favicon: skipped (file not found: ${avatarPath})`)
+    console.info(`[teleboros] avatar favicon: skipped (file not found: ${avatarPath})`)
     return
   }
 
@@ -699,10 +699,10 @@ async function generateFaviconFromAvatar(channel: ChannelInfo) {
       .png()
       .toFile(path.join(PUBLIC_DIR, 'icon-maskable-512x512.png'))
 
-    console.info('[telecast] avatar favicon: generated favicon.ico, favicon.svg, and PWA icons from channel avatar')
+    console.info('[teleboros] avatar favicon: generated favicon.ico, favicon.svg, and PWA icons from channel avatar')
   }
   catch (err) {
-    console.warn('[telecast] avatar favicon: generation failed, keeping existing files')
+    console.warn('[teleboros] avatar favicon: generation failed, keeping existing files')
     console.warn(err)
   }
 }
@@ -741,7 +741,7 @@ async function run() {
   const remoteSnapshot = await buildRemoteStaticSnapshot()
 
   if (!hasPosts(remoteSnapshot)) {
-    throw new Error('[telecast] remote snapshot has no posts sync aborted to avoid writing empty content')
+    throw new Error('[teleboros] remote snapshot has no posts sync aborted to avoid writing empty content')
   }
 
   const { snapshot: mirroredSnapshot, stats } = await mirrorSnapshotAssets(remoteSnapshot)
@@ -749,9 +749,9 @@ async function run() {
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)
 
-  console.info('[telecast] completed.')
-  console.info(`[telecast] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)
-  console.info(`[telecast] mirrored media urls: ${stats.resolvedCount}, new downloads: ${stats.downloadedCount}`)
+  console.info('[teleboros] completed.')
+  console.info(`[teleboros] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)
+  console.info(`[teleboros] mirrored media urls: ${stats.resolvedCount}, new downloads: ${stats.downloadedCount}`)
 
   await generateImageMeta()
 
@@ -759,15 +759,15 @@ async function run() {
     await generateFaviconFromAvatar(mirroredSnapshot.root)
   }
   else {
-    console.info('[telecast] favicon generation skipped pass --favicon to generate from channel avatar')
+    console.info('[teleboros] favicon generation skipped pass --favicon to generate from channel avatar')
   }
 
   if (shouldGenerateOgImage) {
     const ogResult = await generateOgImageFromChannel(mirroredSnapshot.root)
-    console.info(`[telecast] og image: ${ogResult.relativePath}`)
+    console.info(`[teleboros] og image: ${ogResult.relativePath}`)
   }
   else {
-    console.info('[telecast] og image generation skipped pass --og-image to generate /og-auto.png')
+    console.info('[teleboros] og image generation skipped pass --og-image to generate /og-auto.png')
   }
 }
 
@@ -834,11 +834,11 @@ async function generateImageMeta() {
   }
 
   await writeFile(IMAGE_META_PATH, JSON.stringify(meta), 'utf8')
-  console.info(`[telecast] image meta: ${Object.keys(meta).length} entries (${generated} new)`)
+  console.info(`[teleboros] image meta: ${Object.keys(meta).length} entries (${generated} new)`)
 }
 
 run().catch((error) => {
-  console.error('[telecast] failed to sync static content')
+  console.error('[teleboros] failed to sync static content')
   console.error(error)
   process.exitCode = 1
 })

@@ -19,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
 
   return {
     name: seo.title || enMessages.metadata.titleDefault,
-    short_name: config.channel || 'Telecast',
+    short_name: config.channel || 'Teleboros',
     description: seo.description || enMessages.metadata.description,
     start_url: '/',
     display: 'standalone',

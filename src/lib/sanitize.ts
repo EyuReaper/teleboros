@@ -52,7 +52,7 @@ export function sanitizeDescriptionHtml(html: string) {
   })
 }
 
-const INLINE_CODE_TOKEN_PREFIX = '__TELECAST_INLINE_CODE_'
+const INLINE_CODE_TOKEN_PREFIX = '__TELEBOROS_INLINE_CODE_'
 
 function escapeHtml(value: string) {
   return value

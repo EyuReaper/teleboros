@@ -442,18 +442,18 @@ export async function generateOgImageFromChannel(channel: ChannelInfo) {
 async function runCli() {
   const snapshot = await readGeneratedStaticSnapshot()
   if (!snapshot?.root) {
-    throw new Error('[telecast] generated snapshot not found run `pnpm sync` before generating og image')
+    throw new Error('[teleboros] generated snapshot not found run `pnpm sync` before generating og image')
   }
 
   const result = await generateOgImageFromChannel(snapshot.root)
-  console.info(`[telecast] og image: ${result.relativePath}`)
+  console.info(`[teleboros] og image: ${result.relativePath}`)
 }
 
 const isDirectRun = Boolean(process.argv[1]) && import.meta.url === pathToFileURL(process.argv[1]).href
 
 if (isDirectRun) {
   runCli().catch((error) => {
-    console.error('[telecast] failed to generate og image')
+    console.error('[teleboros] failed to generate og image')
     console.error(error)
     process.exitCode = 1
   })

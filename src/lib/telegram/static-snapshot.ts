@@ -56,7 +56,7 @@ function createSnapshotFetchTracker(host: string, channel: string): SnapshotFetc
   const formatLine = (cursor: string) => {
     const baseUrl = `https://${host}/s/${channel}`
     const cursorLabel = cursor || '-'
-    return `[telecast] fetching ${baseUrl} before=${cursorLabel} request=${requestCount}`
+    return `[teleboros] fetching ${baseUrl} before=${cursorLabel} request=${requestCount}`
   }
 
   return {
@@ -176,7 +176,7 @@ export function getStaticSnapshot() {
         }
 
         throw new Error(
-          `[telecast] generated snapshot is missing at ${GENERATED_SNAPSHOT_PATH}. run \`pnpm sync\` before \`pnpm build\`.`,
+          `[teleboros] generated snapshot is missing at ${GENERATED_SNAPSHOT_PATH}. run \`pnpm sync\` before \`pnpm build\`.`,
         )
       })
   }
