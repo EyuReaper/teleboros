@@ -124,7 +124,7 @@ function normalizeRemoteMediaUrl(input: string) {
     return normalized
   }
 
-  if (normalized.startsWith('/')) {
+  if (!hasHttpProtocol(normalized)) {
     try {
       const relativeResolved = new URL(normalized, `https://${SITE_CONSTANTS.telegramHost}`)
       return relativeResolved.toString()
@@ -132,10 +132,6 @@ function normalizeRemoteMediaUrl(input: string) {
     catch {
       return ''
     }
-  }
-
-  if (!hasHttpProtocol(normalized)) {
-    return ''
   }
 
   try {

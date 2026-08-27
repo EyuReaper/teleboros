@@ -105,7 +105,7 @@ globalThis.addEventListener('fetch', (event) => {
         cached =>
           cached
           || fetch(request).then((response) => {
-            if (response.ok) {
+            if (response.status === 200) {
               const clone = response.clone()
               caches.open(CACHE_VERSION).then(cache => cache.put(request, clone))
             }
@@ -119,7 +119,7 @@ globalThis.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (response.ok) {
+          if (response.status === 200) {
             const clone = response.clone()
             caches.open(CACHE_VERSION).then(cache => cache.put(request, clone))
           }
