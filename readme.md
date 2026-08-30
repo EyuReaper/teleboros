@@ -267,7 +267,33 @@ Both flags are used in the default `build` script in `package.json`:
 > [!WARNING]
 > This section is currently a work in progress.
 
-## 6: License
+## 6: Automated Syncing via Webhooks
+
+You can set up a Telegram bot webhook to automatically trigger a Vercel rebuild whenever a new message is posted in your channel. This keeps your static site 100% in sync without manual deployments.
+
+### 6.1: Environment Variables
+
+Configure the following environment variables in your Vercel deployment:
+
+- \`TELEGRAM_WEBHOOK_SECRET\`: A secure random string you generate (e.g., \`my-super-secret-token\`). This ensures only Telegram can trigger the webhook.
+- \`DEPLOY_HOOK_URL\`: Your Vercel Deploy Hook URL (created in Vercel Dashboard -> Project Settings -> Git -> Deploy Hooks).
+
+### 6.2: Set the Webhook
+
+Run the following command in your terminal to register the webhook with Telegram. Replace the placeholders with your actual values:
+
+\`\`\`bash
+curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "url": "https://<YOUR_SITE_URL>/api/webhook",
+    "secret_token": "<YOUR_TELEGRAM_WEBHOOK_SECRET>"
+  }'
+\`\`\`
+
+Now, whenever you post in the channel, the bot will notify \`/api/webhook\`, which will securely trigger your Vercel Deploy Hook!
+
+## 7: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 

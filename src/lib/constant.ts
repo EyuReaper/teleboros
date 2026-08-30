@@ -95,7 +95,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   rssBeautify: true,
   seo: {
     // Site title shown in browser tab and search results.
-    title: 'Teleboros – Anda Toshiki',
+    title: 'Teleboros – EyuReaper',
     // Meta description for search engines and social previews.
     description: 'Tech notes, development logs, and microblog posts by Anda Toshiki via Telegram!',
     // Open Graph image path for social sharing (e.g. /og-auto.png).
