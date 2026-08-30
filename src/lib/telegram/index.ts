@@ -227,7 +227,8 @@ async function getImages($: cheerio.CheerioAPI, item: cheerio.Element, staticPro
 }
 
 function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, index: number) {
-  const video = $(item).find('.tgme_widget_message_video_wrap video')
+  const videoWrap = $(item).find('.tgme_widget_message_video_wrap')
+  const video = videoWrap.find('video')
   if (video.length > 0) {
     const src = video.attr('src')
     if (src) {
@@ -239,6 +240,16 @@ function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: str
         $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
       }
     })
+
+    const thumb = videoWrap.find('.tgme_widget_message_video_thumb')
+    if (thumb.length > 0) {
+      const style = thumb.attr('style')
+      const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
+      if (urlMatch && urlMatch[1]) {
+        video.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+      }
+    }
+
     video
       .addClass('post-video')
       .attr('controls', 'true')
@@ -247,7 +258,8 @@ function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: str
       .attr('webkit-playsinline', 'true')
   }
 
-  const roundVideo = $(item).find('.tgme_widget_message_roundvideo_wrap video')
+  const roundVideoWrap = $(item).find('.tgme_widget_message_roundvideo_wrap')
+  const roundVideo = roundVideoWrap.find('video')
   if (roundVideo.length > 0) {
     const src = roundVideo.attr('src')
     if (src) {
@@ -259,6 +271,16 @@ function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: str
         $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
       }
     })
+
+    const roundThumb = roundVideoWrap.find('.tgme_widget_message_roundvideo_thumb')
+    if (roundThumb.length > 0) {
+      const style = roundThumb.attr('style')
+      const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
+      if (urlMatch && urlMatch[1]) {
+        roundVideo.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+      }
+    }
+
     roundVideo
       .addClass('post-video')
       .attr('controls', 'true')
