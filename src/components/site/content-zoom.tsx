@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 
@@ -115,11 +116,13 @@ export function ContentZoom() {
         onOpenAutoFocus={e => e.preventDefault()}
       >
         <DialogTitle className="sr-only">{alt || 'Image preview'}</DialogTitle>
-        <div className="relative flex max-h-[85vh] items-center justify-center">
+        <div className="relative flex h-[85vh] w-full items-center justify-center">
           {src && (
-            <img
+            <Image
               src={src}
               alt={alt}
+              fill
+              sizes="90vw"
               className="max-h-[85vh] max-w-full rounded-lg object-contain"
             />
           )}

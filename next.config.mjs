@@ -8,6 +8,14 @@ const outputMode = process.env.NEXT_OUTPUT_MODE === 'export' ? 'export' : 'stand
 const nextConfig = {
   output: outputMode,
   trailingSlash: outputMode === 'export',
+  images: {
+    // Media is already optimized (WebP/AVIF + responsive) at build time by
+    // `scripts/sync-static-content.ts` and mirrored into `public/media/`, so
+    // `next/image` is used without a runtime optimizer. This keeps the static
+    // `export` output (gh-pages / serverless) working while still applying
+    // `next/image`'s layout, lazy-loading and priority features.
+    unoptimized: true,
+  },
   pageExtensions: ['ts', 'tsx'],
   turbopack: {
     root: currentDir,

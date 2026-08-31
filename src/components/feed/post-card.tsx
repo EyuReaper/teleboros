@@ -5,6 +5,7 @@ import type { ChannelPost } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
 import { Eye, Tag } from 'lucide-react'
 import { motion } from 'motion/react'
+import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { localizePath } from '@/lib/i18n'
 import { formatPostTimestamp } from '@/lib/time'
@@ -52,9 +53,11 @@ export function PostCard({
     >
       <div className="flex items-stretch gap-3">
         <div className="relative w-11 shrink-0">
-          <img
+          <Image
             src={avatarSrc}
             alt={avatarAlt}
+            width={44}
+            height={44}
             className="relative z-[1] h-11 w-11 rounded-full border object-cover"
             loading={index < 2 ? 'eager' : 'lazy'}
           />
@@ -121,7 +124,7 @@ export function PostCard({
                         : 'bg-muted text-muted-foreground'}`}
                     >
                       {reaction.emojiImage
-                        ? <img src={reaction.emojiImage} alt={reaction.emoji || messages.feed.emojiAlt} className="h-3.5 w-3.5" loading="lazy" />
+                        ? <Image src={reaction.emojiImage} alt={reaction.emoji || messages.feed.emojiAlt} width={14} height={14} className="h-3.5 w-3.5" loading="lazy" />
                         : <span>{reaction.emoji || '⭐'}</span>}
                       <AnimatedMetricNumber value={reaction.count} />
                     </span>
