@@ -3,6 +3,7 @@ import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo, ChannelPost } from '@/lib/types'
 import { notFound } from 'next/navigation'
 import { FeedList } from '@/components/feed/feed-list'
+import { TelegramComments } from '@/components/feed/telegram-comments'
 import { JsonLd } from '@/components/site/json-ld'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
@@ -126,6 +127,13 @@ export async function renderPostPage(locale: AppLocale, id: string) {
         uiLocale={locale}
         messages={messages}
       />
+      {config.comments?.enabled && config.comments?.websiteId && (
+        <TelegramComments
+          websiteId={config.comments.websiteId}
+          limit={config.comments.limit}
+          color={config.comments.color}
+        />
+      )}
     </PageFrame>
   )
 }

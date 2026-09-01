@@ -48,6 +48,18 @@ interface SiteConstantConfig {
   analytics: AnalyticsConfig
   maxPages: number
   mediaMirror: MediaMirrorConfig
+  comments: CommentsConfig
+}
+
+export interface CommentsConfig {
+  /** Enable or disable comments */
+  enabled: boolean
+  /** Telegram comments app website ID (from comments.app) */
+  websiteId: string
+  /** Maximum number of comments to display */
+  limit: number
+  /** Color theme for the comments widget */
+  color: string
 }
 
 export const SITE_CONSTANTS: SiteConstantConfig = {
@@ -135,5 +147,15 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     directory: '/media',
     // User-Agent string used when fetching media from Telegram.
     userAgent: 'TeleborosStaticSync/1.0',
+  },
+  comments: {
+    // Enable Telegram Native Comments
+    enabled: true,
+    // The data-comments-app-website token you get from https://comments.app/
+    websiteId: 'cID6qVyf',
+    // Number of comments to load by default
+    limit: 5,
+    // Primary color for the comments widget (hex without #)
+    color: '3390EC',
   },
 }
