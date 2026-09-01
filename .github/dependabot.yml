@@ -6,7 +6,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "08:00"
+      time: '08:00'
       timezone: America/Phoenix
     open-pull-requests-limit: 10
     labels:
@@ -21,7 +21,7 @@ updates:
     schedule:
       interval: weekly
       day: monday
-      time: "08:15"
+      time: '08:15'
       timezone: America/Phoenix
     open-pull-requests-limit: 5
     labels:

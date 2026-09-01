@@ -1,7 +1,11 @@
+shellEmulator: true
+
+trustPolicy: no-downgrade
+
 packages:
-  - "."
+  - .
 allowBuilds:
-  "dplayer": true
+  dplayer: true
   esbuild: true
   sharp: true
   simple-git-hooks: true

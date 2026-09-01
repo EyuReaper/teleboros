@@ -10,7 +10,6 @@ export const dynamic = 'force-static'
 export default async function ComposePage() {
   const locale = DEFAULT_LOCALE
   const messages = getLocaleMessages(locale)
-  const config = getAppConfig()
   const snapshot = await getStaticSnapshot()
   const channel = snapshot.root as ChannelInfo
 

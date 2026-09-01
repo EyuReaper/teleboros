@@ -1,4 +1,4 @@
-import type { AnalyticsConfig, CloudFlareConfig, SeoConfig } from './constant'
+import type { AnalyticsConfig, CloudFlareConfig, CommentsConfig, SeoConfig } from './constant'
 import { SITE_CONSTANTS } from './constant'
 
 const ABSOLUTE_URL_PATTERN = /^https?:\/\//i
@@ -25,6 +25,7 @@ export interface AppConfig {
   rssBeautify: boolean
   seo: SeoConfig
   analytics: AnalyticsConfig
+  comments: CommentsConfig
 }
 
 export function buildStaticProxyUrl(staticProxy: string, rawUrl: string) {
@@ -91,5 +92,6 @@ export function getAppConfig(): AppConfig {
     rssBeautify: SITE_CONSTANTS.rssBeautify,
     seo: SITE_CONSTANTS.seo,
     analytics: SITE_CONSTANTS.analytics,
+    comments: SITE_CONSTANTS.comments,
   }
 }

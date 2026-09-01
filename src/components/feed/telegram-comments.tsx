@@ -12,8 +12,10 @@ export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: Tel
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!containerRef.current) return
-    if (!websiteId) return
+    if (!containerRef.current)
+      return
+    if (!websiteId)
+      return
 
     // Clear previous widget if it exists (e.g., during dev hot reload)
     containerRef.current.innerHTML = ''
@@ -35,7 +37,8 @@ export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: Tel
     }
   }, [websiteId, limit, color])
 
-  if (!websiteId) return null
+  if (!websiteId)
+    return null
 
   return (
     <div className="w-full mt-8 border-t border-border/40 pt-8">
@@ -45,7 +48,8 @@ export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: Tel
             margin: 0 auto !important;
             width: 100% !important;
           }
-        `}} />
+        ` }}
+        />
       </div>
     </div>
   )

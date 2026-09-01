@@ -44,13 +44,13 @@ pnpm start
 
 ### 3.1: 频道与站点身份
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `channel` | `string` | Telegram 频道用户名，不带 `@`。要镜像的目标频道。 |
-| `siteUrl` | `string` | 站点的规范基础 URL（如 `https://tg.example.com`），用于 SEO、RSS 和 sitemap。 |
-| `telegramHost` | `string` | Telegram 网页主机，用于抓取频道 HTML。默认为 `t.me`。 |
-| `locale` | `string` | 默认语言。支持的值：`en`、`ja`、`zh`。 |
-| `timezone` | `string` | IANA 时区，用于日期格式化（如 `UTC`、`America/New_York`、`Asia/Tokyo`）。 |
+| 键             | 类型     | 说明                                                                          |
+| -------------- | -------- | ----------------------------------------------------------------------------- |
+| `channel`      | `string` | Telegram 频道用户名，不带 `@`。要镜像的目标频道。                             |
+| `siteUrl`      | `string` | 站点的规范基础 URL（如 `https://tg.example.com`），用于 SEO、RSS 和 sitemap。 |
+| `telegramHost` | `string` | Telegram 网页主机，用于抓取频道 HTML。默认为 `t.me`。                         |
+| `locale`       | `string` | 默认语言。支持的值：`en`、`ja`、`zh`。                                        |
+| `timezone`     | `string` | IANA 时区，用于日期格式化（如 `UTC`、`America/New_York`、`Asia/Tokyo`）。     |
 
 ```ts
 channel: 'your_channel',
@@ -62,14 +62,14 @@ timezone: 'UTC',
 
 ### 3.2: 社交链接
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `website` | `string` | 作者或组织的网站 URL。 |
-| `twitter` | `string` | Twitter/X 用户名，不含 URL 前缀。 |
-| `github` | `string` | GitHub 用户名。 |
-| `telegram` | `string` | 侧边栏 Telegram 链接的用户名。 |
+| 键         | 类型     | 说明                                                    |
+| ---------- | -------- | ------------------------------------------------------- |
+| `website`  | `string` | 作者或组织的网站 URL。                                  |
+| `twitter`  | `string` | Twitter/X 用户名，不含 URL 前缀。                       |
+| `github`   | `string` | GitHub 用户名。                                         |
+| `telegram` | `string` | 侧边栏 Telegram 链接的用户名。                          |
 | `mastodon` | `string` | Mastodon 地址，不含协议（如 `mastodon.social/@user`）。 |
-| `bluesky` | `string` | Bluesky 地址（如 `user.bsky.social`）。 |
+| `bluesky`  | `string` | Bluesky 地址（如 `user.bsky.social`）。                 |
 
 任何字段留空即可隐藏对应的侧边栏链接。
 
@@ -84,14 +84,14 @@ bluesky: 'username.bsky.social',
 
 ### 3.3: 显示选项
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `hideDescription` | `boolean` | 为 `true` 时隐藏头部下方的频道描述。 |
-| `reactionsEnabled` | `boolean` | 为 `true` 时显示 Telegram 风格的 emoji 反应。 |
-| `pwa` | `boolean` | 为 `true` 时启用 Service Worker 注册、Web App Manifest 和离线缓存。 |
-| `customBanner` | `string` | 在主内容上方渲染的 Markdown 横幅。留空禁用。 |
-| `customFooter` | `string` | 替换默认页脚的 Markdown 内容。留空使用默认页脚。 |
-| `rssBeautify` | `boolean` | 为 `true` 时 RSS XML 输出包含 XSLT 样式，方便浏览器阅读。 |
+| 键                 | 类型      | 说明                                                                |
+| ------------------ | --------- | ------------------------------------------------------------------- |
+| `hideDescription`  | `boolean` | 为 `true` 时隐藏头部下方的频道描述。                                |
+| `reactionsEnabled` | `boolean` | 为 `true` 时显示 Telegram 风格的 emoji 反应。                       |
+| `pwa`              | `boolean` | 为 `true` 时启用 Service Worker 注册、Web App Manifest 和离线缓存。 |
+| `customBanner`     | `string`  | 在主内容上方渲染的 Markdown 横幅。留空禁用。                        |
+| `customFooter`     | `string`  | 替换默认页脚的 Markdown 内容。留空使用默认页脚。                    |
+| `rssBeautify`      | `boolean` | 为 `true` 时 RSS XML 输出包含 XSLT 样式，方便浏览器阅读。           |
 
 ```ts
 hideDescription: false,
@@ -104,10 +104,10 @@ rssBeautify: true,
 
 ### 3.4: Cloudflare 图片转换
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `cloudFlare.transform` | `boolean` | 为 `/media/*` 下的镜像图片启用 Cloudflare 图片转换。 |
-| `cloudFlare.transformPrefix` | `string` | Cloudflare 转换 URL 前缀（如 `/cdn-cgi/image/format=auto,quality=85/`）。 |
+| 键                           | 类型      | 说明                                                                      |
+| ---------------------------- | --------- | ------------------------------------------------------------------------- |
+| `cloudFlare.transform`       | `boolean` | 为 `/media/*` 下的镜像图片启用 Cloudflare 图片转换。                      |
+| `cloudFlare.transformPrefix` | `string`  | Cloudflare 转换 URL 前缀（如 `/cdn-cgi/image/format=auto,quality=85/`）。 |
 
 此配置完全可选。当 `cloudFlare.transform` 为 `true` 时，构建同步会将静态媒体路径从默认的 `/media/…` 改写为带前缀的版本（`/cdn-cgi/image/format=auto,quality=85/media/…`）。改写仅发生在构建时，没有运行时路径转换。如果不在 Cloudflare 后部署，保持 `false` 即可，媒体路径将保持为普通的 `/media/*` URL。
 
@@ -120,23 +120,23 @@ cloudFlare: {
 
 ### 3.5: 静态代理
 
-| 键 | 类型 | 说明 |
-|----|------|------|
+| 键            | 类型     | 说明                                                              |
+| ------------- | -------- | ----------------------------------------------------------------- |
 | `staticProxy` | `string` | Telegram 来源媒体的运行时代理 URL。除非需要运行时代理，否则留空。 |
 
 大多数部署应留空，因为媒体在构建时已本地镜像。
 
 ### 3.6: SEO
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `seo.title` | `string` | 浏览器标签页和搜索结果中显示的站点标题。 |
-| `seo.description` | `string` | 搜索引擎和社交预览的 Meta 描述。 |
-| `seo.ogImage` | `string` | Open Graph 图片路径（如 `/og-auto.png`）。可通过 `--og-image` 自动生成。 |
-| `seo.keywords` | `string[]` | SEO 关键词数组。 |
-| `seo.author` | `string` | 用于 Meta 标签和结构化数据的作者名。 |
-| `seo.noIndex` | `boolean` | 为 `true` 时在 robots meta 中输出 `noindex`。 |
-| `seo.noFollow` | `boolean` | 为 `true` 时在 robots meta 中输出 `nofollow`。 |
+| 键                | 类型       | 说明                                                                     |
+| ----------------- | ---------- | ------------------------------------------------------------------------ |
+| `seo.title`       | `string`   | 浏览器标签页和搜索结果中显示的站点标题。                                 |
+| `seo.description` | `string`   | 搜索引擎和社交预览的 Meta 描述。                                         |
+| `seo.ogImage`     | `string`   | Open Graph 图片路径（如 `/og-auto.png`）。可通过 `--og-image` 自动生成。 |
+| `seo.keywords`    | `string[]` | SEO 关键词数组。                                                         |
+| `seo.author`      | `string`   | 用于 Meta 标签和结构化数据的作者名。                                     |
+| `seo.noIndex`     | `boolean`  | 为 `true` 时在 robots meta 中输出 `noindex`。                            |
+| `seo.noFollow`    | `boolean`  | 为 `true` 时在 robots meta 中输出 `nofollow`。                           |
 
 ```ts
 seo: {
@@ -152,11 +152,11 @@ seo: {
 
 ### 3.7: 统计分析
 
-| 键 | 类型 | 说明 |
-|----|------|------|
+| 键                            | 类型     | 说明                                                        |
+| ----------------------------- | -------- | ----------------------------------------------------------- |
 | `analytics.googleAnalyticsId` | `string` | Google Analytics 4 衡量 ID（如 `G-XXXXXXXXXX`）。留空禁用。 |
-| `analytics.umamiScriptUrl` | `string` | 自托管 Umami 统计脚本 URL。留空禁用。 |
-| `analytics.umamiWebsiteId` | `string` | Umami 网站 ID。 |
+| `analytics.umamiScriptUrl`    | `string` | 自托管 Umami 统计脚本 URL。留空禁用。                       |
+| `analytics.umamiWebsiteId`    | `string` | Umami 网站 ID。                                             |
 
 ```ts
 analytics: {
@@ -168,11 +168,11 @@ analytics: {
 
 ### 3.8: 构建与同步限制
 
-| 键 | 类型 | 说明 |
-|----|------|------|
-| `maxPages` | `number` | 同步时抓取的最大 Telegram 快照页数。每页约 20 条帖子。默认 `50`。 |
-| `mediaMirror.directory` | `string` | 镜像媒体文件的公共 URL 前缀（如 `/media`）。 |
-| `mediaMirror.userAgent` | `string` | 从 Telegram 下载媒体时的 User-Agent 字符串。 |
+| 键                      | 类型     | 说明                                                              |
+| ----------------------- | -------- | ----------------------------------------------------------------- |
+| `maxPages`              | `number` | 同步时抓取的最大 Telegram 快照页数。每页约 20 条帖子。默认 `50`。 |
+| `mediaMirror.directory` | `string` | 镜像媒体文件的公共 URL 前缀（如 `/media`）。                      |
+| `mediaMirror.userAgent` | `string` | 从 Telegram 下载媒体时的 User-Agent 字符串。                      |
 
 ```ts
 maxPages: 50,
@@ -240,10 +240,10 @@ pnpm sync [flags]
 
 ### 4.2: 参数
 
-| 参数 | 效果 |
-|------|------|
-| `--og-image` | 从频道元数据生成 `public/og-auto.png`。 |
-| `--favicon` | 从频道头像生成 `favicon.ico`、`favicon.svg` 和 PWA 图标 PNG。 |
+| 参数         | 效果                                                          |
+| ------------ | ------------------------------------------------------------- |
+| `--og-image` | 从频道元数据生成 `public/og-auto.png`。                       |
+| `--favicon`  | 从频道头像生成 `favicon.ico`、`favicon.svg` 和 PWA 图标 PNG。 |
 
 两个参数都在 `package.json` 的默认 `build` 脚本中使用：
 

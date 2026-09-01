@@ -37,9 +37,11 @@ export function ComposeForm() {
       setStatus({ type: 'success', message: 'Post successfully condensed and sent to Telegram!' })
       setText('')
       setImage(null)
-    } catch (error: any) {
+    }
+    catch (error: any) {
       setStatus({ type: 'error', message: error.message })
-    } finally {
+    }
+    finally {
       setIsLoading(false)
     }
   }
@@ -53,7 +55,7 @@ export function ComposeForm() {
         <textarea
           id="text"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={e => setText(e.target.value)}
           required
           rows={6}
           className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -69,7 +71,7 @@ export function ComposeForm() {
           id="image"
           type="file"
           accept="image/*"
-          onChange={(e) => setImage(e.target.files?.[0] || null)}
+          onChange={e => setImage(e.target.files?.[0] || null)}
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
@@ -82,7 +84,7 @@ export function ComposeForm() {
           id="adminToken"
           type="password"
           value={adminToken}
-          onChange={(e) => setAdminToken(e.target.value)}
+          onChange={e => setAdminToken(e.target.value)}
           required
           className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           placeholder="Secret password..."

@@ -32,11 +32,11 @@ export async function POST(req: Request) {
         contents: [
           {
             parts: [
-              { text: 'Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n' + text }
-            ]
-          }
-        ]
-      })
+              { text: `Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n${text}` },
+            ],
+          },
+        ],
+      }),
     })
 
     if (!geminiRes.ok) {
@@ -68,9 +68,10 @@ export async function POST(req: Request) {
 
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendPhoto`, {
         method: 'POST',
-        body: tgFormData
+        body: tgFormData,
       })
-    } else {
+    }
+    else {
       // sendMessage
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
         method: 'POST',
@@ -81,7 +82,7 @@ export async function POST(req: Request) {
           chat_id: telegramChatId,
           text: condensedText,
           parse_mode: 'HTML',
-        })
+        }),
       })
     }
 
@@ -96,15 +97,16 @@ export async function POST(req: Request) {
     if (deployHookUrl) {
       try {
         await fetch(deployHookUrl, { method: 'POST' })
-      } catch (e) {
+      }
+      catch (e) {
         console.error('Failed to trigger deploy hook:', e)
         // We don't fail the request if the deploy hook fails
       }
     }
 
     return NextResponse.json({ success: true, condensedText })
-
-  } catch (error: any) {
+  }
+  catch (error: any) {
     console.error('Compose API error:', error)
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 })
   }

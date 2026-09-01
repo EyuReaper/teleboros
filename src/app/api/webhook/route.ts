@@ -21,16 +21,19 @@ export async function POST(req: Request) {
       try {
         await fetch(deployHookUrl, { method: 'POST' })
         console.log('Successfully triggered Vercel deploy hook')
-      } catch (e) {
+      }
+      catch (e) {
         console.error('Failed to trigger deploy hook:', e)
       }
-    } else {
+    }
+    else {
       console.warn('DEPLOY_HOOK_URL is not configured. Skipping deployment.')
     }
 
     // Always return 200 OK to Telegram so it doesn't retry
     return NextResponse.json({ success: true })
-  } catch (error: any) {
+  }
+  catch (error: any) {
     console.error('Webhook API error:', error)
     // Even on error, return 200 OK so Telegram stops retrying the failing update
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 200 })

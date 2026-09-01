@@ -44,13 +44,13 @@ All configuration lives in a single file: `src/lib/constant.ts`. There are no `.
 
 ### 3.1: Channel and site identity
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `channel` | `string` | Telegram channel username without `@`. This is the channel whose content is mirrored. |
-| `siteUrl` | `string` | Canonical base URL of the published site (e.g. `https://tg.example.com`). Used for SEO, RSS, and sitemap generation. |
-| `telegramHost` | `string` | Telegram web host for fetching channel HTML. Default is `t.me`. |
-| `locale` | `string` | Default locale. Supported values: `en`, `ja`, `zh`. |
-| `timezone` | `string` | IANA timezone for date formatting (e.g. `UTC`, `America/New_York`, `Asia/Tokyo`). |
+| Key            | Type     | Description                                                                                                          |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+| `channel`      | `string` | Telegram channel username without `@`. This is the channel whose content is mirrored.                                |
+| `siteUrl`      | `string` | Canonical base URL of the published site (e.g. `https://tg.example.com`). Used for SEO, RSS, and sitemap generation. |
+| `telegramHost` | `string` | Telegram web host for fetching channel HTML. Default is `t.me`.                                                      |
+| `locale`       | `string` | Default locale. Supported values: `en`, `ja`, `zh`.                                                                  |
+| `timezone`     | `string` | IANA timezone for date formatting (e.g. `UTC`, `America/New_York`, `Asia/Tokyo`).                                    |
 
 ```ts
 channel: 'your_channel',
@@ -62,14 +62,14 @@ timezone: 'UTC',
 
 ### 3.2: Social links
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `website` | `string` | Author or organization website URL. |
-| `twitter` | `string` | Twitter/X username only, no URL prefix. |
-| `github` | `string` | GitHub username only. |
-| `telegram` | `string` | Telegram username for the sidebar link. |
+| Key        | Type     | Description                                                      |
+| ---------- | -------- | ---------------------------------------------------------------- |
+| `website`  | `string` | Author or organization website URL.                              |
+| `twitter`  | `string` | Twitter/X username only, no URL prefix.                          |
+| `github`   | `string` | GitHub username only.                                            |
+| `telegram` | `string` | Telegram username for the sidebar link.                          |
 | `mastodon` | `string` | Mastodon handle without protocol (e.g. `mastodon.social/@user`). |
-| `bluesky` | `string` | Bluesky handle (e.g. `user.bsky.social`). |
+| `bluesky`  | `string` | Bluesky handle (e.g. `user.bsky.social`).                        |
 
 Leave any field as an empty string to hide it from the sidebar.
 
@@ -84,14 +84,14 @@ bluesky: 'username.bsky.social',
 
 ### 3.3: Display options
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `hideDescription` | `boolean` | When `true`, the channel description block below the header is hidden. |
-| `reactionsEnabled` | `boolean` | When `true`, Telegram-style emoji reactions are shown on posts. |
-| `pwa` | `boolean` | When `true`, enables service worker registration, web app manifest, and offline caching. |
-| `customBanner` | `string` | Inline markdown rendered as a banner above the main content. Leave empty to disable. |
-| `customFooter` | `string` | Inline markdown that replaces the default footer. Leave empty for the default. |
-| `rssBeautify` | `boolean` | When `true`, RSS XML output includes XSLT styling for browser readability. |
+| Key                | Type      | Description                                                                              |
+| ------------------ | --------- | ---------------------------------------------------------------------------------------- |
+| `hideDescription`  | `boolean` | When `true`, the channel description block below the header is hidden.                   |
+| `reactionsEnabled` | `boolean` | When `true`, Telegram-style emoji reactions are shown on posts.                          |
+| `pwa`              | `boolean` | When `true`, enables service worker registration, web app manifest, and offline caching. |
+| `customBanner`     | `string`  | Inline markdown rendered as a banner above the main content. Leave empty to disable.     |
+| `customFooter`     | `string`  | Inline markdown that replaces the default footer. Leave empty for the default.           |
+| `rssBeautify`      | `boolean` | When `true`, RSS XML output includes XSLT styling for browser readability.               |
 
 ```ts
 hideDescription: false,
@@ -104,10 +104,10 @@ rssBeautify: true,
 
 ### 3.4: Cloudflare image transforms
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `cloudFlare.transform` | `boolean` | Enable Cloudflare image transform delivery for mirrored images under `/media/*`. |
-| `cloudFlare.transformPrefix` | `string` | URL prefix for Cloudflare transforms (e.g. `/cdn-cgi/image/format=auto,quality=85/`). |
+| Key                          | Type      | Description                                                                           |
+| ---------------------------- | --------- | ------------------------------------------------------------------------------------- |
+| `cloudFlare.transform`       | `boolean` | Enable Cloudflare image transform delivery for mirrored images under `/media/*`.      |
+| `cloudFlare.transformPrefix` | `string`  | URL prefix for Cloudflare transforms (e.g. `/cdn-cgi/image/format=auto,quality=85/`). |
 
 This is completely optional. When `cloudFlare.transform` is `true`, the build-time sync rewrites static media paths from their default `/media/…` form to the prefixed version (`/cdn-cgi/image/format=auto,quality=85/media/…`). The rewrite happens at build time only — there is no runtime path conversion. If you are not deploying behind Cloudflare, leave this set to `false` and media paths will stay as plain `/media/*` URLs.
 
@@ -120,23 +120,23 @@ cloudFlare: {
 
 ### 3.5: Static proxy
 
-| Key | Type | Description |
-|-----|------|-------------|
+| Key           | Type     | Description                                                                                       |
+| ------------- | -------- | ------------------------------------------------------------------------------------------------- |
 | `staticProxy` | `string` | Proxy base URL for Telegram-origin media at runtime. Leave empty unless you need a runtime proxy. |
 
 Most deployments should leave this empty since media is mirrored locally at build time.
 
 ### 3.6: SEO
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `seo.title` | `string` | Site title for browser tabs and search results. |
-| `seo.description` | `string` | Meta description for search engines and social previews. |
-| `seo.ogImage` | `string` | Open Graph image path (e.g. `/og-auto.png`). Generated automatically with `--og-image`. |
-| `seo.keywords` | `string[]` | Array of SEO keywords for meta tags. |
-| `seo.author` | `string` | Author name for meta tags and structured data. |
-| `seo.noIndex` | `boolean` | When `true`, emits `noindex` in robots meta. |
-| `seo.noFollow` | `boolean` | When `true`, emits `nofollow` in robots meta. |
+| Key               | Type       | Description                                                                             |
+| ----------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `seo.title`       | `string`   | Site title for browser tabs and search results.                                         |
+| `seo.description` | `string`   | Meta description for search engines and social previews.                                |
+| `seo.ogImage`     | `string`   | Open Graph image path (e.g. `/og-auto.png`). Generated automatically with `--og-image`. |
+| `seo.keywords`    | `string[]` | Array of SEO keywords for meta tags.                                                    |
+| `seo.author`      | `string`   | Author name for meta tags and structured data.                                          |
+| `seo.noIndex`     | `boolean`  | When `true`, emits `noindex` in robots meta.                                            |
+| `seo.noFollow`    | `boolean`  | When `true`, emits `nofollow` in robots meta.                                           |
 
 ```ts
 seo: {
@@ -152,11 +152,11 @@ seo: {
 
 ### 3.7: Analytics
 
-| Key | Type | Description |
-|-----|------|-------------|
+| Key                           | Type     | Description                                                                      |
+| ----------------------------- | -------- | -------------------------------------------------------------------------------- |
 | `analytics.googleAnalyticsId` | `string` | Google Analytics 4 measurement ID (e.g. `G-XXXXXXXXXX`). Leave empty to disable. |
-| `analytics.umamiScriptUrl` | `string` | Self-hosted Umami analytics script URL. Leave empty to disable. |
-| `analytics.umamiWebsiteId` | `string` | Umami website ID for this site. |
+| `analytics.umamiScriptUrl`    | `string` | Self-hosted Umami analytics script URL. Leave empty to disable.                  |
+| `analytics.umamiWebsiteId`    | `string` | Umami website ID for this site.                                                  |
 
 ```ts
 analytics: {
@@ -168,11 +168,11 @@ analytics: {
 
 ### 3.8: Build and sync limits
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `maxPages` | `number` | Maximum Telegram snapshot pages to fetch during sync. Each page contains roughly 20 posts. Default is `50`. |
-| `mediaMirror.directory` | `string` | Public URL prefix for mirrored media files (e.g. `/media`). |
-| `mediaMirror.userAgent` | `string` | User-Agent string used when downloading media from Telegram. |
+| Key                     | Type     | Description                                                                                                 |
+| ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `maxPages`              | `number` | Maximum Telegram snapshot pages to fetch during sync. Each page contains roughly 20 posts. Default is `50`. |
+| `mediaMirror.directory` | `string` | Public URL prefix for mirrored media files (e.g. `/media`).                                                 |
+| `mediaMirror.userAgent` | `string` | User-Agent string used when downloading media from Telegram.                                                |
 
 ```ts
 maxPages: 50,
@@ -240,10 +240,10 @@ pnpm sync [flags]
 
 ### 4.2: Flags
 
-| Flag | Effect |
-|------|--------|
-| `--og-image` | Generate `public/og-auto.png` from channel metadata. |
-| `--favicon` | Generate `favicon.ico`, `favicon.svg`, and PWA icon PNGs from the channel avatar. |
+| Flag         | Effect                                                                            |
+| ------------ | --------------------------------------------------------------------------------- |
+| `--og-image` | Generate `public/og-auto.png` from channel metadata.                              |
+| `--favicon`  | Generate `favicon.ico`, `favicon.svg`, and PWA icon PNGs from the channel avatar. |
 
 Both flags are used in the default `build` script in `package.json`:
 
@@ -284,11 +284,11 @@ Run the following command in your terminal to register the webhook with Telegram
 
 \`\`\`bash
 curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "url": "https://<YOUR_SITE_URL>/api/webhook",
-    "secret_token": "<YOUR_TELEGRAM_WEBHOOK_SECRET>"
-  }'
+-H "Content-Type: application/json" \\
+-d '{
+"url": "https://<YOUR_SITE_URL>/api/webhook",
+"secret_token": "<YOUR_TELEGRAM_WEBHOOK_SECRET>"
+}'
 \`\`\`
 
 Now, whenever you post in the channel, the bot will notify \`/api/webhook\`, which will securely trigger your Vercel Deploy Hook!
