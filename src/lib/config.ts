@@ -1,4 +1,4 @@
-import type { AnalyticsConfig, CloudFlareConfig, CommentsConfig, SeoConfig } from './constant'
+import type { AnalyticsConfig, CloudFlareConfig, CommentsConfig, InfiniteScrollConfig, SeoConfig } from './constant'
 import { SITE_CONSTANTS } from './constant'
 
 const ABSOLUTE_URL_PATTERN = /^https?:\/\//i
@@ -26,6 +26,7 @@ export interface AppConfig {
   seo: SeoConfig
   analytics: AnalyticsConfig
   comments: CommentsConfig
+  infiniteScroll: InfiniteScrollConfig
 }
 
 export function buildStaticProxyUrl(staticProxy: string, rawUrl: string) {
@@ -93,5 +94,6 @@ export function getAppConfig(): AppConfig {
     seo: SITE_CONSTANTS.seo,
     analytics: SITE_CONSTANTS.analytics,
     comments: SITE_CONSTANTS.comments,
+    infiniteScroll: SITE_CONSTANTS.infiniteScroll,
   }
 }

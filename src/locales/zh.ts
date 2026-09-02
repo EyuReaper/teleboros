@@ -41,6 +41,7 @@ export const zhMessages: LocaleMessages = {
     avatarSuffix: '的头像',
     emojiAlt: '表情',
     subscribers: '位订阅者',
+    loading: '加载中...',
   },
   post: {
     backToFeed: '返回动态',

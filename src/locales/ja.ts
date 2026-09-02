@@ -41,6 +41,7 @@ export const jaMessages: LocaleMessages = {
     avatarSuffix: 'のアバター',
     emojiAlt: '絵文字',
     subscribers: '人の登録者',
+    loading: '読み込み中...',
   },
   post: {
     backToFeed: 'フィードに戻る',

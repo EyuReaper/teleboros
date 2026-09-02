@@ -1,5 +1,6 @@
 import type { ChannelInfo } from '@/lib/types'
 import { FeedList } from '@/components/feed/feed-list'
+import { InfiniteFeed } from '@/components/feed/infinite-feed'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, normalizeAppLocale } from '@/lib/i18n'
@@ -27,21 +28,24 @@ export default async function HomePage({ params }: HomePageProps) {
     : (channel.avatar || '/favicon.svg')
   const channelUsername = config.telegram || config.channel
 
+  const feedProps = {
+    locale,
+    timezone: config.timezone,
+    channelName: config.channel,
+    channelTitle: channel.title,
+    channelUsername,
+    channelAvatar,
+    olderHref,
+    newerHref: null,
+    uiLocale: locale,
+    messages,
+  }
+
   return (
     <PageFrame channel={channel} currentPath="/" locale={locale} messages={messages} currentLocalePath="/" pageNumber={1}>
-      <FeedList
-        posts={channel.posts}
-        locale={locale}
-        timezone={config.timezone}
-        channelName={config.channel}
-        channelTitle={channel.title}
-        channelUsername={channelUsername}
-        channelAvatar={channelAvatar}
-        olderHref={olderHref}
-        newerHref={null}
-        uiLocale={locale}
-        messages={messages}
-      />
+      {config.infiniteScroll.enabled
+        ? <InfiniteFeed initialPosts={channel.posts} {...feedProps} />
+        : <FeedList posts={channel.posts} {...feedProps} />}
     </PageFrame>
   )
 }

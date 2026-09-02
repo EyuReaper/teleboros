@@ -39,6 +39,7 @@ export interface LocaleMessages {
     avatarSuffix: string
     emojiAlt: string
     subscribers: string
+    loading: string
   }
   post: {
     backToFeed: string
@@ -132,6 +133,7 @@ export const enMessages: LocaleMessages = {
     avatarSuffix: ' avatar',
     emojiAlt: 'emoji',
     subscribers: 'subscribers',
+    loading: 'Loading...',
   },
   post: {
     backToFeed: 'Back to Feed',

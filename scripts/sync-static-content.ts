@@ -17,6 +17,7 @@ import {
 import { generateOgImageFromChannel } from './generate-og-image'
 
 const SEARCH_INDEX_OUTPUT_PATH = path.resolve(process.cwd(), 'public/search/index.json')
+const FEED_OUTPUT_PATH = path.resolve(process.cwd(), 'public/feed/feed.json')
 
 function normalizeMediaDirectory(value: string) {
   const trimmed = value.trim()
@@ -634,6 +635,22 @@ async function writeStaticSearchIndex(snapshot: StaticSnapshot) {
   console.info(`[teleboros] search index written to ${SEARCH_INDEX_OUTPUT_PATH}`)
 }
 
+async function writeStaticFeedIndex(snapshot: StaticSnapshot) {
+  const pages = snapshot.pages.map(page => ({
+    cursor: page.cursor,
+    posts: page.channel.posts,
+  }))
+
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    pages,
+  }
+
+  await mkdir(path.dirname(FEED_OUTPUT_PATH), { recursive: true })
+  await writeFile(FEED_OUTPUT_PATH, JSON.stringify(payload, null, 2), 'utf8')
+  console.info(`[teleboros] feed index written to ${FEED_OUTPUT_PATH}`)
+}
+
 function hasPosts(snapshot: StaticSnapshot | null | undefined) {
   if (!snapshot) {
     return false
@@ -744,6 +761,7 @@ async function run() {
 
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)
+  await writeStaticFeedIndex(mirroredSnapshot)
 
   console.info('[teleboros] completed.')
   console.info(`[teleboros] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)

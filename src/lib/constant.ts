@@ -24,6 +24,11 @@ export interface CloudFlareConfig {
   transformPrefix: string
 }
 
+export interface InfiniteScrollConfig {
+  /** Enable client-side infinite scroll on the home feed */
+  enabled: boolean
+}
+
 interface SiteConstantConfig {
   channel: string
   locale: string
@@ -49,6 +54,7 @@ interface SiteConstantConfig {
   maxPages: number
   mediaMirror: MediaMirrorConfig
   comments: CommentsConfig
+  infiniteScroll: InfiniteScrollConfig
 }
 
 export interface CommentsConfig {
@@ -141,7 +147,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     umamiWebsiteId: '2aeae228-582d-45ae-8d43-5f6dbf673339',
   },
   // Maximum Telegram snapshot pages to fetch during static sync.
-  maxPages: 50,
+  maxPages: 5,
   mediaMirror: {
     // Public URL prefix for mirrored media (e.g. /media => files under public/media).
     directory: '/media',
@@ -157,5 +163,9 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     limit: 5,
     // Primary color for the comments widget (hex without #)
     color: '3390EC',
+  },
+  infiniteScroll: {
+    // Enable client-side infinite scroll on the home feed
+    enabled: true,
   },
 }
