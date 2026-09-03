@@ -227,69 +227,79 @@ async function getImages($: cheerio.CheerioAPI, item: cheerio.Element, staticPro
 }
 
 function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, index: number) {
-  const videoWrap = $(item).find('.tgme_widget_message_video_wrap')
-  const video = videoWrap.find('video')
-  if (video.length > 0) {
-    const src = video.attr('src')
-    if (src) {
-      video.attr('src', buildStaticProxyUrl(staticProxy, src))
-    }
-    video.find('source').each((_sourceIndex, source) => {
-      const sourceSrc = $(source).attr('src')
-      if (sourceSrc) {
-        $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
+  const videoElements: string[] = []
+
+  $(item).find('.tgme_widget_message_video_wrap').each((_wIndex, wrapEl) => {
+    const wrap = $(wrapEl)
+    const video = wrap.find('video')
+    if (video.length > 0) {
+      const src = video.attr('src')
+      if (src) {
+        video.attr('src', buildStaticProxyUrl(staticProxy, src))
       }
-    })
+      video.find('source').each((_sourceIndex, source) => {
+        const sourceSrc = $(source).attr('src')
+        if (sourceSrc) {
+          $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
+        }
+      })
 
-    const thumb = videoWrap.find('.tgme_widget_message_video_thumb')
-    if (thumb.length > 0) {
-      const style = thumb.attr('style')
-      const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
-      if (urlMatch && urlMatch[1]) {
-        video.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+      const thumb = wrap.find('.tgme_widget_message_video_thumb')
+      if (thumb.length > 0) {
+        const style = thumb.attr('style')
+        const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
+        if (urlMatch && urlMatch[1]) {
+          video.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+        }
       }
-    }
 
-    video
-      .addClass('post-video')
-      .attr('controls', 'true')
-      .attr('preload', index > 15 ? 'auto' : 'metadata')
-      .attr('playsinline', 'true')
-      .attr('webkit-playsinline', 'true')
-  }
+      video
+        .addClass('post-video')
+        .attr('controls', 'true')
+        .attr('preload', index > 15 ? 'auto' : 'metadata')
+        .attr('playsinline', 'true')
+        .attr('webkit-playsinline', 'true')
 
-  const roundVideoWrap = $(item).find('.tgme_widget_message_roundvideo_wrap')
-  const roundVideo = roundVideoWrap.find('video')
-  if (roundVideo.length > 0) {
-    const src = roundVideo.attr('src')
-    if (src) {
-      roundVideo.attr('src', buildStaticProxyUrl(staticProxy, src))
+      videoElements.push($.html(video))
     }
-    roundVideo.find('source').each((_sourceIndex, source) => {
-      const sourceSrc = $(source).attr('src')
-      if (sourceSrc) {
-        $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
+  })
+
+  $(item).find('.tgme_widget_message_roundvideo_wrap').each((_rIndex, roundWrapEl) => {
+    const roundVideoWrap = $(roundWrapEl)
+    const roundVideo = roundVideoWrap.find('video')
+    if (roundVideo.length > 0) {
+      const src = roundVideo.attr('src')
+      if (src) {
+        roundVideo.attr('src', buildStaticProxyUrl(staticProxy, src))
       }
-    })
+      roundVideo.find('source').each((_sourceIndex, source) => {
+        const sourceSrc = $(source).attr('src')
+        if (sourceSrc) {
+          $(source).attr('src', buildStaticProxyUrl(staticProxy, sourceSrc))
+        }
+      })
 
-    const roundThumb = roundVideoWrap.find('.tgme_widget_message_roundvideo_thumb')
-    if (roundThumb.length > 0) {
-      const style = roundThumb.attr('style')
-      const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
-      if (urlMatch && urlMatch[1]) {
-        roundVideo.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+      const roundThumb = roundVideoWrap.find('.tgme_widget_message_roundvideo_thumb')
+      if (roundThumb.length > 0) {
+        const style = roundThumb.attr('style')
+        const urlMatch = style?.match(/url\(["']?(.*?)["']?\)/)
+        if (urlMatch && urlMatch[1]) {
+          roundVideo.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
+        }
       }
+
+      roundVideo
+        .addClass('post-video')
+        .attr('controls', 'true')
+        .attr('preload', index > 15 ? 'auto' : 'metadata')
+        .attr('playsinline', 'true')
+        .attr('webkit-playsinline', 'true')
+
+      videoElements.push($.html(roundVideo))
     }
+  })
 
-    roundVideo
-      .addClass('post-video')
-      .attr('controls', 'true')
-      .attr('preload', index > 15 ? 'auto' : 'metadata')
-      .attr('playsinline', 'true')
-      .attr('webkit-playsinline', 'true')
-  }
-
-  return `${$.html(video)}${$.html(roundVideo)}`
+  return videoElements.join('')
 }
 
 function getLinkPreview($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, _index: number) {

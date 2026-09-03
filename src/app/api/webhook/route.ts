@@ -1,3 +1,4 @@
+import process from 'node:process'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
@@ -11,16 +12,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Read the body to acknowledge the update (optional but good practice)
+    // Read the body to acknowledge the update
     const update = await req.json().catch(() => ({}))
-    console.log('Received Telegram webhook update:', update?.update_id)
+    console.info('Received Telegram webhook update:', update?.update_id)
 
-    // 2. Trigger Deploy Hook
+    // 2. Detect if update contains a new or edited message / channel post
+    const hasMessage = Boolean(
+      update?.message
+      || update?.channel_post
+      || update?.edited_message
+      || update?.edited_channel_post,
+    )
+
+    if (!hasMessage) {
+      console.info('Telegram update contains no new message/post, skipping deploy:', update?.update_id)
+      return NextResponse.json({ success: true, message: 'No new message detected' })
+    }
+
+    // 3. Trigger Deploy Hook
     const deployHookUrl = process.env.DEPLOY_HOOK_URL
     if (deployHookUrl) {
       try {
         await fetch(deployHookUrl, { method: 'POST' })
-        console.log('Successfully triggered Vercel deploy hook')
+        console.info('Successfully triggered Vercel deploy hook')
       }
       catch (e) {
         console.error('Failed to trigger deploy hook:', e)
@@ -31,7 +45,7 @@ export async function POST(req: Request) {
     }
 
     // Always return 200 OK to Telegram so it doesn't retry
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, triggered: Boolean(deployHookUrl) })
   }
   catch (error: any) {
     console.error('Webhook API error:', error)

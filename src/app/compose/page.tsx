@@ -1,6 +1,5 @@
 import type { ChannelInfo } from '@/lib/types'
 import { PageFrame } from '@/components/site/page-frame'
-import { getAppConfig } from '@/lib/config'
 import { DEFAULT_LOCALE, getLocaleMessages } from '@/lib/i18n'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 import { ComposeForm } from './ComposeForm'

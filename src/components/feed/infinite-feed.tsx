@@ -6,7 +6,6 @@ import type { LocaleMessages } from '@/locales/en'
 import { ArrowLeft } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { localizePath } from '@/lib/i18n'
 import { AnimatedFeedContainer } from './animated-feed'
 import { PostCard } from './post-card'
 
@@ -52,6 +51,11 @@ export function InfiniteFeed({
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const allPagesRef = useRef<FeedPage[]>([])
   const loadedRef = useRef(false)
+  const loadingRef = useRef(false)
+  const hasMoreRef = useRef(true)
+
+  loadingRef.current = loading
+  hasMoreRef.current = hasMore
 
   const visiblePosts = useMemo(() => {
     if (allPagesRef.current.length === 0) {
@@ -62,13 +66,11 @@ export function InfiniteFeed({
       .flatMap(page => page.posts)
   }, [initialPosts, pageIndex])
 
-  const beforeCursor = visiblePosts[visiblePosts.length - 1]?.id
-  const resolvedOlderHref = olderHref === undefined
-    ? ((beforeCursor && Number(beforeCursor) > 1) ? localizePath(uiLocale, `/before/${beforeCursor}`) : null)
-    : olderHref
+  // Only show the fallback older link if feed.json failed to load and we remain on the first page
+  const resolvedOlderHref = !loadedRef.current && olderHref ? olderHref : null
 
   const loadMore = useCallback(async () => {
-    if (loading || !hasMore) {
+    if (loadingRef.current || !hasMoreRef.current) {
       return
     }
 
@@ -84,7 +86,7 @@ export function InfiniteFeed({
         allPagesRef.current = allPages
         loadedRef.current = true
 
-        if (allPages.length === 0) {
+        if (allPages.length <= 1) {
           setHasMore(false)
           return
         }
@@ -93,9 +95,8 @@ export function InfiniteFeed({
       const allPages = allPagesRef.current
       setPageIndex((current) => {
         const next = current + 1
-        if (next >= allPages.length) {
+        if (next >= allPages.length - 1) {
           setHasMore(false)
-          return current
         }
         return next
       })
@@ -107,9 +108,16 @@ export function InfiniteFeed({
     finally {
       setLoading(false)
     }
-  }, [loading, hasMore])
+  }, [])
+
+  const loadMoreRef = useRef(loadMore)
+  loadMoreRef.current = loadMore
 
   useEffect(() => {
+    if (!hasMore) {
+      return
+    }
+
     const sentinel = sentinelRef.current
     if (!sentinel) {
       return
@@ -118,7 +126,7 @@ export function InfiniteFeed({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          void loadMore()
+          void loadMoreRef.current()
         }
       },
       { rootMargin: '600px 0px', threshold: 0 },
@@ -129,13 +137,13 @@ export function InfiniteFeed({
     return () => {
       observer.disconnect()
     }
-  }, [loadMore])
+  }, [hasMore])
 
   return (
     <AnimatedFeedContainer className={hasMore ? undefined : '[&>article:last-child]:border-b-0'}>
       {visiblePosts.map((post, index) => (
         <PostCard
-          key={post.id}
+          key={`${post.id}-${index}`}
           post={post}
           index={index}
           locale={locale}

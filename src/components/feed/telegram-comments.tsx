@@ -4,11 +4,12 @@ import { useEffect, useRef } from 'react'
 
 export interface TelegramCommentsProps {
   websiteId: string
+  pageId?: string
   limit?: number
   color?: string
 }
 
-export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: TelegramCommentsProps) {
+export function TelegramComments({ websiteId, pageId, limit = 5, color = 'E22F38' }: TelegramCommentsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -24,6 +25,9 @@ export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: Tel
     script.src = 'https://comments.app/js/widget.js?3'
     script.async = true
     script.setAttribute('data-comments-app-website', websiteId)
+    if (pageId) {
+      script.setAttribute('data-page-id', pageId)
+    }
     script.setAttribute('data-limit', limit.toString())
     script.setAttribute('data-color', color)
 
@@ -35,7 +39,7 @@ export function TelegramComments({ websiteId, limit = 5, color = 'E22F38' }: Tel
         containerRef.current.innerHTML = ''
       }
     }
-  }, [websiteId, limit, color])
+  }, [websiteId, pageId, limit, color])
 
   if (!websiteId)
     return null

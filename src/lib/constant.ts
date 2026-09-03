@@ -71,7 +71,7 @@ export interface CommentsConfig {
 export const SITE_CONSTANTS: SiteConstantConfig = {
   // Telegram channel username (without @) to mirror content from.
   channel: 'techops_re',
-  // Default locale for the site (e.g. en, ja, zh).
+  // Default locale for the site (e.g. en, ja, am).
   locale: 'en',
   // Timezone for date formatting (e.g. UTC, America/New_York).
   timezone: 'UTC',

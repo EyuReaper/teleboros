@@ -1,9 +1,9 @@
 import type { LocaleMessages } from '@/locales/en'
+import { amMessages } from '@/locales/am'
 import { enMessages } from '@/locales/en'
 import { jaMessages } from '@/locales/ja'
-import { zhMessages } from '@/locales/zh'
 
-export const SUPPORTED_LOCALES = ['en', 'ja', 'zh'] as const
+export const SUPPORTED_LOCALES = ['en', 'ja', 'am'] as const
 
 export type AppLocale = (typeof SUPPORTED_LOCALES)[number]
 
@@ -15,7 +15,7 @@ const EXTERNAL_URL_PATTERN = /^[a-z][a-z\d+\-.]*:/i
 const MESSAGES: Record<AppLocale, LocaleMessages> = {
   en: enMessages,
   ja: jaMessages,
-  zh: zhMessages,
+  am: amMessages,
 }
 
 export function isAppLocale(value: string): value is AppLocale {
@@ -37,8 +37,8 @@ export function normalizeAppLocale(value?: string | null): AppLocale {
     return 'ja'
   }
 
-  if (normalized.startsWith('zh')) {
-    return 'zh'
+  if (normalized.startsWith('am')) {
+    return 'am'
   }
 
   return 'en'

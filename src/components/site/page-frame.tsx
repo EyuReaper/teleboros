@@ -125,7 +125,7 @@ export function PageFrame({
   const localeMenuLabels: Record<AppLocale, string> = {
     en: 'English',
     ja: '日本语',
-    zh: '中文',
+    am: 'አማርኛ',
   }
   const sidebarIconButtonClass = 'h-11 w-11 sm:h-12 sm:w-12 p-0 shrink-0 rounded-full bg-transparent text-muted-foreground transition-colors duration-200 hover:bg-muted/70 hover:text-foreground focus-visible:bg-muted/70 data-[state=open]:bg-muted/70 data-[state=open]:text-foreground data-[state=open]:[&_svg]:fill-current'
   const sidebarIconGlyphClass = 'h-[22px] w-[22px] sm:h-6 sm:w-6 stroke-current stroke-[1.9] transition-[fill] duration-200'

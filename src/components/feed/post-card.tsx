@@ -3,7 +3,7 @@
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelPost } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
-import { Eye, Tag } from 'lucide-react'
+import { Eye, MessageCircle, Tag } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
@@ -113,45 +113,49 @@ export function PostCard({
               )
             : null}
 
-          {post.reactions.length > 0 || post.views || post.edited
-            ? (
-                <div className="mt-3 flex flex-wrap items-center justify-end gap-2" aria-label={messages.feed.reactionsAndViewsAria}>
-                  {post.reactions.map(reaction => (
-                    <span
-                      key={`${post.id}-${reaction.emojiId || reaction.emoji}-${reaction.count}`}
-                      className={`inline-flex items-center gap-1 rounded-full border px-3 py-0.5 text-xs font-semibold ${reaction.isPaid
-                        ? 'bg-secondary text-secondary-foreground'
-                        : 'bg-muted text-muted-foreground'}`}
-                    >
-                      {reaction.emojiImage
-                        ? <Image src={reaction.emojiImage} alt={reaction.emoji || messages.feed.emojiAlt} width={14} height={14} className="h-3.5 w-3.5" loading="lazy" />
-                        : <span>{reaction.emoji || '⭐'}</span>}
-                      <AnimatedMetricNumber value={reaction.count} />
-                    </span>
-                  ))}
+          <div className="mt-3 flex flex-wrap items-center justify-end gap-2" aria-label={messages.feed.reactionsAndViewsAria}>
+            {post.reactions.map(reaction => (
+              <span
+                key={`${post.id}-${reaction.emojiId || reaction.emoji}-${reaction.count}`}
+                className={`inline-flex items-center gap-1 rounded-full border px-3 py-0.5 text-xs font-semibold ${reaction.isPaid
+                  ? 'bg-secondary text-secondary-foreground'
+                  : 'bg-muted text-muted-foreground'}`}
+              >
+                {reaction.emojiImage
+                  ? <Image src={reaction.emojiImage} alt={reaction.emoji || messages.feed.emojiAlt} width={14} height={14} className="h-3.5 w-3.5" loading="lazy" />
+                  : <span>{reaction.emoji || '⭐'}</span>}
+                <AnimatedMetricNumber value={reaction.count} />
+              </span>
+            ))}
 
-                  {post.edited
-                    ? (
-                        <span className="inline-flex items-center rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground">
-                          {messages.feed.edited}
-                        </span>
-                      )
-                    : null}
+            {post.edited
+              ? (
+                  <span className="inline-flex items-center rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground">
+                    {messages.feed.edited}
+                  </span>
+                )
+              : null}
 
-                  {post.views
-                    ? (
-                        <span
-                          className="inline-flex items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground"
-                          title={messages.feed.viewCountTitle}
-                        >
-                          <Eye className="h-3.5 w-3.5" />
-                          <AnimatedMetricNumber value={post.views} />
-                        </span>
-                      )
-                    : null}
-                </div>
-              )
-            : null}
+            {post.views
+              ? (
+                  <span
+                    className="inline-flex items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground"
+                    title={messages.feed.viewCountTitle}
+                  >
+                    <Eye className="h-3.5 w-3.5" />
+                    <AnimatedMetricNumber value={post.views} />
+                  </span>
+                )
+              : null}
+
+            <a
+              href={localizePath(uiLocale, `/posts/${post.id}`)}
+              className="inline-flex items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              title="Comment / View Post"
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+            </a>
+          </div>
 
         </div>
       </div>

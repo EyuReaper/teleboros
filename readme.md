@@ -5,7 +5,7 @@
 
 > A self-hosted, statically-generated microblog that mirrors your Telegram channel into a fast, searchable, and beautifully designed website built with Next.js, React, shadcn/ui, and Tailwind CSS.
 
-[简体中文](./readme-zh.md)
+[አማርኛ](./readme-am.md)
 
 ## 1: Why this exists
 
@@ -49,7 +49,7 @@ All configuration lives in a single file: `src/lib/constant.ts`. There are no `.
 | `channel`      | `string` | Telegram channel username without `@`. This is the channel whose content is mirrored.                                |
 | `siteUrl`      | `string` | Canonical base URL of the published site (e.g. `https://tg.example.com`). Used for SEO, RSS, and sitemap generation. |
 | `telegramHost` | `string` | Telegram web host for fetching channel HTML. Default is `t.me`.                                                      |
-| `locale`       | `string` | Default locale. Supported values: `en`, `ja`, `zh`.                                                                  |
+| `locale`       | `string` | Default locale. Supported values: `en`, `ja`, `am`.                                                                  |
 | `timezone`     | `string` | IANA timezone for date formatting (e.g. `UTC`, `America/New_York`, `Asia/Tokyo`).                                    |
 
 ```ts
@@ -275,28 +275,28 @@ You can set up a Telegram bot webhook to automatically trigger a Vercel rebuild 
 
 Configure the following environment variables in your Vercel deployment:
 
-- \`TELEGRAM_WEBHOOK_SECRET\`: A secure random string you generate (e.g., \`my-super-secret-token\`). This ensures only Telegram can trigger the webhook.
-- \`DEPLOY_HOOK_URL\`: Your Vercel Deploy Hook URL (created in Vercel Dashboard -> Project Settings -> Git -> Deploy Hooks).
+- `TELEGRAM_WEBHOOK_SECRET`: A secure random string you generate (e.g., `my-super-secret-token`). This ensures only Telegram can trigger the webhook.
+- `DEPLOY_HOOK_URL`: Your Vercel Deploy Hook URL (created in Vercel Dashboard -> Project Settings -> Git -> Deploy Hooks).
 
 ### 6.2: Set the Webhook
 
 Run the following command in your terminal to register the webhook with Telegram. Replace the placeholders with your actual values:
 
-\`\`\`bash
-curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \\
--H "Content-Type: application/json" \\
--d '{
-"url": "https://<YOUR_SITE_URL>/api/webhook",
-"secret_token": "<YOUR_TELEGRAM_WEBHOOK_SECRET>"
-}'
-\`\`\`
+```bash
+curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "url": "https://<YOUR_SITE_URL>/api/webhook",
+    "secret_token": "<YOUR_TELEGRAM_WEBHOOK_SECRET>"
+  }'
+```
 
-Now, whenever you post in the channel, the bot will notify \`/api/webhook\`, which will securely trigger your Vercel Deploy Hook!
+Now, whenever you post in the channel, the bot will notify `/api/webhook`, which will securely trigger your Vercel Deploy Hook!
 
 ## 7: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 
-## 7: Page Speed Insights
+## 8: Page Speed Insights
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

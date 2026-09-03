@@ -3,8 +3,8 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
+import 'dayjs/locale/am'
 import 'dayjs/locale/ja'
-import 'dayjs/locale/zh-cn'
 
 dayjs.extend(relativeTime)
 dayjs.extend(localizedFormat)
@@ -16,8 +16,8 @@ export function formatPostTimestamp(datetime: string, locale = 'en', tz = 'UTC')
     return ''
   }
 
-  const normalizedLocale = locale.toLowerCase().startsWith('zh')
-    ? 'zh-cn'
+  const normalizedLocale = locale.toLowerCase().startsWith('am')
+    ? 'am'
     : (locale.toLowerCase().startsWith('ja') ? 'ja' : 'en')
   const current = dayjs().tz(tz).locale(normalizedLocale)
   const parsed = dayjs(datetime).tz(tz).locale(normalizedLocale)

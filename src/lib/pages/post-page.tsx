@@ -130,6 +130,7 @@ export async function renderPostPage(locale: AppLocale, id: string) {
       {config.comments?.enabled && config.comments?.websiteId && (
         <TelegramComments
           websiteId={config.comments.websiteId}
+          pageId={post.id}
           limit={config.comments.limit}
           color={config.comments.color}
         />
