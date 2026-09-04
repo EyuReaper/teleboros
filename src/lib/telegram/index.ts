@@ -498,6 +498,35 @@ function getPostViews(messageNode: cheerio.Cheerio<any>) {
   return ''
 }
 
+function getPostComments(messageNode: cheerio.Cheerio<any>) {
+  const commentSelectors = [
+    '.tgme_widget_message_replies',
+    '.tgme_widget_message_comments',
+    '.tgme_widget_message_discussion',
+    '.tgme_widget_message_replies_wrap',
+  ]
+
+  for (const selector of commentSelectors) {
+    const node = messageNode.find(selector).first()
+    if (!node.length) {
+      continue
+    }
+
+    const text = node.text().replace(/\s+/g, ' ').trim()
+    if (text) {
+      const match = text.match(/[\d.]+[km]?/i)
+      return match ? match[0] : text
+    }
+
+    const countAttr = node.attr('data-count') || node.attr('data-replies') || node.attr('data-comments')
+    if (countAttr) {
+      return countAttr.trim()
+    }
+  }
+
+  return ''
+}
+
 function isPostEdited(messageNode: cheerio.Cheerio<any>) {
   const explicitEditedMarker = messageNode.find(
     '[class*="edited"], [class*="edit_date"], [class*="message_edit"]',
@@ -584,6 +613,7 @@ async function getPost(
     datetime: messageNode.find('.tgme_widget_message_date time')?.attr('datetime') || '',
     edited: isPostEdited(messageNode),
     views: getPostViews(messageNode),
+    comments: getPostComments(messageNode),
     tags,
     text,
     content: sanitizePostHtml(rawContent),
@@ -680,6 +710,7 @@ export async function getChannelInfo(options: ChannelQuery = {}): Promise<Channe
         datetime: '',
         edited: false,
         views: '',
+        comments: '',
         tags: [],
         text: '',
         content: '',

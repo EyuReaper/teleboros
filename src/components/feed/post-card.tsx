@@ -139,7 +139,7 @@ export function PostCard({
             {post.views
               ? (
                   <span
-                    className="inline-flex items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground"
+                    className="inline-flex h-[22px] items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground"
                     title={messages.feed.viewCountTitle}
                   >
                     <Eye className="h-3.5 w-3.5" />
@@ -150,10 +150,11 @@ export function PostCard({
 
             <a
               href={localizePath(uiLocale, `/posts/${post.id}`)}
-              className="inline-flex items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-              title="Comment / View Post"
+              className="inline-flex h-[22px] items-center gap-1 rounded-full border bg-muted px-3 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              title={post.comments ? `${post.comments} comments` : 'Comment / View Post'}
             >
-              <MessageCircle className="h-3.5 w-3.5" />
+              <MessageCircle className="h-3 w-3" />
+              {post.comments ? <AnimatedMetricNumber value={post.comments} /> : null}
             </a>
           </div>
 

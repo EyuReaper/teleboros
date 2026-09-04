@@ -13,6 +13,7 @@ export interface ChannelPost {
   datetime: string
   edited?: boolean
   views?: string
+  comments?: string
   tags: string[]
   text: string
   content: string
