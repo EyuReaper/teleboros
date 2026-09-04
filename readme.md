@@ -9,7 +9,7 @@
 
 ## 1: Why this exists
 
-This is a complete wheel rebuild of [BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel) created by [@miantiao-me](https://github.com/miantiao-me). The original works perfectly well, but I didn't like the UI, it's SSR on Astro (a framework I wasn't familiar with), and I'm a loyal SSG fanboy — static sites are easier to host anywhere, not just Cloudflare Pages or Vercel. So I rebuilt it from scratch in Next.js with DPlayer video playback, a Telegram-native image grid layout, Lunr.js full-text search, and a Twitter-like responsive feed timeline.
+This is a complete wheel rebuild of [BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel) created by [@miantiao-me](https://github.com/miantiao-me). The original works perfectly well, but I didn't like the UI, it's SSR on Astro (a framework I wasn't familiar with), and I'm a loyal SSG fanboy — static sites are easier to host anywhere, not just Cloudflare Pages or Vercel. So I rebuilt it from scratch in Next.js with DPlayer video playback, a Telegram-native image grid layout, Lunr.js full-text search, a Gemini-powered **AI semantic search**, and a Twitter-like responsive feed timeline.
 
 **Is it necessary though**? **Absolutely not**, but it's a fun rebuild to adhere with my personal aesthetic visual preference and also a way for me to learn Next.js v16.x.
 
@@ -40,7 +40,7 @@ The build command runs `pnpm sync --og-image --favicon` automatically before `ne
 
 ## 3: Configuration
 
-All configuration lives in a single file: `src/lib/constant.ts`. There are no `.env` files or runtime environment variables. Fork the repo, edit this file, deploy.
+All configuration lives in a single file: `src/lib/constant.ts`. Fork the repo, edit this file, deploy. The only exception is the opt-in **AI semantic search** feature, which additionally needs a `GEMINI_API_KEY` environment variable (see [3.9](#39-ai-semantic-search)).
 
 ### 3.1: Channel and site identity
 
@@ -182,7 +182,39 @@ mediaMirror: {
 },
 ```
 
-### 3.9: Full example
+### 3.9: AI semantic search
+
+| Key                           | Type     | Description                                                                                          |
+| ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| `semanticSearch.enabled`      | `boolean`| Enables the "AI" tab on the `/search` page and generates embeddings during sync. Default is `true`.  |
+| `semanticSearch.model`        | `string` | Gemini embedding model used for retrieval. Default is `gemini-embedding-001`.                        |
+| `semanticSearch.outputDimensionality` | `number` | Vector dimensionality for embeddings. Default is `768` (recommended: 768, 1536, or 3072).      |
+| `semanticSearch.maxResults`   | `number` | Maximum number of results returned by the semantic search API. Default is `25`.                      |
+| `semanticSearch.inputTokenLimit` | `number` | Maximum characters embedded per post. Default is `1800`.                                          |
+
+```ts
+semanticSearch: {
+  enabled: true,
+  model: 'gemini-embedding-001',
+  outputDimensionality: 768,
+  maxResults: 25,
+  inputTokenLimit: 1800,
+},
+```
+
+This feature lets visitors search posts by asking questions in plain language ("what did I write about deploying Go services?") instead of typing exact keywords. It works in three parts:
+
+1. **Build time** — `pnpm sync` embeds every post once via the Gemini [batch embed API](https://ai.google.dev/gemini-api/docs/embeddings) and saves the vectors to `public/search/embeddings.json`.
+2. **Runtime** — `POST /api/semantic-search` embeds the user's question and ranks posts by cosine similarity, returning the top matches with a similarity score and a snippet window.
+3. **Frontend** — the `/search` page gains a Keyword / AI tab switcher; the AI tab renders a natural-language question input and the ranked results.
+
+Requirements:
+
+- A `GEMINI_API_KEY` (Google AI Studio) available **both at build time and runtime** (e.g. as an environment variable in Vercel, or a `.env` file for local sync).
+- A serverless runtime for the API route. Like `/api/compose` and `/api/webhook`, this is **incompatible with a pure static export** (`NEXT_OUTPUT_MODE=export`).
+- The Gemini API is a paid/rate-limited service — each sync makes one batched embed request, and each search query makes one embed request. Set `enabled: false` to disable the feature entirely (embeddings are skipped and the AI tab is hidden).
+
+### 3.10: Full example
 
 ```ts
 export const SITE_CONSTANTS: SiteConstantConfig = {
@@ -227,6 +259,13 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     directory: '/media',
     userAgent: 'TeleborosStaticSync/1.0',
   },
+  semanticSearch: {
+    enabled: true,
+    model: 'gemini-embedding-001',
+    outputDimensionality: 768,
+    maxResults: 25,
+    inputTokenLimit: 1800,
+  },
 }
 ```
 
@@ -258,9 +297,10 @@ Both flags are used in the default `build` script in `package.json`:
 
 1. `src/generated/static-snapshot.json` — page data for all routes.
 2. `public/search/index.json` — pre-built Lunr full-text search index.
-3. `public/media/*` — locally mirrored media files.
-4. `public/og-auto.png` — Open Graph image (when `--og-image` is passed).
-5. `public/favicon.ico`, `public/favicon.svg`, `public/icon-*.png` — favicons (when `--favicon` is passed).
+3. `public/search/embeddings.json` — Gemini embeddings for AI semantic search (when `semanticSearch.enabled` and `GEMINI_API_KEY` is set).
+4. `public/media/*` — locally mirrored media files.
+5. `public/og-auto.png` — Open Graph image (when `--og-image` is passed).
+6. `public/favicon.ico`, `public/favicon.svg`, `public/icon-*.png` — favicons (when `--favicon` is passed).
 
 ## 5: Deployment
 

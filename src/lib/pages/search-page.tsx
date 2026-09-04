@@ -2,6 +2,8 @@ import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo } from '@/lib/types'
 import { PageFrame } from '@/components/site/page-frame'
 import { SearchResultsPanel } from '@/components/site/search-results-panel'
+import { SearchTabs } from '@/components/site/search-tabs'
+import { getAppConfig } from '@/lib/config'
 import { getLocaleMessages } from '@/lib/i18n'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 
@@ -11,6 +13,7 @@ interface SearchPageQuery {
 
 export async function renderSearchPage(locale: AppLocale, searchParams: SearchPageQuery = {}) {
   const messages = getLocaleMessages(locale)
+  const config = getAppConfig()
   const queryValue = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q
   const currentLocalePath = queryValue
     ? `/search?q=${encodeURIComponent(queryValue)}`
@@ -27,7 +30,9 @@ export async function renderSearchPage(locale: AppLocale, searchParams: SearchPa
       currentLocalePath={currentLocalePath}
       showBack
     >
-      <SearchResultsPanel locale={locale} messages={messages} />
+      {config.semanticSearch.enabled
+        ? <SearchTabs locale={locale} messages={messages} />
+        : <SearchResultsPanel locale={locale} messages={messages} />}
     </PageFrame>
   )
 }

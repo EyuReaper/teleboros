@@ -9,7 +9,7 @@
 
 ## 1: ይህ ፕሮጀክት ለምን ተሰራ
 
-ይህ ፕሮጀክት በ [@miantiao-me](https://github.com/miantiao-me) የተሰራውን [BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel) ሙሉ በሙሉ እንደገና የተገነባ ነው። በ Next.js፣ በ DPlayer ቪዲዮ ማጫወቻ፣ በቴሌግራም መሰል የምስል አቀማመጥ እና በ Lunr.js ሙሉ የጽሁፍ ፍለጋ ተዘጋጅቷል።
+ይህ ፕሮጀክት በ [@miantiao-me](https://github.com/miantiao-me) የተሰራውን [BroadcastChannel](https://github.com/miantiao-me/BroadcastChannel) ሙሉ በሙሉ እንደገና የተገነባ ነው። በ Next.js፣ በ DPlayer ቪዲዮ ማጫወቻ፣ በቴሌግራም መሰል የምስል አቀማመጥ፣ በ Lunr.js ሙሉ የጽሁፍ ፍለጋ እና በ Gemini የተጎላበተ **AI ትርጉም ፍለጋ (semantic search)** ተዘጋጅቷል።
 
 ## 2: ፈጣን ጅምር
 
@@ -47,6 +47,10 @@ pnpm start
 | `telegramHost` | `string` | የቴሌግራም ዌብ ሆስት (ነባሪው `t.me`) |
 | `locale` | `string` | ነባሪ ቋንቋ። የሚደገፉት: `en`, `ja`, `am` |
 | `timezone` | `string` | የቀን እና ሰዓት ዞን (ምሳሌ: `UTC`, `Africa/Addis_Ababa`) |
+
+### 3.2: AI ትርጉም ፍለጋ (AI Semantic Search)
+
+AI ትርጉም ፍለጋ በ `/search` ገጽ ላይ ተጠቃሚዎች ጥያቄዎችን በተፈጥሮ ቋንቋ እንዲጠይቁ ያስችላል (ለምሳሌ: "ስለ Go ማሰማራት ምን ጽፌ ነበር?")። ጽሁፎቹ በ `pnpm sync` ጊዜ አንዴ ብቻ በ Gemini ይቀመራሉ፣ እና እያንዳንዱ ጥያቄ በ `/api/semantic-search` በኩል አንድ ጥያቄን ብቻ ያቀምራል። ይህን ለማንቃት `GEMINI_API_KEY` በተገነባ (build) እና በሂደት (runtime) በሁለቱም ጊዜ መገኘት አለበት። `semanticSearch.enabled` በ `false` በማድረግ ማጥፋት ይቻላል።
 
 ## 4: የማመሳሰል ትእዛዝ (Sync Command)
 

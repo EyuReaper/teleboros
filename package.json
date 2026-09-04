@@ -45,7 +45,7 @@
     "start": "next start -p 4321",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "sync": "node --dns-result-order=ipv4first --import tsx scripts/sync-static-content.ts",
+    "sync": "node --dns-result-order=ipv4first --env-file-if-exists=.env --import tsx scripts/sync-static-content.ts",
     "og:image": "node --import tsx scripts/generate-og-image.ts",
     "release": "changelogen --release && git push --follow-tags",
     "postinstall": "simple-git-hooks"

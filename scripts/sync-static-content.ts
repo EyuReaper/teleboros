@@ -1,3 +1,4 @@
+import type { SemanticEmbeddingDocument, SemanticEmbeddingsPayload } from '../src/lib/search/semantic'
 import type { StaticSnapshot } from '../src/lib/telegram/static-snapshot'
 import type { ChannelInfo } from '../src/lib/types'
 import { Buffer } from 'node:buffer'
@@ -10,6 +11,12 @@ import lunr from 'lunr'
 import sharp from 'sharp'
 import { SITE_CONSTANTS } from '../src/lib/constant'
 import { buildPostSearchDataset } from '../src/lib/search/search-documents'
+import {
+  buildSemanticInputText,
+  embedDocuments,
+  encodeEmbedding,
+  SEMANTIC_EMBEDDINGS_FILE,
+} from '../src/lib/search/semantic'
 import {
   buildRemoteStaticSnapshot,
   writeGeneratedStaticSnapshot,
@@ -635,6 +642,56 @@ async function writeStaticSearchIndex(snapshot: StaticSnapshot) {
   console.info(`[teleboros] search index written to ${SEARCH_INDEX_OUTPUT_PATH}`)
 }
 
+async function writeSemanticEmbeddings(snapshot: StaticSnapshot) {
+  const semanticSearch = SITE_CONSTANTS.semanticSearch
+  if (!semanticSearch.enabled) {
+    console.info('[teleboros] semantic search: disabled in SITE_CONSTANTS, skipping embeddings')
+    return
+  }
+
+  const geminiApiKey = process.env.GEMINI_API_KEY?.trim()
+  if (!geminiApiKey) {
+    console.info('[teleboros] semantic search: GEMINI_API_KEY is not configured, skipping embeddings')
+    return
+  }
+
+  const posts = snapshot.pages.flatMap(page => page.channel.posts)
+  const { documents } = buildPostSearchDataset(posts)
+
+  const { model, outputDimensionality, inputTokenLimit } = semanticSearch
+  const embeddable = documents
+    .map(doc => ({
+      doc,
+      input: buildSemanticInputText(doc, inputTokenLimit),
+    }))
+    .filter(entry => entry.input.length > 0)
+
+  const vectors = await embedDocuments(
+    embeddable.map(entry => entry.input),
+    { apiKey: geminiApiKey, model, outputDimensionality },
+  )
+
+  const embeddingDocuments: SemanticEmbeddingDocument[] = embeddable.map(({ doc }, index) => ({
+    id: doc.id,
+    title: doc.title,
+    text: doc.text,
+    datetime: doc.datetime,
+    encoding: encodeEmbedding(vectors[index] ?? []),
+  }))
+
+  const payload: SemanticEmbeddingsPayload = {
+    generatedAt: new Date().toISOString(),
+    model,
+    dimension: outputDimensionality,
+    documents: embeddingDocuments,
+  }
+
+  const outputPath = path.resolve(process.cwd(), SEMANTIC_EMBEDDINGS_FILE)
+  await mkdir(path.dirname(outputPath), { recursive: true })
+  await writeFile(outputPath, JSON.stringify(payload), 'utf8')
+  console.info(`[teleboros] semantic embeddings written to ${outputPath}: ${embeddingDocuments.length} documents`)
+}
+
 async function writeStaticFeedIndex(snapshot: StaticSnapshot) {
   const pages = snapshot.pages.map(page => ({
     cursor: page.cursor,
@@ -762,6 +819,7 @@ async function run() {
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)
   await writeStaticFeedIndex(mirroredSnapshot)
+  await writeSemanticEmbeddings(mirroredSnapshot)
 
   console.info('[teleboros] completed.')
   console.info(`[teleboros] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)

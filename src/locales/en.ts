@@ -82,6 +82,16 @@ export interface LocaleMessages {
     headingFallback: string
     matchLabel: string
     defaultPostTitlePrefix: string
+    modeKeyword: string
+    modeSemantic: string
+    headingSemantic: string
+    askPlaceholder: string
+    askButton: string
+    askHint: string
+    loadingSemantic: string
+    notConfigured: string
+    noSemanticResults: string
+    similarityLabel: string
   }
   notFound: {
     code: string
@@ -176,6 +186,16 @@ export const enMessages: LocaleMessages = {
     headingFallback: 'open command palette (Cmd/Ctrl+K)',
     matchLabel: 'Match',
     defaultPostTitlePrefix: 'Post',
+    modeKeyword: 'Keyword',
+    modeSemantic: 'AI',
+    headingSemantic: 'AI Search',
+    askPlaceholder: 'Ask a question in plain language...',
+    askButton: 'Ask',
+    askHint: 'Ask a question in your own words to search posts semantically.',
+    loadingSemantic: 'Embedding your question...',
+    notConfigured: 'AI semantic search is unavailable right now.',
+    noSemanticResults: 'No posts matched this question.',
+    similarityLabel: 'similarity',
   },
   notFound: {
     code: 'Error 404',

@@ -29,6 +29,19 @@ export interface InfiniteScrollConfig {
   enabled: boolean
 }
 
+export interface SemanticSearchConfig {
+  /** Enable AI semantic search (requires a GEMINI_API_KEY at build time and runtime) */
+  enabled: boolean
+  /** Gemini embedding model used for post documents and search queries */
+  model: string
+  /** Output dimensionality for the embedding model (768, 1536, or 3072) */
+  outputDimensionality: number
+  /** Maximum number of results returned by the semantic search API */
+  maxResults: number
+  /** Maximum input characters per post when generating embeddings */
+  inputTokenLimit: number
+}
+
 interface SiteConstantConfig {
   channel: string
   locale: string
@@ -55,6 +68,7 @@ interface SiteConstantConfig {
   mediaMirror: MediaMirrorConfig
   comments: CommentsConfig
   infiniteScroll: InfiniteScrollConfig
+  semanticSearch: SemanticSearchConfig
 }
 
 export interface CommentsConfig {
@@ -167,5 +181,18 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   infiniteScroll: {
     // Enable client-side infinite scroll on the home feed
     enabled: true,
+  },
+  semanticSearch: {
+    // Enable AI semantic search on the /search page. Requires a GEMINI_API_KEY
+    // available both at build time (to embed posts) and at runtime (to embed queries).
+    enabled: true,
+    // Gemini embedding model used for retrieval.
+    model: 'gemini-embedding-001',
+    // Output dimensionality for the embedding model.
+    outputDimensionality: 768,
+    // Maximum number of results returned by the semantic search API.
+    maxResults: 25,
+    // Maximum input characters per post when generating embeddings.
+    inputTokenLimit: 1800,
   },
 }
