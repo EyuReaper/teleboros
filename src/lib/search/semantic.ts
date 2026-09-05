@@ -53,6 +53,17 @@ export function l2Normalize(values: number[]) {
 const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504])
 const MAX_RETRY_ATTEMPTS = 4
 
+function parseRetryDelayMs(response: Response, attempt: number): number {
+  const retryAfterHeader = response.headers.get('retry-after')
+  if (retryAfterHeader) {
+    const seconds = Number.parseFloat(retryAfterHeader)
+    if (!Number.isNaN(seconds) && seconds > 0) {
+      return Math.min(Math.ceil(seconds * 1000), 15000)
+    }
+  }
+  return Math.min(1000 * 2 ** attempt, 8000)
+}
+
 async function fetchWithRetry(url: string, init: RequestInit) {
   for (let attempt = 1; attempt <= MAX_RETRY_ATTEMPTS; attempt += 1) {
     const response = await fetch(url, init)
@@ -65,7 +76,8 @@ async function fetchWithRetry(url: string, init: RequestInit) {
       return response
     }
 
-    await new Promise(resolve => setTimeout(resolve, 1000 * 2 ** attempt))
+    const delayMs = parseRetryDelayMs(response, attempt)
+    await new Promise(resolve => setTimeout(resolve, delayMs))
   }
 
   throw new Error(`Gemini fetch failed for ${url}`)

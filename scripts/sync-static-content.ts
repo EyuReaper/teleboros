@@ -666,30 +666,88 @@ async function writeSemanticEmbeddings(snapshot: StaticSnapshot) {
     }))
     .filter(entry => entry.input.length > 0)
 
-  const vectors = await embedDocuments(
-    embeddable.map(entry => entry.input),
-    { apiKey: geminiApiKey, model, outputDimensionality },
-  )
+  const outputPath = path.resolve(process.cwd(), SEMANTIC_EMBEDDINGS_FILE)
 
-  const embeddingDocuments: SemanticEmbeddingDocument[] = embeddable.map(({ doc }, index) => ({
-    id: doc.id,
-    title: doc.title,
-    text: doc.text,
-    datetime: doc.datetime,
-    encoding: encodeEmbedding(vectors[index] ?? []),
-  }))
-
-  const payload: SemanticEmbeddingsPayload = {
-    generatedAt: new Date().toISOString(),
-    model,
-    dimension: outputDimensionality,
-    documents: embeddingDocuments,
+  // 1. Load existing embeddings cache if present and matching model/dimension
+  let existingPayload: SemanticEmbeddingsPayload | null = null
+  try {
+    const raw = await readFile(outputPath, 'utf8')
+    const parsed = JSON.parse(raw) as SemanticEmbeddingsPayload
+    if (parsed.model === model && parsed.dimension === outputDimensionality && Array.isArray(parsed.documents)) {
+      existingPayload = parsed
+    }
+  }
+  catch {
+    // No existing valid cache
   }
 
-  const outputPath = path.resolve(process.cwd(), SEMANTIC_EMBEDDINGS_FILE)
-  await mkdir(path.dirname(outputPath), { recursive: true })
-  await writeFile(outputPath, JSON.stringify(payload), 'utf8')
-  console.info(`[teleboros] semantic embeddings written to ${outputPath}: ${embeddingDocuments.length} documents`)
+  const existingMap = new Map(existingPayload?.documents?.map(doc => [doc.id, doc]) ?? [])
+
+  const cachedDocuments: SemanticEmbeddingDocument[] = []
+  const toEmbed: typeof embeddable = []
+
+  for (const entry of embeddable) {
+    const cached = existingMap.get(entry.doc.id)
+    if (cached && cached.encoding && cached.text === entry.doc.text) {
+      cachedDocuments.push({
+        id: entry.doc.id,
+        title: entry.doc.title,
+        text: entry.doc.text,
+        datetime: entry.doc.datetime,
+        encoding: cached.encoding,
+      })
+    }
+    else {
+      toEmbed.push(entry)
+    }
+  }
+
+  let newlyEmbeddedDocuments: SemanticEmbeddingDocument[] = []
+
+  if (toEmbed.length > 0) {
+    console.info(`[teleboros] semantic search: ${cachedDocuments.length} cached, embedding ${toEmbed.length} new/modified documents...`)
+    try {
+      const vectors = await embedDocuments(
+        toEmbed.map(entry => entry.input),
+        { apiKey: geminiApiKey, model, outputDimensionality },
+      )
+
+      newlyEmbeddedDocuments = toEmbed.map(({ doc }, index) => ({
+        id: doc.id,
+        title: doc.title,
+        text: doc.text,
+        datetime: doc.datetime,
+        encoding: encodeEmbedding(vectors[index] ?? []),
+      }))
+    }
+    catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      console.warn(`[teleboros] semantic search: embedding generation failed (${message}).`)
+      if (cachedDocuments.length > 0) {
+        console.info(`[teleboros] semantic search: continuing with ${cachedDocuments.length} existing cached embeddings`)
+      }
+      else {
+        console.info('[teleboros] semantic search: continuing build without embeddings')
+      }
+    }
+  }
+  else {
+    console.info(`[teleboros] semantic search: all ${embeddable.length} documents already embedded, reusing cache`)
+  }
+
+  const allDocuments = [...cachedDocuments, ...newlyEmbeddedDocuments]
+  if (allDocuments.length > 0) {
+    const payload: SemanticEmbeddingsPayload = {
+      generatedAt: new Date().toISOString(),
+      model,
+      dimension: outputDimensionality,
+      documents: allDocuments,
+    }
+
+    await mkdir(path.dirname(outputPath), { recursive: true })
+    await writeFile(outputPath, JSON.stringify(payload), 'utf8')
+    console.info(`[teleboros] semantic embeddings written to ${outputPath}: ${allDocuments.length} documents`)
+  }
 }
 
 async function writeStaticFeedIndex(snapshot: StaticSnapshot) {
@@ -819,7 +877,13 @@ async function run() {
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)
   await writeStaticFeedIndex(mirroredSnapshot)
-  await writeSemanticEmbeddings(mirroredSnapshot)
+  try {
+    await writeSemanticEmbeddings(mirroredSnapshot)
+  }
+  catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    console.warn(`[teleboros] semantic embeddings step failed, continuing build: ${message}`)
+  }
 
   console.info('[teleboros] completed.')
   console.info(`[teleboros] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)
