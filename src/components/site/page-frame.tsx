@@ -38,6 +38,7 @@ interface PageFrameProps {
   currentLocalePath?: string
   pageNumber?: number
   showBack?: boolean
+  wide?: boolean
 }
 
 function getPageTitle(currentPath: string, messages: LocaleMessages, pageNumber?: number) {
@@ -84,6 +85,7 @@ export function PageFrame({
   currentLocalePath,
   pageNumber,
   showBack,
+  wide,
 }: PageFrameProps) {
   const config = getAppConfig()
   const resolvedLocale = locale || normalizeAppLocale(config.locale)
@@ -147,7 +149,7 @@ export function PageFrame({
           )
         : null}
 
-      <div className="mx-auto grid max-w-[784px] grid-cols-[60px_minmax(0,1fr)] sm:grid-cols-[72px_minmax(0,1fr)] border-r">
+      <div className={cn('mx-auto grid grid-cols-[60px_minmax(0,1fr)] border-r sm:grid-cols-[72px_minmax(0,1fr)]', wide ? 'max-w-6xl' : 'max-w-[784px]')}>
         <aside className="sticky top-0 z-10 h-screen border-r bg-background/95">
           <TooltipProvider delayDuration={150}>
             <div className="flex h-full w-full flex-col items-center gap-1.5 px-1 py-3 sm:gap-2 sm:px-2 sm:py-4">
