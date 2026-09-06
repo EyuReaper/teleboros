@@ -200,14 +200,19 @@ export async function POST(req: Request) {
     // 3. Correlate and store the full-length long-form post, then append backlink to Telegram
     let postUrl = ''
     if (messageId) {
-      await saveLongFormPost(
-        messageId,
-        text,
-        condensedText,
-        title || undefined,
-        mediaUrl || undefined,
-        effectiveMediaType || undefined,
-      )
+      try {
+        await saveLongFormPost(
+          messageId,
+          text,
+          condensedText,
+          title || undefined,
+          mediaUrl || undefined,
+          effectiveMediaType || undefined,
+        )
+      }
+      catch (saveErr) {
+        console.warn('[teleboros] Non-fatal error saving long-form post:', saveErr)
+      }
 
       const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || 'https://example.com').replace(/\/+$/, '')
       postUrl = `${siteUrl}/posts/${messageId}`
