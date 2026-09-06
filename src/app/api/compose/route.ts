@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         ? `Condense the following text into an engaging summary teaser for a Telegram video/photo post (strictly UNDER 800 characters so there is room for formatting and links). Use Telegram HTML formatting (like <b>bold</b>, <i>italic</i>, <code>code</code>) if appropriate:\n\n${input}`
         : `Condense the following text for a Telegram post while keeping the main points and making it engaging (strictly UNDER 800 characters). Use Telegram HTML formatting (like <b>bold</b>, <i>italic</i>, <code>code</code>) if appropriate:\n\n${input}`
 
-      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
