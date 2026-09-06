@@ -3,8 +3,9 @@ import { DEFAULT_LOCALE } from '@/lib/i18n'
 import { generatePostPageMetadata, renderPostPage } from '@/lib/pages/post-page'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 
-export const dynamic = 'force-static'
-export const dynamicParams = false
+export const dynamic = 'auto'
+export const dynamicParams = true
+export const revalidate = 60
 
 interface DefaultPostPageProps {
   params: Promise<{

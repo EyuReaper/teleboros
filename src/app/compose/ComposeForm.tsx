@@ -20,7 +20,10 @@ async function parseApiResponse(res: Response) {
     try {
       const data = await res.json()
       if (!res.ok) {
-        throw new Error(data.error || `Request failed with status ${res.status}`)
+        const error: any = new Error(data.error || `Request failed with status ${res.status}`)
+        error.step = data.step
+        error.postUrl = data.postUrl
+        throw error
       }
       return data
     }
@@ -67,8 +70,14 @@ export function ComposeForm() {
   const [isCondensing, setIsCondensing] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
   const [uploadProgress, setUploadProgress] = useState<{ active: boolean, percent: number, text: string } | null>(null)
-  const [status, setStatus] = useState<{ type: 'success' | 'error', message: string, postUrl?: string } | null>(null)
   const [renderedWebHtml, setRenderedWebHtml] = useState('')
+  const [status, setStatus] = useState<{
+    type: 'success' | 'error'
+    message: string
+    postUrl?: string
+    telegramPostUrl?: string
+    step?: string
+  } | null>(null)
 
   // Load saved Admin Token from localStorage
   useEffect(() => {
@@ -282,8 +291,11 @@ export function ComposeForm() {
 
       setStatus({
         type: 'success',
-        message: 'Post successfully published to Telegram and queued for site rebuild!',
+        message: data.isLongForm
+          ? 'Long-form article published to Teleboros and teaser broadcast to Telegram!'
+          : 'Post published to Telegram and synchronized with Teleboros!',
         postUrl: data.postUrl,
+        telegramPostUrl: data.telegramPostUrl,
       })
 
       // Reset form
@@ -293,7 +305,12 @@ export function ComposeForm() {
       removeMedia()
     }
     catch (err: any) {
-      setStatus({ type: 'error', message: err.message || 'Failed to publish' })
+      setStatus({
+        type: 'error',
+        message: err.message || 'Failed to publish',
+        postUrl: err.postUrl,
+        step: err.step,
+      })
     }
     finally {
       setIsPublishing(false)
@@ -319,6 +336,13 @@ export function ComposeForm() {
   const telegramHtmlPreview = useMemo(() => {
     return formatTelegramPreviewHtml(condensedText)
   }, [condensedText])
+
+  const isLongForm = useMemo(() => {
+    return Boolean(
+      (condensedText.trim() && condensedText.trim() !== text.trim())
+      || text.trim().length > 800,
+    )
+  }, [condensedText, text])
 
   return (
     <div className="space-y-6">
@@ -613,18 +637,36 @@ export function ComposeForm() {
               {status.type === 'success'
                 ? <Check className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 : <AlertCircle className="h-5 w-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />}
-              <div className="space-y-1">
+              <div className="space-y-1.5 min-w-0 flex-1">
                 <p className="font-medium">{status.message}</p>
                 {status.postUrl && (
-                  <a
-                    href={status.postUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-semibold underline underline-offset-2 hover:opacity-80"
-                  >
-                    <span>View published article</span>
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <a
+                      href={status.postUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300 underline underline-offset-2 hover:opacity-80"
+                    >
+                      <span>📖 Read article on Teleboros</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                    {status.telegramPostUrl && (
+                      <a
+                        href={status.telegramPostUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-sky-600 dark:text-sky-400 underline underline-offset-2 hover:opacity-80"
+                      >
+                        <span>✈️ View post on Telegram</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
+                )}
+                {status.type === 'error' && status.step === 'telegram' && status.postUrl && (
+                  <p className="text-[11px] text-muted-foreground pt-1">
+                    Your long-form post was safely saved to Teleboros, but Telegram encountered an error. You can still access the article via the Teleboros link above.
+                  </p>
                 )}
               </div>
             </div>
@@ -735,14 +777,13 @@ export function ComposeForm() {
                     )}
               </div>
 
-              {/* Simulated Backlink Pill */}
-              <div className="mt-3 flex items-center justify-between rounded-xl border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-xs font-medium text-sky-700 dark:text-sky-300">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span>📖</span>
-                  <span className="truncate">Read full article on Teleboros</span>
+              {/* Telegram Inline Keyboard Button (Only for Long-Form posts) */}
+              {isLongForm && (
+                <div className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 px-4 py-2.5 text-xs font-semibold text-sky-700 dark:text-sky-300 shadow-sm transition-colors text-center">
+                  <span>Read the full article on Teleboros</span>
+                  <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-80" />
                 </div>
-                <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-75" />
-              </div>
+              )}
 
               {/* Telegram Message Footer */}
               <div className="flex items-center justify-end gap-1 text-[10px] text-muted-foreground pt-1">

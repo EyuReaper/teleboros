@@ -21,15 +21,17 @@ export async function generatePostPageMetadata(locale: AppLocale, id: string): P
     .flatMap(page => page.channel.posts)
     .find(item => item.id === id)
 
-  if (!post)
+  const longForm = await loadLongFormPost(id)
+
+  if (!post && !longForm)
     return {}
 
-  const longForm = await loadLongFormPost(id)
-  const postTitle = longForm?.title || post.title || post.text?.slice(0, 80) || `Post ${id}`
-  const postDescription = longForm?.text?.slice(0, 160) || post.text?.slice(0, 160) || seo.description || messages.metadata.description
+  const postTitle = longForm?.title || post?.title || post?.text?.slice(0, 80) || `Post ${id}`
+  const postDescription = longForm?.text?.slice(0, 160) || post?.text?.slice(0, 160) || seo.description || messages.metadata.description
   const siteUrl = config.siteUrl || 'https://example.com'
   const resolvedOgImage = resolveSeoImageUrl(siteUrl, seo.ogImage)
   const postUrl = `${siteUrl}${localizePath(locale, `/posts/${id}`)}`
+  const publishedTime = post?.datetime || longForm?.createdAt
 
   return {
     title: postTitle,
@@ -40,7 +42,7 @@ export async function generatePostPageMetadata(locale: AppLocale, id: string): P
       description: postDescription,
       url: postUrl,
       siteName: seo.title || messages.metadata.titleDefault,
-      ...(post.datetime ? { publishedTime: post.datetime } : {}),
+      ...(publishedTime ? { publishedTime } : {}),
       ...(seo.author ? { authors: [seo.author] } : {}),
       ...(resolvedOgImage ? { images: [{ url: resolvedOgImage, width: 1200, height: 630 }] } : {}),
     },
@@ -61,24 +63,34 @@ export async function renderPostPage(locale: AppLocale, id: string) {
   const messages = getLocaleMessages(locale)
   const config = getAppConfig()
   const snapshot = await getStaticSnapshot()
-  const channelInfo = snapshot.root as ChannelInfo
+  const channelInfo = (snapshot.root || {}) as ChannelInfo
   const post = snapshot.pages
     .flatMap(page => page.channel.posts)
     .find(item => item.id === id) as ChannelPost | undefined
 
-  if (!post) {
+  const longForm = await loadLongFormPost(id)
+
+  if (!post && !longForm) {
     notFound()
   }
 
-  const longForm = await loadLongFormPost(id)
+  const siteUrl = config.siteUrl || 'https://example.com'
+
   const resolvedPost: ChannelPost = longForm
     ? {
-        ...post,
-        isLongForm: true,
-        title: longForm.title || post.title,
+        id,
+        title: longForm.title || post?.title || `Post ${id}`,
+        type: 'text',
+        text: longForm.text,
         content: longForm.html,
+        isLongForm: true,
+        datetime: post?.datetime || longForm.createdAt || new Date().toISOString(),
+        views: post?.views,
+        comments: post?.comments,
+        tags: post?.tags || [],
+        reactions: post?.reactions || [],
       }
-    : post
+    : post!
 
   const channel: ChannelInfo = {
     ...channelInfo,
@@ -89,16 +101,15 @@ export async function renderPostPage(locale: AppLocale, id: string) {
     : (channel.avatar || '/favicon.svg')
   const channelUsername = config.telegram || config.channel
 
-  const siteUrl = config.siteUrl || 'https://example.com'
   const { seo } = config
   const resolvedOgImage = resolveSeoImageUrl(siteUrl, seo.ogImage)
 
   const blogPostingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    'headline': post.title || post.text?.slice(0, 110) || `Post ${id}`,
-    'datePublished': post.datetime || undefined,
-    'dateModified': post.edited ? undefined : post.datetime || undefined,
+    'headline': resolvedPost.title || resolvedPost.text?.slice(0, 110) || `Post ${id}`,
+    'datePublished': resolvedPost.datetime || undefined,
+    'dateModified': resolvedPost.edited ? undefined : resolvedPost.datetime || undefined,
     'url': `${siteUrl}${localizePath(locale, `/posts/${id}`)}`,
     'author': {
       '@type': 'Person',
@@ -142,7 +153,7 @@ export async function renderPostPage(locale: AppLocale, id: string) {
       {config.comments?.enabled && config.comments?.websiteId && (
         <TelegramComments
           websiteId={config.comments.websiteId}
-          pageId={post.id}
+          pageId={resolvedPost.id}
           limit={config.comments.limit}
           color={config.comments.color}
         />

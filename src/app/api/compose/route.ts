@@ -76,62 +76,140 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, condensedText })
     }
 
+    // Helper to generate canonical post ID / slug
+    const generateCanonicalPostId = (postTitle?: string | null): string => {
+      if (postTitle?.trim()) {
+        const slug = postTitle
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 48)
+        if (slug) {
+          const suffix = Math.random().toString(36).slice(2, 6)
+          return `${slug}-${suffix}`
+        }
+      }
+      const timestamp = Date.now().toString(36)
+      const random = Math.random().toString(36).slice(2, 6)
+      return `p-${timestamp}-${random}`
+    }
+
     // Action: Publish
+    const isLongForm = Boolean(
+      (customCondensedText && customCondensedText.trim() !== text.trim())
+      || text.trim().length > 800,
+    )
+
     let condensedText = customCondensedText?.trim() || ''
-    if (!condensedText) {
-      // Fallback: Condense if not already provided
+    if (isLongForm && !condensedText) {
+      // Condense for long-form post teaser
       condensedText = await condenseWithGemini(text)
     }
 
-    // 2. Post to Telegram
+    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || 'https://example.com').replace(/\/+$/, '')
+    const canonicalPostId = generateCanonicalPostId(title)
+    const postUrl = `${siteUrl}/posts/${canonicalPostId}`
+
+    // 1. STEP 1: Persist the full-length Long-Form Article to Teleboros FIRST
+    try {
+      await saveLongFormPost(
+        canonicalPostId,
+        text,
+        condensedText,
+        title || undefined,
+        mediaUrl || undefined,
+        effectiveMediaType || undefined,
+      )
+    }
+    catch (teleborosSaveErr: any) {
+      console.error('[teleboros] Failed to persist post to Teleboros storage:', teleborosSaveErr)
+      return NextResponse.json({
+        success: false,
+        step: 'teleboros',
+        error: `Failed to save article to Teleboros storage: ${teleborosSaveErr?.message || teleborosSaveErr}`,
+      }, { status: 500 })
+    }
+
+    // 2. STEP 2: Broadcast Short-Form Teaser to Telegram with Inline Keyboard Button
     const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN
     const telegramChatId = process.env.TELEGRAM_CHAT_ID
 
     if (!telegramBotToken || !telegramChatId) {
-      return NextResponse.json({ error: 'Telegram credentials are not configured' }, { status: 500 })
+      return NextResponse.json({
+        success: false,
+        step: 'telegram',
+        postId: canonicalPostId,
+        postUrl,
+        error: 'Article saved to Teleboros, but Telegram credentials are not configured.',
+      }, { status: 500 })
     }
 
+    // Prepare Telegram text: if short post, send full text; if long-form, send teaser
+    const telegramTextToSend = isLongForm ? (condensedText || text.slice(0, 800)) : text.trim()
+
+    // Inline button attached directly to Telegram message (only for long-form posts)
+    const replyMarkupObj = isLongForm
+      ? {
+          inline_keyboard: [
+            [
+              {
+                text: 'Read the full article on Teleboros',
+                url: postUrl,
+              },
+            ],
+          ],
+        }
+      : undefined
+    const replyMarkupJson = replyMarkupObj ? JSON.stringify(replyMarkupObj) : undefined
+
     let telegramRes: Response
-    let isMessageWithCaption = false
 
     if (videoFile) {
       // sendVideo with direct file upload
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
-      tgFormData.append('caption', condensedText)
+      tgFormData.append('caption', telegramTextToSend)
       tgFormData.append('parse_mode', 'HTML')
       tgFormData.append('supports_streaming', 'true')
       tgFormData.append('video', videoFile)
+      if (replyMarkupJson) {
+        tgFormData.append('reply_markup', replyMarkupJson)
+      }
 
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendVideo`, {
         method: 'POST',
         body: tgFormData,
       })
-      isMessageWithCaption = telegramRes.ok
     }
     else if (imageFile) {
       // sendPhoto with direct file upload
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
-      tgFormData.append('caption', condensedText)
+      tgFormData.append('caption', telegramTextToSend)
       tgFormData.append('parse_mode', 'HTML')
       tgFormData.append('photo', imageFile)
+      if (replyMarkupJson) {
+        tgFormData.append('reply_markup', replyMarkupJson)
+      }
 
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendPhoto`, {
         method: 'POST',
         body: tgFormData,
       })
-      isMessageWithCaption = telegramRes.ok
     }
     else if (mediaUrl) {
       if (effectiveMediaType === 'video') {
         // Attempt sendVideo by URL
         const tgFormData = new FormData()
         tgFormData.append('chat_id', telegramChatId)
-        tgFormData.append('caption', condensedText)
+        tgFormData.append('caption', telegramTextToSend)
         tgFormData.append('parse_mode', 'HTML')
         tgFormData.append('supports_streaming', 'true')
         tgFormData.append('video', mediaUrl)
+        if (replyMarkupJson) {
+          tgFormData.append('reply_markup', replyMarkupJson)
+        }
 
         const videoAttempt = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendVideo`, {
           method: 'POST',
@@ -140,66 +218,80 @@ export async function POST(req: Request) {
 
         if (videoAttempt.ok) {
           telegramRes = videoAttempt
-          isMessageWithCaption = true
         }
         else {
           // Telegram Bot API rejects files > 50MB via URL; fallback cleanly to sendMessage
           console.warn('[teleboros] Telegram sendVideo by URL failed (likely > 50MB). Falling back to text announcement.')
+          const payload: any = {
+            chat_id: telegramChatId,
+            text: telegramTextToSend,
+            parse_mode: 'HTML',
+          }
+          if (replyMarkupObj) {
+            payload.reply_markup = replyMarkupObj
+          }
+
           telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: telegramChatId,
-              text: condensedText,
-              parse_mode: 'HTML',
-            }),
+            body: JSON.stringify(payload),
           })
-          isMessageWithCaption = false
         }
       }
       else {
         // Image by URL
         const tgFormData = new FormData()
         tgFormData.append('chat_id', telegramChatId)
-        tgFormData.append('caption', condensedText)
+        tgFormData.append('caption', telegramTextToSend)
         tgFormData.append('parse_mode', 'HTML')
         tgFormData.append('photo', mediaUrl)
+        if (replyMarkupJson) {
+          tgFormData.append('reply_markup', replyMarkupJson)
+        }
 
         telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendPhoto`, {
           method: 'POST',
           body: tgFormData,
         })
-        isMessageWithCaption = telegramRes.ok
       }
     }
     else {
       // sendMessage
+      const payload: any = {
+        chat_id: telegramChatId,
+        text: telegramTextToSend,
+        parse_mode: 'HTML',
+      }
+      if (replyMarkupObj) {
+        payload.reply_markup = replyMarkupObj
+      }
+
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          chat_id: telegramChatId,
-          text: condensedText,
-          parse_mode: 'HTML',
-        }),
+        body: JSON.stringify(payload),
       })
-      isMessageWithCaption = false
     }
 
     if (!telegramRes.ok) {
       const errorData = await telegramRes.text()
-      console.error('Telegram error:', errorData)
-      return NextResponse.json({ error: `Failed to post to Telegram: ${errorData}` }, { status: 500 })
+      console.error('Telegram broadcast error:', errorData)
+      return NextResponse.json({
+        success: false,
+        step: 'telegram',
+        postId: canonicalPostId,
+        postUrl,
+        error: `Article is saved on Teleboros, but Telegram broadcast failed: ${errorData}`,
+      }, { status: 502 })
     }
 
     const telegramData = await telegramRes.json()
     const messageId = String(telegramData?.result?.message_id || '')
 
-    // 3. Correlate and store the full-length long-form post, then append backlink to Telegram
-    let postUrl = ''
-    if (messageId) {
+    // Create secondary alias under Telegram messageId if distinct from canonicalPostId
+    if (messageId && messageId !== canonicalPostId) {
       try {
         await saveLongFormPost(
           messageId,
@@ -210,49 +302,12 @@ export async function POST(req: Request) {
           effectiveMediaType || undefined,
         )
       }
-      catch (saveErr) {
-        console.warn('[teleboros] Non-fatal error saving long-form post:', saveErr)
-      }
-
-      const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || 'https://example.com').replace(/\/+$/, '')
-      postUrl = `${siteUrl}/posts/${messageId}`
-      const actionLabel = effectiveMediaType === 'video' ? '🎬 Watch full video & read article on Teleboros' : '📖 Read full article on Teleboros'
-      const backlinkHtml = `\n\n<a href="${postUrl}">${actionLabel}</a>`
-      const textWithBacklink = `${condensedText}${backlinkHtml}`
-
-      // Edit the Telegram message to append the backlink
-      try {
-        if (isMessageWithCaption) {
-          await fetch(`https://api.telegram.org/bot${telegramBotToken}/editMessageCaption`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: telegramChatId,
-              message_id: messageId,
-              caption: textWithBacklink,
-              parse_mode: 'HTML',
-            }),
-          })
-        }
-        else {
-          await fetch(`https://api.telegram.org/bot${telegramBotToken}/editMessageText`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: telegramChatId,
-              message_id: messageId,
-              text: textWithBacklink,
-              parse_mode: 'HTML',
-            }),
-          })
-        }
-      }
-      catch (editError) {
-        console.warn('Failed to edit Telegram message with backlink:', editError)
+      catch (aliasErr) {
+        console.warn('[teleboros] Non-fatal error saving messageId alias:', aliasErr)
       }
     }
 
-    // 4. Trigger Deploy Hook
+    // 3. Trigger Deploy Hook (optional site rebuild)
     const deployHookUrl = process.env.DEPLOY_HOOK_URL
     if (deployHookUrl) {
       try {
@@ -263,7 +318,17 @@ export async function POST(req: Request) {
       }
     }
 
-    return NextResponse.json({ success: true, messageId, postUrl, condensedText })
+    const channelUsername = (telegramChatId || '').replace(/^@/, '')
+    const telegramPostUrl = messageId && channelUsername ? `https://t.me/${channelUsername}/${messageId}` : undefined
+
+    return NextResponse.json({
+      success: true,
+      postId: canonicalPostId,
+      postUrl,
+      isLongForm,
+      telegramMessageId: messageId,
+      telegramPostUrl,
+    })
   }
   catch (error: any) {
     console.error('Compose API error:', error)

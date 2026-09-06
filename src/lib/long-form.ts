@@ -18,6 +18,14 @@ export interface LongFormPost {
 
 const LONG_FORM_DATA_DIR = path.resolve(process.cwd(), 'data/posts')
 
+function getBlobToken(): string | undefined {
+  if (process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
+    return process.env.BLOB_READ_WRITE_TOKEN.trim()
+  }
+  const matched = Object.entries(process.env).find(([k, v]) => k.includes('BLOB') && k.includes('TOKEN') && v?.trim())
+  return matched ? matched[1]?.trim() : undefined
+}
+
 export function getLongFormFilePath(id: string): string {
   return path.join(LONG_FORM_DATA_DIR, `${id}.json`)
 }
@@ -80,11 +88,13 @@ export async function saveLongFormPost(
   }
 
   // 1. Persist to Vercel Blob if configured
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  const blobToken = getBlobToken()
+  if (blobToken) {
     try {
       await put(`data/posts/${id}.json`, JSON.stringify(post, null, 2), {
         access: 'public',
         addRandomSuffix: false,
+        token: blobToken,
       })
     }
     catch (blobErr) {
@@ -122,9 +132,10 @@ export async function loadLongFormPost(id: string): Promise<LongFormPost | null>
   }
 
   // 2. Try Vercel Blob storage
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+  const blobToken = getBlobToken()
+  if (blobToken) {
     try {
-      const { blobs } = await list({ prefix: `data/posts/${id}.json` })
+      const { blobs } = await list({ prefix: `data/posts/${id}.json`, token: blobToken })
       if (blobs.length > 0) {
         const res = await fetch(blobs[0].url)
         if (res.ok) {
