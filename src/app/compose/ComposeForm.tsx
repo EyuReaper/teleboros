@@ -7,6 +7,36 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 const STORAGE_KEY = 'teleboros_admin_token'
+const MAX_MEDIA_BYTES = 4.5 * 1024 * 1024 // 4.5 MB Vercel Serverless Function payload limit
+
+async function parseApiResponse(res: Response) {
+  if (res.status === 413) {
+    throw new Error('Payload too large (HTTP 413): The uploaded media exceeds Vercel\'s 4.5 MB serverless limit. Please compress the file or post directly to your Telegram channel (supports up to 2 GB).')
+  }
+
+  const contentType = res.headers.get('content-type') || ''
+  if (contentType.includes('application/json')) {
+    try {
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || `Request failed with status ${res.status}`)
+      }
+      return data
+    }
+    catch (err: any) {
+      if (!res.ok) {
+        throw err
+      }
+      throw new Error('Failed to parse server response as JSON')
+    }
+  }
+
+  const rawText = await res.text().catch(() => '')
+  if (!res.ok) {
+    throw new Error(rawText || `Request failed with status ${res.status}`)
+  }
+  return { rawText }
+}
 
 function formatTelegramPreviewHtml(text: string): string {
   if (!text)
@@ -124,6 +154,8 @@ export function ComposeForm() {
     }
   }, [text])
 
+  const isMediaOversized = Boolean(media && media.size > MAX_MEDIA_BYTES)
+
   // AI Condense action
   const handleCondense = async () => {
     if (!text.trim()) {
@@ -150,10 +182,7 @@ export function ComposeForm() {
         body: formData,
       })
 
-      const data = await res.json()
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to condense text with Gemini')
-      }
+      const data = await parseApiResponse(res)
 
       setCondensedText(data.condensedText || '')
       setStatus({
@@ -178,6 +207,13 @@ export function ComposeForm() {
     }
     if (!adminToken.trim()) {
       setStatus({ type: 'error', message: 'Admin Token is required.' })
+      return
+    }
+    if (isMediaOversized) {
+      setStatus({
+        type: 'error',
+        message: `Media file exceeds Vercel's 4.5 MB limit (${(media!.size / (1024 * 1024)).toFixed(2)} MB). Please compress it or post directly into your Telegram channel.`,
+      })
       return
     }
 
@@ -210,10 +246,7 @@ export function ComposeForm() {
         body: formData,
       })
 
-      const data = await res.json()
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to post to Telegram')
-      }
+      const data = await parseApiResponse(res)
 
       setStatus({
         type: 'success',
@@ -337,40 +370,65 @@ export function ComposeForm() {
 
             {media && mediaPreviewUrl
               ? (
-                  <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/40">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="relative h-12 w-12 shrink-0 rounded-md overflow-hidden border bg-black/20 flex items-center justify-center">
-                        {mediaType === 'video'
-                          ? (
-                              <video src={mediaPreviewUrl} className="h-full w-full object-cover" />
-                            )
-                          : (
-                              <Image src={mediaPreviewUrl} alt="Preview" fill unoptimized className="object-cover" />
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between p-3 rounded-lg border bg-muted/40">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="relative h-12 w-12 shrink-0 rounded-md overflow-hidden border bg-black/20 flex items-center justify-center">
+                          {mediaType === 'video'
+                            ? (
+                                <video
+                                  src={`${mediaPreviewUrl}#t=0.001`}
+                                  preload="metadata"
+                                  className="h-full w-full object-cover"
+                                />
+                              )
+                            : (
+                                <Image src={mediaPreviewUrl} alt="Preview" fill unoptimized className="object-cover" />
+                              )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-medium truncate">{media.name}</p>
+                          <p className="text-[11px] text-muted-foreground flex items-center gap-1">
+                            {mediaType === 'video' ? <Film className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
+                            {mediaType === 'video' ? 'Video Clip' : 'Image'}
+                            {' '}
+                            ·
+                            <span className={isMediaOversized ? 'text-rose-600 dark:text-rose-400 font-semibold' : ''}>
+                              {(media.size / (1024 * 1024)).toFixed(2)}
+                              {' '}
+                              MB
+                            </span>
+                            {isMediaOversized && (
+                              <span className="ml-1 inline-flex items-center rounded bg-rose-100 dark:bg-rose-950/70 px-1.5 py-0.5 text-[10px] font-bold text-rose-700 dark:text-rose-300">
+                                &gt; 4.5 MB
+                              </span>
                             )}
+                          </p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="text-xs font-medium truncate">{media.name}</p>
-                        <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                          {mediaType === 'video' ? <Film className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
-                          {mediaType === 'video' ? 'Video Clip' : 'Image'}
-                          {' '}
-                          ·
-                          {(media.size / (1024 * 1024)).toFixed(2)}
-                          {' '}
-                          MB
-                        </p>
-                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={removeMedia}
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        aria-label="Remove media"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
                     </div>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      onClick={removeMedia}
-                      className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                      aria-label="Remove media"
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
+
+                    {isMediaOversized && (
+                      <div className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-50 p-2.5 text-xs text-rose-900 dark:bg-rose-950/40 dark:text-rose-200">
+                        <AlertCircle className="h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400 mt-0.5" />
+                        <div className="space-y-0.5">
+                          <p className="font-semibold">Media exceeds Vercel&apos;s 4.5 MB serverless limit</p>
+                          <p className="text-[11px] leading-relaxed opacity-90">
+                            Vercel serverless functions reject payloads above 4.5 MB (HTTP 413). For larger videos, please post directly into your Telegram channel (supports up to 2 GB) or compress the clip under 4.5 MB.
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )
               : (
@@ -472,7 +530,7 @@ export function ComposeForm() {
 
             <Button
               type="submit"
-              disabled={isPublishing || isCondensing || !text.trim() || !adminToken.trim()}
+              disabled={isPublishing || isCondensing || !text.trim() || !adminToken.trim() || isMediaOversized}
               className="flex-1 gap-2 h-11"
             >
               {isPublishing
@@ -588,7 +646,8 @@ export function ComposeForm() {
                   {mediaType === 'video'
                     ? (
                         <video
-                          src={mediaPreviewUrl}
+                          src={`${mediaPreviewUrl}#t=0.001`}
+                          preload="metadata"
                           controls
                           playsInline
                           className="max-h-72 w-full object-cover"
@@ -677,7 +736,8 @@ export function ComposeForm() {
                   {mediaType === 'video'
                     ? (
                         <video
-                          src={mediaPreviewUrl}
+                          src={`${mediaPreviewUrl}#t=0.001`}
+                          preload="metadata"
                           controls
                           playsInline
                           className="max-h-80 w-full object-cover"
