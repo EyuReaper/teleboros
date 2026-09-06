@@ -1,5 +1,6 @@
 'use client'
 
+import { upload } from '@vercel/blob/client'
 import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
 import { marked } from 'marked'
 import Image from 'next/image'
@@ -65,6 +66,7 @@ export function ComposeForm() {
 
   const [isCondensing, setIsCondensing] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState<{ active: boolean, percent: number, text: string } | null>(null)
   const [status, setStatus] = useState<{ type: 'success' | 'error', message: string, postUrl?: string } | null>(null)
   const [renderedWebHtml, setRenderedWebHtml] = useState('')
 
@@ -209,18 +211,44 @@ export function ComposeForm() {
       setStatus({ type: 'error', message: 'Admin Token is required.' })
       return
     }
-    if (isMediaOversized) {
-      setStatus({
-        type: 'error',
-        message: `Media file exceeds Vercel's 4.5 MB limit (${(media!.size / (1024 * 1024)).toFixed(2)} MB). Please compress it or post directly into your Telegram channel.`,
-      })
-      return
-    }
 
     setIsPublishing(true)
     setStatus(null)
+    setUploadProgress(null)
 
     try {
+      let uploadedBlobUrl: string | null = null
+
+      // If media is larger than Vercel's 4.5MB serverless limit, stream directly to Vercel Blob!
+      if (media && isMediaOversized) {
+        setUploadProgress({
+          active: true,
+          percent: 0,
+          text: `Streaming ${(media.size / (1024 * 1024)).toFixed(1)} MB directly to Vercel Blob...`,
+        })
+
+        const blob = await upload(media.name, media, {
+          access: 'public',
+          handleUploadUrl: '/api/upload',
+          clientPayload: JSON.stringify({ adminToken }),
+          onUploadProgress: (progress) => {
+            const percent = Math.round(progress.percentage)
+            setUploadProgress({
+              active: true,
+              percent,
+              text: `Uploading media to Vercel Blob (${percent}%)...`,
+            })
+          },
+        })
+
+        uploadedBlobUrl = blob.url
+        setUploadProgress({
+          active: true,
+          percent: 100,
+          text: 'Media uploaded to Blob! Broadcasting post...',
+        })
+      }
+
       const formData = new FormData()
       formData.append('action', 'publish')
       if (title.trim()) {
@@ -232,7 +260,11 @@ export function ComposeForm() {
       }
       formData.append('adminToken', adminToken)
 
-      if (media) {
+      if (uploadedBlobUrl) {
+        formData.append('mediaUrl', uploadedBlobUrl)
+        formData.append('mediaType', mediaType || 'video')
+      }
+      else if (media) {
         if (mediaType === 'video') {
           formData.append('video', media)
         }
@@ -265,6 +297,7 @@ export function ComposeForm() {
     }
     finally {
       setIsPublishing(false)
+      setUploadProgress(null)
     }
   }
 
@@ -399,8 +432,8 @@ export function ComposeForm() {
                               MB
                             </span>
                             {isMediaOversized && (
-                              <span className="ml-1 inline-flex items-center rounded bg-rose-100 dark:bg-rose-950/70 px-1.5 py-0.5 text-[10px] font-bold text-rose-700 dark:text-rose-300">
-                                &gt; 4.5 MB
+                              <span className="ml-1 inline-flex items-center rounded bg-sky-100 dark:bg-sky-950/70 px-1.5 py-0.5 text-[10px] font-bold text-sky-700 dark:text-sky-300">
+                                Vercel Blob
                               </span>
                             )}
                           </p>
@@ -419,12 +452,12 @@ export function ComposeForm() {
                     </div>
 
                     {isMediaOversized && (
-                      <div className="flex items-start gap-2 rounded-lg border border-rose-500/30 bg-rose-50 p-2.5 text-xs text-rose-900 dark:bg-rose-950/40 dark:text-rose-200">
-                        <AlertCircle className="h-4 w-4 shrink-0 text-rose-600 dark:text-rose-400 mt-0.5" />
+                      <div className="flex items-start gap-2 rounded-lg border border-sky-500/30 bg-sky-50 p-2.5 text-xs text-sky-900 dark:bg-sky-950/40 dark:text-sky-200">
+                        <Sparkles className="h-4 w-4 shrink-0 text-sky-600 dark:text-sky-400 mt-0.5" />
                         <div className="space-y-0.5">
-                          <p className="font-semibold">Media exceeds Vercel&apos;s 4.5 MB serverless limit</p>
+                          <p className="font-semibold">Vercel Blob Direct Streaming Enabled</p>
                           <p className="text-[11px] leading-relaxed opacity-90">
-                            Vercel serverless functions reject payloads above 4.5 MB (HTTP 413). For larger videos, please post directly into your Telegram channel (supports up to 2 GB) or compress the clip under 4.5 MB.
+                            This media file ({(media.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 4.5 MB serverless limit and will stream directly into your Vercel Blob storage with full original quality.
                           </p>
                         </div>
                       </div>
@@ -530,14 +563,14 @@ export function ComposeForm() {
 
             <Button
               type="submit"
-              disabled={isPublishing || isCondensing || !text.trim() || !adminToken.trim() || isMediaOversized}
+              disabled={isPublishing || isCondensing || !text.trim() || !adminToken.trim()}
               className="flex-1 gap-2 h-11"
             >
               {isPublishing
                 ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>Broadcasting...</span>
+                      <span>{uploadProgress?.active ? 'Streaming Media...' : 'Broadcasting...'}</span>
                     </>
                   )
                 : (
@@ -548,6 +581,25 @@ export function ComposeForm() {
                   )}
             </Button>
           </div>
+
+          {/* Vercel Blob Live Upload Progress Bar */}
+          {uploadProgress?.active && (
+            <div className="space-y-2 rounded-xl border border-sky-500/30 bg-sky-50/60 dark:bg-sky-950/40 p-3.5 text-xs shadow-sm">
+              <div className="flex items-center justify-between font-semibold text-sky-900 dark:text-sky-200">
+                <span className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin text-sky-600 dark:text-sky-400" />
+                  {uploadProgress.text}
+                </span>
+                <span className="font-mono text-sky-700 dark:text-sky-300">{uploadProgress.percent}%</span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-sky-200 dark:bg-sky-900">
+                <div
+                  className="h-full bg-gradient-to-r from-sky-500 to-indigo-500 transition-all duration-300 ease-out"
+                  style={{ width: `${uploadProgress.percent}%` }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Status Message */}
           {status && (

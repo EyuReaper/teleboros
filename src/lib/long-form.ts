@@ -10,6 +10,8 @@ export interface LongFormPost {
   text: string
   html: string
   condensedText?: string
+  mediaUrl?: string
+  mediaType?: 'video' | 'image'
   createdAt: string
 }
 
@@ -48,11 +50,24 @@ export async function saveLongFormPost(
   text: string,
   condensedText?: string,
   title?: string,
+  mediaUrl?: string,
+  mediaType?: 'video' | 'image',
 ): Promise<LongFormPost> {
   await mkdir(LONG_FORM_DATA_DIR, { recursive: true })
 
-  const html = await renderMarkdownToHtml(text)
+  let html = await renderMarkdownToHtml(text)
   const inferredTitle = title?.trim() || extractTitleFromMarkdown(text) || text.slice(0, 80).split('\n')[0]?.trim() || `Post ${id}`
+
+  if (mediaUrl) {
+    if (mediaType === 'video') {
+      const videoTag = `<div class="tgme_widget_message_video_wrap mb-4"><video src="${mediaUrl}" class="post-video w-full rounded-xl" controls playsinline preload="metadata"></video></div>\n`
+      html = `${videoTag}${html}`
+    }
+    else if (mediaType === 'image') {
+      const imgTag = `<div class="image-list-container mb-4"><img src="${mediaUrl}" alt="${inferredTitle}" class="zoomable rounded-xl" loading="lazy" /></div>\n`
+      html = `${imgTag}${html}`
+    }
+  }
 
   const post: LongFormPost = {
     id,
@@ -60,6 +75,8 @@ export async function saveLongFormPost(
     text,
     html,
     condensedText,
+    mediaUrl,
+    mediaType,
     createdAt: new Date().toISOString(),
   }
 

@@ -11,13 +11,16 @@ export async function POST(req: Request) {
     const text = (formData.get('text') as string) || ''
     const customCondensedText = formData.get('condensedText') as string | null
     const adminToken = formData.get('adminToken') as string
+    const mediaUrl = (formData.get('mediaUrl') as string) || null
+    const mediaTypeParam = (formData.get('mediaType') as 'video' | 'image' | null) || null
     const image = formData.get('image') as File | null
     const video = formData.get('video') as File | null
     const media = formData.get('media') as File | null
 
     const videoFile = video || (media && (media.type.startsWith('video/') || /\.(?:mp4|mov|webm|mkv|avi|m4v)$/i.test(media.name)) ? media : null)
     const imageFile = image || (media && !videoFile ? media : null)
-    const hasMedia = Boolean(videoFile || imageFile) || formData.get('hasMedia') === 'true'
+    const effectiveMediaType: 'video' | 'image' | null = (videoFile || mediaTypeParam === 'video') ? 'video' : (imageFile || mediaTypeParam === 'image') ? 'image' : null
+    const hasMedia = Boolean(videoFile || imageFile || mediaUrl) || formData.get('hasMedia') === 'true'
 
     // 1. Verify Admin Token
     const envAdminToken = process.env.ADMIN_TOKEN
@@ -88,9 +91,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Telegram credentials are not configured' }, { status: 500 })
     }
 
-    let telegramRes
+    let telegramRes: Response
+    let isMessageWithCaption = false
+
     if (videoFile) {
-      // sendVideo
+      // sendVideo with direct file upload
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
       tgFormData.append('caption', condensedText)
@@ -102,9 +107,10 @@ export async function POST(req: Request) {
         method: 'POST',
         body: tgFormData,
       })
+      isMessageWithCaption = telegramRes.ok
     }
     else if (imageFile) {
-      // sendPhoto
+      // sendPhoto with direct file upload
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
       tgFormData.append('caption', condensedText)
@@ -115,6 +121,56 @@ export async function POST(req: Request) {
         method: 'POST',
         body: tgFormData,
       })
+      isMessageWithCaption = telegramRes.ok
+    }
+    else if (mediaUrl) {
+      if (effectiveMediaType === 'video') {
+        // Attempt sendVideo by URL
+        const tgFormData = new FormData()
+        tgFormData.append('chat_id', telegramChatId)
+        tgFormData.append('caption', condensedText)
+        tgFormData.append('parse_mode', 'HTML')
+        tgFormData.append('supports_streaming', 'true')
+        tgFormData.append('video', mediaUrl)
+
+        const videoAttempt = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendVideo`, {
+          method: 'POST',
+          body: tgFormData,
+        })
+
+        if (videoAttempt.ok) {
+          telegramRes = videoAttempt
+          isMessageWithCaption = true
+        }
+        else {
+          // Telegram Bot API rejects files > 50MB via URL; fallback cleanly to sendMessage
+          console.warn('[teleboros] Telegram sendVideo by URL failed (likely > 50MB). Falling back to text announcement.')
+          telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: telegramChatId,
+              text: condensedText,
+              parse_mode: 'HTML',
+            }),
+          })
+          isMessageWithCaption = false
+        }
+      }
+      else {
+        // Image by URL
+        const tgFormData = new FormData()
+        tgFormData.append('chat_id', telegramChatId)
+        tgFormData.append('caption', condensedText)
+        tgFormData.append('parse_mode', 'HTML')
+        tgFormData.append('photo', mediaUrl)
+
+        telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendPhoto`, {
+          method: 'POST',
+          body: tgFormData,
+        })
+        isMessageWithCaption = telegramRes.ok
+      }
     }
     else {
       // sendMessage
@@ -129,6 +185,7 @@ export async function POST(req: Request) {
           parse_mode: 'HTML',
         }),
       })
+      isMessageWithCaption = false
     }
 
     if (!telegramRes.ok) {
@@ -143,16 +200,24 @@ export async function POST(req: Request) {
     // 3. Correlate and store the full-length long-form post, then append backlink to Telegram
     let postUrl = ''
     if (messageId) {
-      await saveLongFormPost(messageId, text, condensedText, title || undefined)
+      await saveLongFormPost(
+        messageId,
+        text,
+        condensedText,
+        title || undefined,
+        mediaUrl || undefined,
+        effectiveMediaType || undefined,
+      )
 
       const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || 'https://example.com').replace(/\/+$/, '')
       postUrl = `${siteUrl}/posts/${messageId}`
-      const backlinkHtml = `\n\n📖 <a href="${postUrl}">Read full article on Teleboros</a>`
+      const actionLabel = effectiveMediaType === 'video' ? '🎬 Watch full video & read article on Teleboros' : '📖 Read full article on Teleboros'
+      const backlinkHtml = `\n\n<a href="${postUrl}">${actionLabel}</a>`
       const textWithBacklink = `${condensedText}${backlinkHtml}`
 
       // Edit the Telegram message to append the backlink
       try {
-        if (hasMedia) {
+        if (isMessageWithCaption) {
           await fetch(`https://api.telegram.org/bot${telegramBotToken}/editMessageCaption`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
