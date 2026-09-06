@@ -20,10 +20,14 @@ export interface ChannelPost {
   reactions: ChannelReaction[]
   isLongForm?: boolean
   fullContent?: string
+  isPinned?: boolean
+  accentColor?: string
 }
 
 export interface ChannelInfo {
   posts: ChannelPost[]
+  pinnedPosts?: ChannelPost[]
+  pinnedPostIds?: string[]
   title: string
   description: string
   descriptionHTML: string

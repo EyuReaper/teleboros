@@ -88,18 +88,20 @@ bluesky: 'username.bsky.social',
 
 ### 3.3: Display options
 
-| Key                | Type      | Description                                                                              |
-| ------------------ | --------- | ---------------------------------------------------------------------------------------- |
-| `hideDescription`  | `boolean` | When `true`, the channel description block below the header is hidden.                   |
-| `reactionsEnabled` | `boolean` | When `true`, Telegram-style emoji reactions are shown on posts.                          |
-| `pwa`              | `boolean` | When `true`, enables service worker registration, web app manifest, and offline caching. |
-| `customBanner`     | `string`  | Inline markdown rendered as a banner above the main content. Leave empty to disable.     |
-| `customFooter`     | `string`  | Inline markdown that replaces the default footer. Leave empty for the default.           |
-| `rssBeautify`      | `boolean` | When `true`, RSS XML output includes XSLT styling for browser readability.               |
+| Key                | Type       | Description                                                                              |
+| ------------------ | ---------- | ---------------------------------------------------------------------------------------- |
+| `hideDescription`  | `boolean`  | When `true`, the channel description block below the header is hidden.                   |
+| `reactionsEnabled` | `boolean`  | When `true`, Telegram-style emoji reactions are shown on posts.                          |
+| `pinnedPostIds`    | `string[]` | Array of Telegram message IDs to pin at the top of the feed (e.g. `['120']`).             |
+| `pwa`              | `boolean`  | When `true`, enables service worker registration, web app manifest, and offline caching. |
+| `customBanner`     | `string`   | Inline markdown rendered as a banner above the main content. Leave empty to disable.     |
+| `customFooter`     | `string`   | Inline markdown that replaces the default footer. Leave empty for the default.           |
+| `rssBeautify`      | `boolean`  | When `true`, RSS XML output includes XSLT styling for browser readability.               |
 
 ```ts
 hideDescription: false,
 reactionsEnabled: true,
+pinnedPostIds: [],
 pwa: true,
 customBanner: '**Welcome!** [Source on GitHub](https://github.com/you/repo)',
 customFooter: '',

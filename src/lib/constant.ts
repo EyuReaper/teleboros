@@ -69,6 +69,7 @@ interface SiteConstantConfig {
   comments: CommentsConfig
   infiniteScroll: InfiniteScrollConfig
   semanticSearch: SemanticSearchConfig
+  pinnedPostIds?: string[]
 }
 
 export interface CommentsConfig {
@@ -129,14 +130,14 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     // Site title shown in browser tab and search results.
     title: 'Teleboros – EyuReaper',
     // Meta description for search engines and social previews.
-    description: 'Tech notes, development logs, and microblog posts by Anda Toshiki via Telegram!',
+    description: 'Tech notes, development logs, and microblog posts by EyuReaper via Telegram!',
     // Open Graph image path for social sharing (e.g. /og-auto.png).
     ogImage: '/og-auto.png',
     // SEO keywords for meta tags.
     keywords: [
       'teleboros',
       'techops_re',
-      'anda toshiki',
+      'eyureaper',
       'telegram channel',
       'microblog',
       'developer blog',
@@ -146,7 +147,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
       'web development',
     ],
     // Author name for meta tags and attribution.
-    author: 'Anda Toshiki',
+    author: 'EyuReaper',
     // Whether to emit robots noindex for the site.
     noIndex: false,
     // Whether to emit robots nofollow for the site.
@@ -195,4 +196,6 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
     // Maximum input characters per post when generating embeddings.
     inputTokenLimit: 1800,
   },
+  // Explicit Telegram message IDs to pin at the top of the feed (e.g. ['120']).
+  pinnedPostIds: [],
 }

@@ -18,6 +18,7 @@ import { getLocaleMessages, localizePath, normalizeAppLocale, SUPPORTED_LOCALES 
 import { renderInlineMarkdown } from '@/lib/sanitize'
 import { cn } from '@/lib/utils'
 import packageJson from '../../../package.json'
+import { CollapsibleDescription } from './collapsible-description'
 import { CommandPalette } from './command-palette'
 import { ContentAlbum } from './content-album'
 import { ContentCodeCopy } from './content-code-copy'
@@ -407,16 +408,7 @@ export function PageFrame({
           {config.hideDescription
             ? null
             : (
-                <div className="border-b px-4 py-3">
-                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/80">
-                    DESCRIPTION
-                  </p>
-                  <div
-                    className="prose-telegram max-h-44 overflow-auto text-sm"
-                    data-twemoji-scope
-                    dangerouslySetInnerHTML={{ __html: channel.descriptionHTML }}
-                  />
-                </div>
+                <CollapsibleDescription descriptionHTML={channel.descriptionHTML} />
               )}
           <ContentZoom />
           <ContentAlbum />
@@ -437,7 +429,7 @@ export function PageFrame({
                 <p>
                   Built with love by
                   {' '}
-                  <a href="https://toshiki.dev" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 transition-colors hover:text-foreground">Anda Toshiki</a>
+                  <a href="https://github.com/EyuReaper" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 transition-colors hover:text-foreground">EyuReaper</a>
                   .
                 </p>
                 <p className="mt-1.5">

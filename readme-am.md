@@ -51,6 +51,7 @@ pnpm start
 | `telegramHost` | `string` | የቴሌግራም ዌብ ሆስት (ነባሪው `t.me`) |
 | `locale` | `string` | ነባሪ ቋንቋ። የሚደገፉት: `en`, `ja`, `am` |
 | `timezone` | `string` | የቀን እና ሰዓት ዞን (ምሳሌ: `UTC`, `Africa/Addis_Ababa`) |
+| `pinnedPostIds` | `string[]` | በገጹ አናት ላይ የሚሰኩ የቴሌግራም መልዕክት መለያዎች (ምሳሌ: `['120']`) |
 
 ### 3.2: AI ትርጉም ፍለጋ (AI Semantic Search)
 

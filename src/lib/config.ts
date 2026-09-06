@@ -28,6 +28,7 @@ export interface AppConfig {
   comments: CommentsConfig
   infiniteScroll: InfiniteScrollConfig
   semanticSearch: SemanticSearchConfig
+  pinnedPostIds?: string[]
 }
 
 export function buildStaticProxyUrl(staticProxy: string, rawUrl: string) {
@@ -97,5 +98,6 @@ export function getAppConfig(): AppConfig {
     comments: SITE_CONSTANTS.comments,
     infiniteScroll: SITE_CONSTANTS.infiniteScroll,
     semanticSearch: SITE_CONSTANTS.semanticSearch,
+    pinnedPostIds: SITE_CONSTANTS.pinnedPostIds,
   }
 }

@@ -1,10 +1,13 @@
 import type { ChannelInfo } from '@/lib/types'
 import { FeedList } from '@/components/feed/feed-list'
 import { InfiniteFeed } from '@/components/feed/infinite-feed'
+import { PinnedPosts } from '@/components/feed/pinned-posts'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { DEFAULT_LOCALE, getLocaleMessages } from '@/lib/i18n'
+import { getImageMetaMap } from '@/lib/image-meta'
 import { getSnapshotPaginationLinks } from '@/lib/pagination/snapshot-pagination'
+import { enrichPostsWithAccentColors, resolvePinnedPosts } from '@/lib/pinned-posts'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 
 export const dynamic = 'force-static'
@@ -15,10 +18,15 @@ export default async function RootPage() {
   const config = getAppConfig()
   const snapshot = await getStaticSnapshot()
   const channel = snapshot.root as ChannelInfo
+
+  const imageMetaMap = await getImageMetaMap()
+  enrichPostsWithAccentColors(channel.posts, imageMetaMap)
+  const { pinned, unpinned } = resolvePinnedPosts(channel.posts, config.pinnedPostIds)
+
   const { olderHref } = getSnapshotPaginationLinks(snapshot.pages, 0, locale)
   const channelAvatar = channel.avatar?.startsWith('http')
     ? buildStaticProxyUrl(config.staticProxy, channel.avatar)
-    : (channel.avatar || '/favicon.svg')
+    : (channel.avatar || '/logo.png')
   const channelUsername = config.telegram || config.channel
 
   const feedProps = {
@@ -36,9 +44,12 @@ export default async function RootPage() {
 
   return (
     <PageFrame channel={channel} currentPath="/" locale={locale} messages={messages} currentLocalePath="/" pageNumber={1}>
+      {pinned.length > 0 && (
+        <PinnedPosts posts={pinned} {...feedProps} />
+      )}
       {config.infiniteScroll.enabled
-        ? <InfiniteFeed initialPosts={channel.posts} {...feedProps} />
-        : <FeedList posts={channel.posts} {...feedProps} />}
+        ? <InfiniteFeed initialPosts={unpinned} {...feedProps} />
+        : <FeedList posts={unpinned} {...feedProps} />}
     </PageFrame>
   )
 }

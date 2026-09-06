@@ -7,6 +7,8 @@ export interface ImageMeta {
   h: number
   /** Tiny base64 JPEG data URI for blur placeholder. */
   b: string
+  /** Dominant accent color RGB string e.g. "59, 130, 246" */
+  c?: string
 }
 
 let metaCache: Record<string, ImageMeta> | null = null

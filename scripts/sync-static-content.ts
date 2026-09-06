@@ -11,6 +11,7 @@ import lunr from 'lunr'
 import sharp from 'sharp'
 import { SITE_CONSTANTS } from '../src/lib/constant'
 import { loadLongFormPost } from '../src/lib/long-form'
+import { enrichPostsWithAccentColors, isPostPinned, resolvePinnedPosts } from '../src/lib/pinned-posts'
 import { buildPostSearchDataset } from '../src/lib/search/search-documents'
 import {
   buildSemanticInputText,
@@ -43,6 +44,17 @@ function normalizeMediaDirectory(value: string) {
 
 const MEDIA_DIRECTORY = normalizeMediaDirectory(SITE_CONSTANTS.mediaMirror.directory)
 const MEDIA_OUTPUT_DIR = path.resolve(process.cwd(), `public${MEDIA_DIRECTORY}`)
+const IMAGE_META_PATH = path.join(MEDIA_OUTPUT_DIR, 'image-meta.json')
+const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'])
+const BLUR_PLACEHOLDER_WIDTH = 20
+
+interface ImageMeta {
+  w: number
+  h: number
+  b: string // base64 data URI of tiny JPEG placeholder
+  c?: string // "r, g, b" dominant accent color
+}
+
 const MEDIA_URL_PREFIX = `${MEDIA_DIRECTORY}/`
 const CLOUDFLARE_IMAGE_MARKER = '/cdn-cgi/image/'
 const CLOUDFLARE_CONFIG = SITE_CONSTANTS.cloudFlare
@@ -883,6 +895,73 @@ async function enrichSnapshotWithLongFormPosts(snapshot: StaticSnapshot) {
   }
 }
 
+async function fetchTelegramPinnedMessageId(): Promise<string | null> {
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!token || !chatId) {
+    return null
+  }
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${token}/getChat?chat_id=${encodeURIComponent(chatId)}`)
+    if (!res.ok) {
+      return null
+    }
+    const data = await res.json()
+    const pinnedId = data?.result?.pinned_message?.message_id
+    return pinnedId ? String(pinnedId) : null
+  }
+  catch {
+    return null
+  }
+}
+
+async function enrichSnapshotWithPinnedPostsAndColors(snapshot: StaticSnapshot) {
+  const nativePinnedId = await fetchTelegramPinnedMessageId()
+  const configuredPinnedIds = [...(SITE_CONSTANTS.pinnedPostIds || [])]
+  if (nativePinnedId && !configuredPinnedIds.includes(nativePinnedId)) {
+    configuredPinnedIds.push(nativePinnedId)
+  }
+
+  let imageMetaMap: Record<string, ImageMeta> = {}
+  try {
+    const raw = await readFile(IMAGE_META_PATH, 'utf8')
+    imageMetaMap = JSON.parse(raw) as Record<string, ImageMeta>
+  }
+  catch {
+    // image-meta not available yet
+  }
+
+  for (const page of snapshot.pages) {
+    enrichPostsWithAccentColors(page.channel.posts, imageMetaMap)
+    for (const post of page.channel.posts) {
+      if (isPostPinned(post, configuredPinnedIds)) {
+        post.isPinned = true
+      }
+    }
+  }
+
+  enrichPostsWithAccentColors(snapshot.root.posts, imageMetaMap)
+  for (const post of snapshot.root.posts) {
+    if (isPostPinned(post, configuredPinnedIds)) {
+      post.isPinned = true
+    }
+  }
+
+  const { pinned } = resolvePinnedPosts(snapshot.root.posts, configuredPinnedIds)
+  snapshot.root.pinnedPosts = pinned
+  snapshot.root.pinnedPostIds = configuredPinnedIds
+
+  if (snapshot.pages.length > 0) {
+    snapshot.pages[0].channel.pinnedPosts = pinned
+    snapshot.pages[0].channel.pinnedPostIds = configuredPinnedIds
+  }
+
+  if (pinned.length > 0) {
+    console.info(`[teleboros] resolved ${pinned.length} pinned post(s): ${pinned.map(p => `#${p.id}`).join(', ')}`)
+  }
+}
+
 async function run() {
   const shouldGenerateOgImage = process.argv.includes('--og-image')
   const shouldGenerateFavicon = process.argv.includes('--favicon')
@@ -895,6 +974,8 @@ async function run() {
 
   const { snapshot: mirroredSnapshot, stats } = await mirrorSnapshotAssets(remoteSnapshot)
   await enrichSnapshotWithLongFormPosts(mirroredSnapshot)
+  await generateImageMeta()
+  await enrichSnapshotWithPinnedPostsAndColors(mirroredSnapshot)
 
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)
@@ -911,8 +992,6 @@ async function run() {
   console.info(`[teleboros] pages: ${mirroredSnapshot.pages.length}, posts: ${mirroredSnapshot.postIds.length}`)
   console.info(`[teleboros] mirrored media urls: ${stats.resolvedCount}, new downloads: ${stats.downloadedCount}`)
 
-  await generateImageMeta()
-
   if (shouldGenerateFavicon) {
     await generateFaviconFromAvatar(mirroredSnapshot.root)
   }
@@ -927,16 +1006,6 @@ async function run() {
   else {
     console.info('[teleboros] og image generation skipped pass --og-image to generate /og-auto.png')
   }
-}
-
-const IMAGE_META_PATH = path.join(MEDIA_OUTPUT_DIR, 'image-meta.json')
-const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'])
-const BLUR_PLACEHOLDER_WIDTH = 20
-
-interface ImageMeta {
-  w: number
-  h: number
-  b: string // base64 data URI of tiny JPEG placeholder
 }
 
 async function generateImageMeta() {
@@ -959,8 +1028,8 @@ async function generateImageMeta() {
   const meta: Record<string, ImageMeta> = {}
 
   for (const file of imageFiles) {
-    // Reuse existing entry if available.
-    if (existing[file]) {
+    // Reuse existing entry if available and has dominant color
+    if (existing[file]?.c) {
       meta[file] = existing[file]
       continue
     }
@@ -974,15 +1043,32 @@ async function generateImageMeta() {
         continue
       }
 
-      const placeholderBuffer = await image
-        .resize(BLUR_PLACEHOLDER_WIDTH, Math.max(1, Math.round(BLUR_PLACEHOLDER_WIDTH * height / width)))
-        .jpeg({ quality: 40 })
-        .toBuffer()
+      let placeholderBase64 = existing[file]?.b
+      if (!placeholderBase64) {
+        const placeholderBuffer = await image
+          .clone()
+          .resize(BLUR_PLACEHOLDER_WIDTH, Math.max(1, Math.round(BLUR_PLACEHOLDER_WIDTH * height / width)))
+          .jpeg({ quality: 40 })
+          .toBuffer()
+        placeholderBase64 = `data:image/jpeg;base64,${placeholderBuffer.toString('base64')}`
+      }
+
+      let dominantColor: string | undefined
+      try {
+        const stats = await image.stats()
+        if (stats.dominant) {
+          dominantColor = `${stats.dominant.r}, ${stats.dominant.g}, ${stats.dominant.b}`
+        }
+      }
+      catch {
+        // Skip stats error
+      }
 
       meta[file] = {
         w: width,
         h: height,
-        b: `data:image/jpeg;base64,${placeholderBuffer.toString('base64')}`,
+        b: placeholderBase64,
+        c: dominantColor,
       }
       generated += 1
     }
@@ -992,7 +1078,7 @@ async function generateImageMeta() {
   }
 
   await writeFile(IMAGE_META_PATH, JSON.stringify(meta), 'utf8')
-  console.info(`[teleboros] image meta: ${Object.keys(meta).length} entries (${generated} new)`)
+  console.info(`[teleboros] image meta: ${Object.keys(meta).length} entries (${generated} new or updated)`)
 }
 
 run().catch((error) => {
