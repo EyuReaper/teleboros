@@ -1,12 +1,21 @@
 import process from 'node:process'
 import { NextResponse } from 'next/server'
+import { SITE_CONSTANTS } from '@/lib/constant'
+import { saveLongFormPost } from '@/lib/long-form'
 
 export async function POST(req: Request) {
   try {
     const formData = await req.formData()
+    const title = formData.get('title') as string | null
     const text = formData.get('text') as string
     const adminToken = formData.get('adminToken') as string
     const image = formData.get('image') as File | null
+    const video = formData.get('video') as File | null
+    const media = formData.get('media') as File | null
+
+    const videoFile = video || (media && (media.type.startsWith('video/') || /\.(?:mp4|mov|webm|mkv|avi|m4v)$/i.test(media.name)) ? media : null)
+    const imageFile = image || (media && !videoFile ? media : null)
+    const hasMedia = Boolean(videoFile || imageFile)
 
     // 1. Verify Admin Token
     const envAdminToken = process.env.ADMIN_TOKEN
@@ -24,6 +33,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'GEMINI_API_KEY is not configured' }, { status: 500 })
     }
 
+    const condensationPrompt = hasMedia
+      ? `Condense the following text into an engaging summary teaser for a Telegram video/photo post (strictly UNDER 800 characters so there is room for formatting and links). Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n${text}`
+      : `Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n${text}`
+
     const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
       method: 'POST',
       headers: {
@@ -33,7 +46,7 @@ export async function POST(req: Request) {
         contents: [
           {
             parts: [
-              { text: `Condense the following text for a Telegram post while keeping the main points and making it engaging. Use Telegram HTML formatting (like <b>bold</b> or <i>italic</i>) if appropriate:\n\n${text}` },
+              { text: condensationPrompt },
             ],
           },
         ],
@@ -58,14 +71,27 @@ export async function POST(req: Request) {
     }
 
     let telegramRes
-    if (image) {
+    if (videoFile) {
+      // sendVideo
+      const tgFormData = new FormData()
+      tgFormData.append('chat_id', telegramChatId)
+      tgFormData.append('caption', condensedText)
+      tgFormData.append('parse_mode', 'HTML')
+      tgFormData.append('supports_streaming', 'true')
+      tgFormData.append('video', videoFile)
+
+      telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendVideo`, {
+        method: 'POST',
+        body: tgFormData,
+      })
+    }
+    else if (imageFile) {
       // sendPhoto
       const tgFormData = new FormData()
       tgFormData.append('chat_id', telegramChatId)
       tgFormData.append('caption', condensedText)
       tgFormData.append('parse_mode', 'HTML')
-      // Node.js fetch supports passing a File/Blob inside FormData
-      tgFormData.append('photo', image)
+      tgFormData.append('photo', imageFile)
 
       telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendPhoto`, {
         method: 'POST',
@@ -93,7 +119,52 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to post to Telegram' }, { status: 500 })
     }
 
-    // 4. Trigger Deploy Hook
+    const telegramData = await telegramRes.json()
+    const messageId = String(telegramData?.result?.message_id || '')
+
+    // 4. Correlate and store the full-length long-form post, then append backlink to Telegram
+    let postUrl = ''
+    if (messageId) {
+      await saveLongFormPost(messageId, text, condensedText, title || undefined)
+
+      const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || 'https://example.com').replace(/\/+$/, '')
+      postUrl = `${siteUrl}/posts/${messageId}`
+      const backlinkHtml = `\n\n📖 <a href="${postUrl}">Read full article on Teleboros</a>`
+      const textWithBacklink = `${condensedText}${backlinkHtml}`
+
+      // Edit the Telegram message to append the backlink
+      try {
+        if (hasMedia) {
+          await fetch(`https://api.telegram.org/bot${telegramBotToken}/editMessageCaption`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: telegramChatId,
+              message_id: messageId,
+              caption: textWithBacklink,
+              parse_mode: 'HTML',
+            }),
+          })
+        }
+        else {
+          await fetch(`https://api.telegram.org/bot${telegramBotToken}/editMessageText`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: telegramChatId,
+              message_id: messageId,
+              text: textWithBacklink,
+              parse_mode: 'HTML',
+            }),
+          })
+        }
+      }
+      catch (editError) {
+        console.warn('Failed to edit Telegram message with backlink:', editError)
+      }
+    }
+
+    // 5. Trigger Deploy Hook
     const deployHookUrl = process.env.DEPLOY_HOOK_URL
     if (deployHookUrl) {
       try {
@@ -101,11 +172,10 @@ export async function POST(req: Request) {
       }
       catch (e) {
         console.error('Failed to trigger deploy hook:', e)
-        // We don't fail the request if the deploy hook fails
       }
     }
 
-    return NextResponse.json({ success: true, condensedText })
+    return NextResponse.json({ success: true, messageId, postUrl, condensedText })
   }
   catch (error: any) {
     console.error('Compose API error:', error)

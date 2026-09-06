@@ -8,6 +8,7 @@ import { JsonLd } from '@/components/site/json-ld'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath } from '@/lib/i18n'
+import { loadLongFormPost } from '@/lib/long-form'
 import { resolveSeoImageUrl } from '@/lib/seo'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 
@@ -23,8 +24,9 @@ export async function generatePostPageMetadata(locale: AppLocale, id: string): P
   if (!post)
     return {}
 
-  const postTitle = post.title || post.text?.slice(0, 80) || `Post ${id}`
-  const postDescription = post.text?.slice(0, 160) || seo.description || messages.metadata.description
+  const longForm = await loadLongFormPost(id)
+  const postTitle = longForm?.title || post.title || post.text?.slice(0, 80) || `Post ${id}`
+  const postDescription = longForm?.text?.slice(0, 160) || post.text?.slice(0, 160) || seo.description || messages.metadata.description
   const siteUrl = config.siteUrl || 'https://example.com'
   const resolvedOgImage = resolveSeoImageUrl(siteUrl, seo.ogImage)
   const postUrl = `${siteUrl}${localizePath(locale, `/posts/${id}`)}`
@@ -68,9 +70,19 @@ export async function renderPostPage(locale: AppLocale, id: string) {
     notFound()
   }
 
+  const longForm = await loadLongFormPost(id)
+  const resolvedPost: ChannelPost = longForm
+    ? {
+        ...post,
+        isLongForm: true,
+        title: longForm.title || post.title,
+        content: longForm.html,
+      }
+    : post
+
   const channel: ChannelInfo = {
     ...channelInfo,
-    posts: [post],
+    posts: [resolvedPost],
   }
   const channelAvatar = channel.avatar?.startsWith('http')
     ? buildStaticProxyUrl(config.staticProxy, channel.avatar)

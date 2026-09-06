@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./public/logo.png" alt="Teleboros Logo" width="150" />
+</p>
+
 # ቴሌቦሮስ (Teleboros)
 
 > [!WARNING]
@@ -85,10 +89,36 @@ curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
   }'
 ```
 
-## 7: ፈቃድ (License)
+## 7: ረጅም ጽሁፍ ማተም እና የቴሌግራም አጭር መልዕክት ማገናኛ (Long-Form Publishing & Teaser Backlinking)
+
+ቴሌቦሮስ በ `/compose` ገጽ በኩል ሙሉና ረጅም የማርክዳውን (Markdown) ጽሁፎችን በቀጥታ ከድረ-ገጽዎ ሆነው እንዲጽፉ እና የቴሌግራምን የጽሁፍ ገደብ ሳያልፉ ወደ ቴሌግራም እንዲያጋሩ ያስችላል።
+
+### 7.1: እንዴት እንደሚሰራ
+
+1. **መጻፍ (Compose)**: ሙሉ ጽሁፍዎን በማርክዳውን በ `/compose` ገጽ ላይ ይጻፉ (በ `ADMIN_TOKEN` የተጠበቀ ነው)፤ አማራጭ ርዕስ እና ሚዲያ (ምስል ወይም አጭር ቪዲዮ/ክሊፕ) ማያያዝ ይችላሉ።
+2. **በ AI ማጠቃለል**: የጉግል ጀሚናይ (Gemini) AI ጽሁፍዎን በራስ-ሰር በማጠቃለል ለቴሌግራም ማራኪ የሆነ አጭር ማጠቃለያ ያዘጋጃል፤ እንዲሁም የቴሌግራምን የጽሁፍ ገደብ ያከብራል።
+3. **ወደ ቴሌግራም መላክ**: ቴሌቦሮስ አጭር ማጠቃለያውን እና የተያያዘውን ሚዲያ (ለምስል በ `sendPhoto` ወይም ለቪዲዮ ክሊፕ በ `sendVideo`) በቴሌግራም ቦት በኩል ወደ ቻናልዎ ያሰራጫል።
+4. **የኋላ ማገናኛ (Backlink)**: ቴሌቦሮስ የቴሌግራም መልዕክት መለያውን (message_id) በመቀበል፣ በቴሌግራም ላይ የተለጠፈውን መልዕክት ወዲያውኑ በማስተካከል ሙሉውን ጽሁፍ በቴሌቦሮስ ለማንበብ የሚያስችል ማስፈንጠሪያ ያክላል (`📖 Read full article on Teleboros: https://<siteUrl>/posts/<id>`)፤ እንዲሁም ሙሉውን ጽሁፍ በ `data/posts/<id>.json` ያስቀምጣል።
+5. **ሙሉ ጽሁፍ ማቅረብ**: የቴሌግራም ተከታዮች አጭሩን ማጠቃለያ ከማስፈንጠሪያ ጋር ሲያገኙ፣ በቴሌቦሮስ ድረ-ገጽ ላይ የሚገቡ አንባቢዎች ግን ሙሉውንና በውብ ቅርጸት የተዘጋጀውን ጽሁፍ በ `/posts/<id>` ያነባሉ።
+6. **ፍለጋ**: በዋናው ገጽ ላይ `Read full article →` የሚል ምልክት ይታያል፤ እንዲሁም ሙሉው ጽሁፍ በ Lunr እና በ Gemini AI የትርጉም ፍለጋ (semantic search) ውስጥ ይካተታል።
+7. **ቀጥታ ግንባታ**: `DEPLOY_HOOK_URL` ከተዋቀረ፣ ጽሁፉ ወዲያውኑ እንዲታይ አዲስ የ Vercel ግንባታ ይቀሰቀሳል።
+
+### 7.2: የአካባቢ ተለዋዋጮች (Environment Variables)
+
+ይህን ባህሪ ለማንቃት የሚከተሉትን ተለዋዋጮች ያዋቅሩ:
+
+| ተለዋዋጭ | መግለጫ |
+| --- | --- |
+| `ADMIN_TOKEN` | በ `/compose` ለመግባት እና ለማተም የሚያስፈልግ ሚስጥራዊ የይለፍ ቃል |
+| `GEMINI_API_KEY` | ረጅም ጽሁፉን ወደ አጭር ማጠቃለያ ለመቀየር የሚያገለግል የ Gemini API ቁልፍ |
+| `TELEGRAM_BOT_TOKEN` | በቻናልዎ ውስጥ ለመለጠፍ ፈቃድ ያለው የቴሌግራም ቦት ቶከን |
+| `TELEGRAM_CHAT_ID` | የቴሌግራም ቻናል የተጠቃሚ ስም (ምሳሌ: `@your_channel`) ወይም መለያ ቁጥር |
+| `DEPLOY_HOOK_URL` | *(አማራጭ)* ከተለጠፈ በኋላ ድረ-ገጹን ወዲያውኑ እንደገና ለመገንባት የሚያገለግል የ Vercel Deploy Hook |
+
+## 8: ፈቃድ (License)
 
 ይህ ፕሮጀክት በ [AGPL-3.0](./LICENSE) ፈቃድ የተጠበቀ ነው።
 
-## 8: የገጽ ፍጥነት (Page Speed Insights)
+## 9: የገጽ ፍጥነት (Page Speed Insights)
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

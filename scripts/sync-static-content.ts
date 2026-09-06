@@ -10,6 +10,7 @@ import * as cheerio from 'cheerio'
 import lunr from 'lunr'
 import sharp from 'sharp'
 import { SITE_CONSTANTS } from '../src/lib/constant'
+import { loadLongFormPost } from '../src/lib/long-form'
 import { buildPostSearchDataset } from '../src/lib/search/search-documents'
 import {
   buildSemanticInputText,
@@ -862,6 +863,26 @@ function toIco(pngBuffer: Buffer, size: number): Buffer {
   return Buffer.concat([header, entry, pngBuffer])
 }
 
+async function enrichSnapshotWithLongFormPosts(snapshot: StaticSnapshot) {
+  let longFormCount = 0
+  for (const page of snapshot.pages) {
+    for (const post of page.channel.posts) {
+      const longForm = await loadLongFormPost(post.id)
+      if (longForm) {
+        post.isLongForm = true
+        post.fullContent = longForm.html
+        if (longForm.title) {
+          post.title = longForm.title
+        }
+        longFormCount += 1
+      }
+    }
+  }
+  if (longFormCount > 0) {
+    console.info(`[teleboros] enriched ${longFormCount} posts with local long-form content`)
+  }
+}
+
 async function run() {
   const shouldGenerateOgImage = process.argv.includes('--og-image')
   const shouldGenerateFavicon = process.argv.includes('--favicon')
@@ -873,6 +894,7 @@ async function run() {
   }
 
   const { snapshot: mirroredSnapshot, stats } = await mirrorSnapshotAssets(remoteSnapshot)
+  await enrichSnapshotWithLongFormPosts(mirroredSnapshot)
 
   await writeGeneratedStaticSnapshot(mirroredSnapshot)
   await writeStaticSearchIndex(mirroredSnapshot)

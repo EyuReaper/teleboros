@@ -18,6 +18,8 @@ export interface ChannelPost {
   text: string
   content: string
   reactions: ChannelReaction[]
+  isLongForm?: boolean
+  fullContent?: string
 }
 
 export interface ChannelInfo {

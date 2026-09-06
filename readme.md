@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./public/logo.png" alt="Teleboros Logo" width="150" />
+</p>
+
 # Teleboros
 
 > [!WARNING]
@@ -333,10 +337,36 @@ curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
 
 Now, whenever you post in the channel, the bot will notify `/api/webhook`, which will securely trigger your Vercel Deploy Hook!
 
-## 7: License
+## 7: Long-Form Publishing & Telegram Teaser Backlinking
+
+Teleboros provides a 2-way publishing workflow at `/compose` that lets you write long-form, rich Markdown articles directly from your blog and cross-publish them to Telegram without running into Telegram's caption length limits.
+
+### 7.1: How It Works
+
+1. **Compose**: Write your full article in Markdown at `/compose` (protected by your `ADMIN_TOKEN`), optionally specifying a Title and attaching media (images or video clips).
+2. **AI Summarization**: Gemini AI automatically condenses your article into an engaging summary teaser formatted with Telegram HTML tags (`<b>`, `<i>`, etc.), respecting Telegram's caption boundaries.
+3. **Telegram Dispatch**: Teleboros broadcasts the condensed teaser and media (via `sendPhoto` for images or `sendVideo` with streaming support for video clips) to your Telegram channel via the Telegram Bot API.
+4. **Teaser Backlinking**: Teleboros captures the resulting Telegram `message_id`, immediately edits the Telegram message to append a backlink to the full post (`📖 Read full article on Teleboros: https://<siteUrl>/posts/<id>`), and stores the full Markdown post in `data/posts/<id>.json`.
+5. **Full Article Presentation**: While Telegram subscribers see the condensed teaser with a link back to your blog, visitors on Teleboros read the complete long-form Markdown article at `/posts/<id>`, complete with heading structure, syntax, and media.
+6. **Search & Discovery**: Feed cards display a `Read full article →` badge, and the complete long-form content is automatically indexed for both Lunr full-text search and Gemini AI semantic search.
+7. **Instant Rebuild**: If `DEPLOY_HOOK_URL` is configured, Teleboros triggers a fresh build to publish the new post immediately.
+
+### 7.2: Environment Variables
+
+Configure the following environment variables to enable `/compose` and long-form publishing:
+
+| Variable | Description |
+| --- | --- |
+| `ADMIN_TOKEN` | Secret password required to access and publish via `/compose`. |
+| `GEMINI_API_KEY` | Google Gemini API key used to condense the long text into a teaser. |
+| `TELEGRAM_BOT_TOKEN` | Bot token from [@BotFather](https://t.me/BotFather) with admin rights to post to your channel. |
+| `TELEGRAM_CHAT_ID` | Telegram channel username (e.g., `@your_channel`) or channel ID (e.g., `-100...`). |
+| `DEPLOY_HOOK_URL` | *(Optional)* Vercel Deploy Hook URL to automatically trigger a site rebuild after publishing. |
+
+## 8: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 
-## 8: Page Speed Insights
+## 9: Page Speed Insights
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

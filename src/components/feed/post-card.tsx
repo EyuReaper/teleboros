@@ -113,6 +113,20 @@ export function PostCard({
               )
             : null}
 
+          {post.isLongForm
+            ? (
+                <div className="mt-3">
+                  <a
+                    href={localizePath(uiLocale, `/posts/${post.id}`)}
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-opacity hover:opacity-80"
+                  >
+                    <span>Read full article</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              )
+            : null}
+
           <div className="mt-3 flex flex-wrap items-center justify-end gap-2" aria-label={messages.feed.reactionsAndViewsAria}>
             {post.reactions.map(reaction => (
               <span

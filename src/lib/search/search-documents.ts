@@ -24,7 +24,7 @@ function toSearchDocument(post: ChannelPost): SearchDocument {
   return {
     id: post.id,
     title: post.title || '',
-    text: [post.text, stripHtmlTags(post.content)].filter(Boolean).join(' '),
+    text: [post.text, stripHtmlTags(post.fullContent || post.content)].filter(Boolean).join(' '),
     tags: tagText,
     datetime: post.datetime,
   }
