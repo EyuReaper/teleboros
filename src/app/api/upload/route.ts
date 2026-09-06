@@ -2,15 +2,38 @@ import process from 'node:process'
 import { type HandleUploadBody, handleUpload } from '@vercel/blob/client'
 import { NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: Request): Promise<NextResponse> {
   const body = (await request.json()) as HandleUploadBody
 
-  const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+  // Resolve Blob token: check standard name, any vercel_blob_rw_ value, or any key with BLOB & TOKEN
+  let blobToken = process.env.BLOB_READ_WRITE_TOKEN
+  let matchedKey = 'BLOB_READ_WRITE_TOKEN'
+
   if (!blobToken) {
+    for (const [key, value] of Object.entries(process.env)) {
+      if (typeof value === 'string' && value.startsWith('vercel_blob_rw_')) {
+        blobToken = value
+        matchedKey = key
+        break
+      }
+      if (key.toUpperCase().includes('BLOB') && key.toUpperCase().includes('TOKEN') && value) {
+        blobToken = value
+        matchedKey = key
+        break
+      }
+    }
+  }
+
+  if (!blobToken) {
+    const safeKeys = Object.keys(process.env)
+      .filter(k => !k.toUpperCase().includes('SECRET') && !k.toUpperCase().includes('KEY') && !k.toUpperCase().includes('TOKEN'))
+      .sort()
     return NextResponse.json(
       {
         error:
-          'BLOB_READ_WRITE_TOKEN is not configured. Please connect Vercel Blob in your Vercel Dashboard (Storage -> Blob).',
+          `BLOB_READ_WRITE_TOKEN is not configured on Vercel. Available env keys: [${safeKeys.join(', ')}]. Please verify Project Settings -> Environment Variables in Vercel.`,
       },
       { status: 500 },
     )
@@ -18,6 +41,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   try {
     const jsonResponse = await handleUpload({
+      token: blobToken,
       body,
       request,
       onBeforeGenerateToken: async (_pathname, clientPayload) => {
