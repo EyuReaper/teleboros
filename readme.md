@@ -9,6 +9,8 @@
 
 > A self-hosted, statically-generated microblog that mirrors your Telegram channel into a fast, searchable, and beautifully designed website built with Next.js, React, shadcn/ui, and Tailwind CSS.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fandatoshiki%2Fteleboros&env=ADMIN_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,GEMINI_API_KEY,DEPLOY_HOOK_URL,BLOB_READ_WRITE_TOKEN,R2_ACCOUNT_ID,R2_ACCESS_KEY_ID,R2_SECRET_ACCESS_KEY,R2_BUCKET_NAME,R2_PUBLIC_DOMAIN&envDescription=Configure%20your%20Telegram%20bot%2C%20security%2C%20and%20storage%20adapters&project-name=teleboros)
+
 [አማርኛ](./readme-am.md)
 
 ## 1: Why this exists
@@ -19,21 +21,40 @@ This is a complete wheel rebuild of [BroadcastChannel](https://github.com/mianti
 
 ## 2: Quick start
 
-### 2.1: Requirements
+### 2.1: 1-Click Deploy with Vercel
 
+Click the **Deploy with Vercel** button above to fork the repository and deploy your instance instantly. Pre-configured environment prompts will walk you through your bot tokens and storage configuration.
+
+### 2.2: Local Development
+
+#### Requirements
 1. Node.js `>=22`
 2. pnpm `>=10`
 
-### 2.2: Install and run
-
+#### Install and run
 ```bash
+cp .env.example .env
 pnpm install
 pnpm dev
 ```
 
 The development server starts on port `4321`.
 
-### 2.3: Build for production
+### 2.3: Self-Hosting with Docker & Docker Compose
+
+Teleboros provides a production-ready, multi-stage Docker build for self-hosters and VPS deployments:
+
+```bash
+# 1. Clone repository and create environment file
+cp .env.example .env
+
+# 2. Launch with Docker Compose
+docker compose up -d --build
+```
+
+Persistent data (articles, posts, newsletter subscribers) is automatically mounted to `./data`, and uploaded media is stored in `./public/uploads`.
+
+### 2.4: Build for production manually
 
 ```bash
 pnpm build
@@ -310,8 +331,30 @@ Both flags are used in the default `build` script in `package.json`:
 
 ## 5: Deployment
 
-> [!WARNING]
-> This section is currently a work in progress.
+### 5.1: 1-Click Deploy to Vercel
+
+The fastest way to deploy Teleboros is with Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fandatoshiki%2Fteleboros&env=ADMIN_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,GEMINI_API_KEY,DEPLOY_HOOK_URL,BLOB_READ_WRITE_TOKEN,R2_ACCOUNT_ID,R2_ACCESS_KEY_ID,R2_SECRET_ACCESS_KEY,R2_BUCKET_NAME,R2_PUBLIC_DOMAIN&envDescription=Configure%20your%20Telegram%20bot%2C%20security%2C%20and%20storage%20adapters&project-name=teleboros)
+
+Pre-configured prompts will guide you through entering your `ADMIN_TOKEN`, `TELEGRAM_BOT_TOKEN`, and `TELEGRAM_CHAT_ID`.
+
+### 5.2: Self-Hosting with Docker & Docker Compose
+
+Teleboros provides production and development container setups out of the box:
+
+- **Production Standalone Container**:
+  ```bash
+  docker compose up -d --build
+  # or: pnpm docker:prod
+  ```
+- **Local Development Container with Hot Reload**:
+  ```bash
+  docker compose -f docker-compose.dev.yml up --build
+  # or: pnpm docker:dev
+  ```
+
+Persistent data (`data/posts`, `data/subscribers.json`) is mounted to `./data`, and uploaded media is stored in `./public/uploads`.
 
 ## 6: Automated Syncing via Webhooks
 
@@ -365,10 +408,54 @@ Configure the following environment variables to enable `/compose` and long-form
 | `TELEGRAM_CHAT_ID` | Telegram channel username (e.g., `@your_channel`) or channel ID (e.g., `-100...`). |
 | `DEPLOY_HOOK_URL` | *(Optional)* Vercel Deploy Hook URL to automatically trigger a site rebuild after publishing. |
 
-## 8: License
+## 8: Universal Storage Adapter Architecture
+
+Teleboros features a modular, unified storage layer with automatic failover and graceful degradation across cloud providers and local environments.
+
+### 8.1: Storage Adapter Priority
+
+1. **Cloudflare R2 (Recommended Primary Production Adapter)**:
+   - S3-compatible object storage with **zero egress/bandwidth fees** and 10 GB free monthly storage.
+   - Large videos and images stream directly from the browser to Cloudflare R2 via presigned PUT URLs (`/api/upload/r2`), completely bypassing Vercel's 4.5 MB serverless limit.
+   - Environment variables: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_DOMAIN`.
+2. **Vercel Blob Storage**:
+   - Turnkey 1-click cloud storage for Vercel deployments.
+   - Environment variable: `BLOB_READ_WRITE_TOKEN`.
+3. **Local Filesystem**:
+   - Zero-dependency storage for Docker, VPS self-hosters, and offline local development.
+   - Saves articles to `data/posts/` and media to `public/uploads/`.
+   - **Graceful degradation**: if cloud keys are omitted or network errors occur, Teleboros automatically falls back to local storage without crashing.
+
+## 9: Reader Retention & Subscription Engine
+
+Teleboros includes built-in audience retention tools to help you grow and maintain an engaged readership:
+
+### 9.1: "Subscribe to Updates" Newsletter Capture
+- An embedded capture card (`SubscribeCard`) on the home feed and at the bottom of every article.
+- Supports multi-provider synchronization via `/api/subscribe`:
+  - **Resend**: `RESEND_API_KEY`, `RESEND_AUDIENCE_ID`
+  - **Buttondown**: `BUTTONDOWN_API_KEY`
+  - **Mailchimp**: `MAILCHIMP_API_KEY`, `MAILCHIMP_SERVER_PREFIX`, `MAILCHIMP_LIST_ID`
+  - **Generic Webhooks**: `NEWSLETTER_WEBHOOK_URL` (integrate with Zapier, Make.com, or n8n)
+  - **Local Zero-Config**: If no cloud email provider is configured, subscribers are saved locally to `data/subscribers.json`.
+
+### 9.2: One-Click RSS & JSON Feed Discovery Modal
+- Clicking the RSS icon in the sidebar or subscription card opens `FeedModal`.
+- One-click copy and reader launch links:
+  - **RSS 2.0**: `/rss.xml` (with direct launch into Feedly and Inoreader)
+  - **JSON Feed 1.1**: `/feed.json` and `/rss.json`
+  - **Telegram Channel**: Direct link to join the Telegram broadcast channel.
+
+### 9.3: Web Push Notifications
+- Readers can click "Enable Push Alerts" to subscribe to native browser notifications without needing an app.
+- Powered by Web Standards and Service Worker (`public/sw.js`).
+- Configure VAPID keys: `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (generate via `npx web-push generate-vapid-keys`).
+- New post broadcasts automatically trigger push notifications during `/compose` publishing.
+
+## 10: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 
-## 9: Page Speed Insights
+## 11: Page Speed Insights
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

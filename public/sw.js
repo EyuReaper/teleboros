@@ -129,3 +129,65 @@ globalThis.addEventListener('fetch', (event) => {
     )
   }
 })
+
+/**
+ * Web Push Notification Handler
+ */
+globalThis.addEventListener('push', (event) => {
+  if (!event.data) {
+    return
+  }
+
+  let payload = {
+    title: 'New Post on Teleboros',
+    body: 'A new post has been published.',
+    icon: '/favicon.svg',
+    url: '/',
+  }
+
+  try {
+    const json = event.data.json()
+    payload = { ...payload, ...json }
+  }
+  catch {
+    const text = event.data.text()
+    if (text) {
+      payload.body = text
+    }
+  }
+
+  const notificationOptions = {
+    body: payload.body,
+    icon: payload.icon || '/favicon.svg',
+    badge: '/favicon.svg',
+    data: {
+      url: payload.url || '/',
+    },
+  }
+
+  event.waitUntil(
+    globalThis.registration.showNotification(payload.title, notificationOptions),
+  )
+})
+
+/**
+ * Notification Click Handler — navigate to the target post URL
+ */
+globalThis.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const targetUrl = event.notification.data?.url || '/'
+
+  event.waitUntil(
+    globalThis.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === targetUrl && 'focus' in client) {
+          return client.focus()
+        }
+      }
+      if (globalThis.clients.openWindow) {
+        return globalThis.clients.openWindow(targetUrl)
+      }
+    }),
+  )
+})
+

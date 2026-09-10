@@ -17,6 +17,7 @@ import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath, normalizeAppLocale, SUPPORTED_LOCALES } from '@/lib/i18n'
 import { renderInlineMarkdown } from '@/lib/sanitize'
 import { cn } from '@/lib/utils'
+import { FeedButton } from '@/components/retention/feed-button'
 import packageJson from '../../../package.json'
 import { CollapsibleDescription } from './collapsible-description'
 import { CommandPalette } from './command-palette'
@@ -240,26 +241,13 @@ export function PageFrame({
                 </TooltipTrigger>
                 <TooltipContent side="right">Compose</TooltipContent>
               </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    asChild
-                    variant="ghost"
-                    className={sidebarIconButtonClass}
-                  >
-                    <a
-                      href="/rss.xml"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={resolvedMessages.external.rss}
-                    >
-                      <Rss className={cn(sidebarIconGlyphClass, 'fill-none')} />
-                      <span className="sr-only">{resolvedMessages.external.rss}</span>
-                    </a>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right">{resolvedMessages.external.rss}</TooltipContent>
-              </Tooltip>
+              <FeedButton
+                siteUrl={config.siteUrl || 'https://example.com'}
+                channelUsername={config.telegram || config.channel}
+                label={resolvedMessages.external.rss}
+                className={sidebarIconButtonClass}
+                iconClassName={sidebarIconGlyphClass}
+              />
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button

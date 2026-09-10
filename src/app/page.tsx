@@ -2,6 +2,7 @@ import type { ChannelInfo } from '@/lib/types'
 import { FeedList } from '@/components/feed/feed-list'
 import { InfiniteFeed } from '@/components/feed/infinite-feed'
 import { PinnedPosts } from '@/components/feed/pinned-posts'
+import { SubscribeCard } from '@/components/retention/subscribe-card'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { DEFAULT_LOCALE, getLocaleMessages } from '@/lib/i18n'
@@ -47,6 +48,13 @@ export default async function RootPage() {
       {pinned.length > 0 && (
         <PinnedPosts posts={pinned} {...feedProps} />
       )}
+      <div className="mx-auto max-w-2xl px-4 py-4">
+        <SubscribeCard
+          siteUrl={config.siteUrl || 'https://example.com'}
+          channelUsername={channelUsername}
+          source="home-feed"
+        />
+      </div>
       {config.infiniteScroll.enabled
         ? <InfiniteFeed initialPosts={unpinned} {...feedProps} />
         : <FeedList posts={unpinned} {...feedProps} />}

@@ -1,0 +1,22 @@
+services:
+  teleboros-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: teleboros-dev
+    restart: unless-stopped
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - PORT=4321
+      - HOSTNAME=0.0.0.0
+      - WATCHPACK_POLLING=true # Ensures file changes trigger hot reloading inside containers
+    volumes:
+      # Mount workspace for live source code editing
+      - .:/app
+      # Anonymous volumes to preserve container node_modules and .next cache
+      - /app/node_modules
+      - /app/.next

@@ -4,6 +4,7 @@ import type { ChannelInfo, ChannelPost } from '@/lib/types'
 import { notFound } from 'next/navigation'
 import { FeedList } from '@/components/feed/feed-list'
 import { TelegramComments } from '@/components/feed/telegram-comments'
+import { SubscribeCard } from '@/components/retention/subscribe-card'
 import { JsonLd } from '@/components/site/json-ld'
 import { PageFrame } from '@/components/site/page-frame'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
@@ -150,6 +151,13 @@ export async function renderPostPage(locale: AppLocale, id: string) {
         uiLocale={locale}
         messages={messages}
       />
+      <div className="mx-auto max-w-2xl px-4 py-6">
+        <SubscribeCard
+          siteUrl={siteUrl}
+          channelUsername={channelUsername}
+          source={`post-${id}`}
+        />
+      </div>
       {config.comments?.enabled && config.comments?.websiteId && (
         <TelegramComments
           websiteId={config.comments.websiteId}

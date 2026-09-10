@@ -47,10 +47,14 @@
     "lint:fix": "eslint . --fix",
     "sync": "node --dns-result-order=ipv4first --env-file-if-exists=.env --import tsx scripts/sync-static-content.ts",
     "og:image": "node --import tsx scripts/generate-og-image.ts",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up --build",
+    "docker:prod": "docker compose up -d --build",
     "release": "changelogen --release && git push --follow-tags",
     "postinstall": "simple-git-hooks"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1129.0",
+    "@aws-sdk/s3-request-presigner": "^3.1129.0",
     "@number-flow/react": "^0.6.0",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
@@ -79,7 +83,8 @@
     "sanitize-html": "^2.17.0",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
-    "twemoji": "^14.0.2"
+    "twemoji": "^14.0.2",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.7.3",
@@ -91,6 +96,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/sanitize-html": "^2.16.1",
+    "@types/web-push": "^3.6.4",
     "autoprefixer": "^10.4.23",
     "changelogen": "^0.6.1",
     "eslint": "^9.39.1",

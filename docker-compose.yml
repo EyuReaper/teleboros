@@ -1,0 +1,20 @@
+services:
+  teleboros:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: teleboros
+    restart: unless-stopped
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=4321
+      - HOSTNAME=0.0.0.0
+    volumes:
+      # Persistent local storage for articles, posts, and newsletter subscribers
+      - ./data:/app/data
+      # Persistent local storage for uploaded media assets
+      - ./public/uploads:/app/public/uploads

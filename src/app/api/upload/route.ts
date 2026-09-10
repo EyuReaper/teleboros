@@ -1,41 +1,70 @@
 import process from 'node:process'
 import { type HandleUploadBody, handleUpload } from '@vercel/blob/client'
 import { NextResponse } from 'next/server'
+import { getPrimaryStorageName, uploadMedia } from '@/lib/storage'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request): Promise<NextResponse> {
-  const body = (await request.json()) as HandleUploadBody
+  const contentType = request.headers.get('content-type') || ''
 
-  // Resolve Blob token: check standard name, any vercel_blob_rw_ value, or any key with BLOB & TOKEN
+  // 1. Direct Multipart Form Upload (supports Local, R2, and VPS deployments)
+  if (contentType.includes('multipart/form-data')) {
+    try {
+      const formData = await request.formData()
+      const adminToken = formData.get('adminToken') as string
+      const file = formData.get('file') as File | null
+
+      const envAdminToken = process.env.ADMIN_TOKEN
+      if (envAdminToken && adminToken !== envAdminToken) {
+        return NextResponse.json({ error: 'Unauthorized: Invalid Admin Token' }, { status: 401 })
+      }
+
+      if (!file) {
+        return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
+      }
+
+      const result = await uploadMedia(file, file.name, file.type)
+      return NextResponse.json({
+        success: true,
+        url: result.url,
+        key: result.key,
+        storage: getPrimaryStorageName(),
+      })
+    }
+    catch (err: any) {
+      console.error('[teleboros upload] multipart upload error:', err)
+      return NextResponse.json(
+        { error: err.message || 'Failed to process multipart upload' },
+        { status: 500 },
+      )
+    }
+  }
+
+  // 2. Vercel Blob Client Upload Flow
+  const body = (await request.json().catch(() => ({}))) as HandleUploadBody
+
   let blobToken = process.env.BLOB_READ_WRITE_TOKEN
-  let matchedKey = 'BLOB_READ_WRITE_TOKEN'
-
   if (!blobToken) {
     for (const [key, value] of Object.entries(process.env)) {
       if (typeof value === 'string' && value.startsWith('vercel_blob_rw_')) {
         blobToken = value
-        matchedKey = key
         break
       }
       if (key.toUpperCase().includes('BLOB') && key.toUpperCase().includes('TOKEN') && value) {
         blobToken = value
-        matchedKey = key
         break
       }
     }
   }
 
   if (!blobToken) {
-    const safeKeys = Object.keys(process.env)
-      .filter(k => !k.toUpperCase().includes('SECRET') && !k.toUpperCase().includes('KEY') && !k.toUpperCase().includes('TOKEN'))
-      .sort()
     return NextResponse.json(
       {
         error:
-          `BLOB_READ_WRITE_TOKEN is not configured on Vercel. Available env keys: [${safeKeys.join(', ')}]. Please verify Project Settings -> Environment Variables in Vercel.`,
+          'BLOB_READ_WRITE_TOKEN is not configured. For direct streaming, ensure R2 or Vercel Blob credentials are set in environment variables.',
       },
-      { status: 500 },
+      { status: 400 },
     )
   }
 
@@ -45,7 +74,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       body,
       request,
       onBeforeGenerateToken: async (_pathname, clientPayload) => {
-        // 1. Verify Admin Token
+        // Verify Admin Token
         const envAdminToken = process.env.ADMIN_TOKEN
         if (envAdminToken) {
           let providedToken = ''
@@ -66,7 +95,6 @@ export async function POST(request: Request): Promise<NextResponse> {
           }
         }
 
-        // 2. Configure allowed types and limits
         return {
           allowedContentTypes: [
             'video/mp4',
@@ -80,7 +108,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             'image/gif',
             'image/svg+xml',
           ],
-          maximumSizeInBytes: 500 * 1024 * 1024, // Up to 500 MB
+          maximumSizeInBytes: 500 * 1024 * 1024,
           tokenPayload: JSON.stringify({ authorized: true }),
         }
       },

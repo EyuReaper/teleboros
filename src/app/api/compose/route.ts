@@ -2,6 +2,7 @@ import process from 'node:process'
 import { NextResponse } from 'next/server'
 import { SITE_CONSTANTS } from '@/lib/constant'
 import { saveLongFormPost } from '@/lib/long-form'
+import { broadcastPushNotification } from '@/lib/push'
 
 export async function POST(req: Request) {
   try {
@@ -34,10 +35,11 @@ export async function POST(req: Request) {
 
     const geminiApiKey = process.env.GEMINI_API_KEY
 
-    // Helper to run Gemini condensation
+    // Helper to run Gemini condensation with graceful degradation
     const condenseWithGemini = async (input: string) => {
       if (!geminiApiKey) {
-        throw new Error('GEMINI_API_KEY is not configured')
+        console.warn('[teleboros compose] GEMINI_API_KEY not configured, falling back to manual excerpt')
+        return input.slice(0, 800)
       }
 
       const condensationPrompt = hasMedia
@@ -316,6 +318,18 @@ export async function POST(req: Request) {
       catch (e) {
         console.error('Failed to trigger deploy hook:', e)
       }
+    }
+
+    // 4. Optional Web Push Notification Broadcast
+    try {
+      await broadcastPushNotification({
+        title: title || 'New Post Published',
+        body: (condensedText || text).slice(0, 140),
+        url: postUrl,
+      })
+    }
+    catch (pushErr) {
+      console.warn('[teleboros compose] Web Push broadcast warning:', pushErr)
     }
 
     const channelUsername = (telegramChatId || '').replace(/^@/, '')

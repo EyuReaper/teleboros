@@ -1,30 +1,12 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import { list, put } from '@vercel/blob'
 import { marked } from 'marked'
 import { sanitizePostHtml } from './sanitize'
+import { loadPost as loadFromStorage, type LongFormPost, savePost as saveToStorage } from './storage'
 
-export interface LongFormPost {
-  id: string
-  title?: string
-  text: string
-  html: string
-  condensedText?: string
-  mediaUrl?: string
-  mediaType?: 'video' | 'image'
-  createdAt: string
-}
+export type { LongFormPost } from './storage'
 
 const LONG_FORM_DATA_DIR = path.resolve(process.cwd(), 'data/posts')
-
-function getBlobToken(): string | undefined {
-  if (process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
-    return process.env.BLOB_READ_WRITE_TOKEN.trim()
-  }
-  const matched = Object.entries(process.env).find(([k, v]) => k.includes('BLOB') && k.includes('TOKEN') && v?.trim())
-  return matched ? matched[1]?.trim() : undefined
-}
 
 export function getLongFormFilePath(id: string): string {
   return path.join(LONG_FORM_DATA_DIR, `${id}.json`)
@@ -52,7 +34,8 @@ function extractTitleFromMarkdown(text: string): string {
 }
 
 /**
- * Save a full-length long-form post to local JSON storage.
+ * Save a full-length long-form post across the configured Universal Storage Adapter
+ * (Cloudflare R2, Vercel Blob, or Local filesystem).
  */
 export async function saveLongFormPost(
   id: string,
@@ -87,66 +70,13 @@ export async function saveLongFormPost(
     createdAt: new Date().toISOString(),
   }
 
-  // 1. Persist to Vercel Blob if configured
-  const blobToken = getBlobToken()
-  if (blobToken) {
-    try {
-      await put(`data/posts/${id}.json`, JSON.stringify(post, null, 2), {
-        access: 'public',
-        addRandomSuffix: false,
-        token: blobToken,
-      })
-    }
-    catch (blobErr) {
-      console.warn('[teleboros] Failed to persist post to Vercel Blob:', blobErr)
-    }
-  }
-
-  // 2. Persist to local filesystem (ignoring EROFS on serverless environments like Vercel)
-  try {
-    await mkdir(LONG_FORM_DATA_DIR, { recursive: true })
-    const filePath = getLongFormFilePath(id)
-    await writeFile(filePath, JSON.stringify(post, null, 2), 'utf8')
-  }
-  catch (fsErr: any) {
-    if (fsErr?.code !== 'EROFS') {
-      console.warn('[teleboros] Failed to write local post file:', fsErr)
-    }
-  }
-
+  await saveToStorage(id, post)
   return post
 }
 
 /**
- * Load a full-length long-form post by ID if it exists.
+ * Load a full-length long-form post by ID across configured storage adapters.
  */
 export async function loadLongFormPost(id: string): Promise<LongFormPost | null> {
-  // 1. Try local filesystem
-  try {
-    const filePath = getLongFormFilePath(id)
-    const content = await readFile(filePath, 'utf8')
-    return JSON.parse(content) as LongFormPost
-  }
-  catch {
-    // Continue to Blob fallback
-  }
-
-  // 2. Try Vercel Blob storage
-  const blobToken = getBlobToken()
-  if (blobToken) {
-    try {
-      const { blobs } = await list({ prefix: `data/posts/${id}.json`, token: blobToken })
-      if (blobs.length > 0) {
-        const res = await fetch(blobs[0].url)
-        if (res.ok) {
-          return (await res.json()) as LongFormPost
-        }
-      }
-    }
-    catch {
-      // Ignore
-    }
-  }
-
-  return null
+  return await loadFromStorage(id)
 }

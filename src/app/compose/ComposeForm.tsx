@@ -209,6 +209,137 @@ export function ComposeForm() {
     }
   }
 
+  // Helper to stream media to Cloudflare R2, Vercel Blob, or local fallback
+  const streamMediaWithProgress = async (fileToUpload: File): Promise<string> => {
+    const sizeMb = (fileToUpload.size / (1024 * 1024)).toFixed(1)
+
+    // 1. Try Cloudflare R2 Presigned Streaming (Zero egress, no Vercel limit)
+    try {
+      const r2Res = await fetch('/api/upload/r2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename: fileToUpload.name,
+          contentType: fileToUpload.type || 'application/octet-stream',
+          adminToken,
+        }),
+      })
+
+      if (r2Res.ok) {
+        const r2Data = await r2Res.json()
+        if (r2Data.uploadUrl && r2Data.publicUrl) {
+          setUploadProgress({
+            active: true,
+            percent: 5,
+            text: `Streaming ${sizeMb} MB directly to Cloudflare R2...`,
+          })
+
+          await new Promise<void>((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.open(r2Data.method || 'PUT', r2Data.uploadUrl)
+            if (r2Data.headers) {
+              for (const [k, v] of Object.entries(r2Data.headers)) {
+                xhr.setRequestHeader(k, v as string)
+              }
+            }
+            xhr.upload.onprogress = (e) => {
+              if (e.lengthComputable) {
+                const pct = Math.round((e.loaded / e.total) * 100)
+                setUploadProgress({
+                  active: true,
+                  percent: pct,
+                  text: `Streaming to Cloudflare R2 (${pct}%)...`,
+                })
+              }
+            }
+            xhr.onload = () => {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                resolve()
+              }
+              else {
+                reject(new Error(`R2 upload failed with HTTP ${xhr.status}`))
+              }
+            }
+            xhr.onerror = () => reject(new Error('Network error during R2 upload'))
+            xhr.send(fileToUpload)
+          })
+
+          setUploadProgress({
+            active: true,
+            percent: 100,
+            text: 'Media uploaded to Cloudflare R2! Broadcasting post...',
+          })
+          return r2Data.publicUrl
+        }
+      }
+    }
+    catch (r2Err) {
+      console.warn('[ComposeForm] Cloudflare R2 upload bypassed or failed:', r2Err)
+    }
+
+    // 2. Try Vercel Blob
+    try {
+      setUploadProgress({
+        active: true,
+        percent: 0,
+        text: `Streaming ${sizeMb} MB to Vercel Blob...`,
+      })
+
+      const blob = await upload(fileToUpload.name, fileToUpload, {
+        access: 'public',
+        handleUploadUrl: '/api/upload',
+        clientPayload: JSON.stringify({ adminToken }),
+        onUploadProgress: (progress) => {
+          const percent = Math.round(progress.percentage)
+          setUploadProgress({
+            active: true,
+            percent,
+            text: `Uploading media to Vercel Blob (${percent}%)...`,
+          })
+        },
+      })
+
+      setUploadProgress({
+        active: true,
+        percent: 100,
+        text: 'Media uploaded to Blob! Broadcasting post...',
+      })
+      return blob.url
+    }
+    catch (blobErr) {
+      console.warn('[ComposeForm] Vercel Blob upload failed or unconfigured:', blobErr)
+    }
+
+    // 3. Fallback to Local Multipart Upload
+    setUploadProgress({
+      active: true,
+      percent: 20,
+      text: `Uploading ${sizeMb} MB to local storage...`,
+    })
+    const localFormData = new FormData()
+    localFormData.append('file', fileToUpload)
+    localFormData.append('adminToken', adminToken)
+
+    const localRes = await fetch('/api/upload', {
+      method: 'POST',
+      body: localFormData,
+    })
+
+    if (localRes.ok) {
+      const data = await localRes.json()
+      if (data.url) {
+        setUploadProgress({
+          active: true,
+          percent: 100,
+          text: 'Media uploaded to local storage! Broadcasting post...',
+        })
+        return data.url
+      }
+    }
+
+    throw new Error('Failed to stream media: Please check your Cloudflare R2 or Vercel Blob storage configuration.')
+  }
+
   // Final Publish action
   const handlePublish = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -228,34 +359,9 @@ export function ComposeForm() {
     try {
       let uploadedBlobUrl: string | null = null
 
-      // If media is larger than Vercel's 4.5MB serverless limit, stream directly to Vercel Blob!
+      // If media is larger than Vercel's 4.5MB serverless limit, stream directly!
       if (media && isMediaOversized) {
-        setUploadProgress({
-          active: true,
-          percent: 0,
-          text: `Streaming ${(media.size / (1024 * 1024)).toFixed(1)} MB directly to Vercel Blob...`,
-        })
-
-        const blob = await upload(media.name, media, {
-          access: 'public',
-          handleUploadUrl: '/api/upload',
-          clientPayload: JSON.stringify({ adminToken }),
-          onUploadProgress: (progress) => {
-            const percent = Math.round(progress.percentage)
-            setUploadProgress({
-              active: true,
-              percent,
-              text: `Uploading media to Vercel Blob (${percent}%)...`,
-            })
-          },
-        })
-
-        uploadedBlobUrl = blob.url
-        setUploadProgress({
-          active: true,
-          percent: 100,
-          text: 'Media uploaded to Blob! Broadcasting post...',
-        })
+        uploadedBlobUrl = await streamMediaWithProgress(media)
       }
 
       const formData = new FormData()
