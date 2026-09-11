@@ -116,10 +116,28 @@ curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
 | `TELEGRAM_CHAT_ID` | የቴሌግራም ቻናል የተጠቃሚ ስም (ምሳሌ: `@your_channel`) ወይም መለያ ቁጥር |
 | `DEPLOY_HOOK_URL` | *(አማራጭ)* ከተለጠፈ በኋላ ድረ-ገጹን ወዲያውኑ እንደገና ለመገንባት የሚያገለግል የ Vercel Deploy Hook |
 
-## 8: ፈቃድ (License)
+## 8: የቴሌግራም ድምፅ እና የድምፅ መልዕክቶች ማጫወቻ (Telegram Audio & Voice Message Player)
+
+ቴሌቦሮስ የቴሌግራም ኦዲዮ ፋይሎችን እና የድምፅ መልዕክቶችን (voice notes) በራሱ አዲስና ዘመናዊ ማጫወቻ ይደግፋል:
+
+- **የቅርጸት ድጋፍ**: የቴሌግራም `.mp3`፣ `.m4a`፣ `.wav` የኦዲዮ ፋይሎችን እና `.ogg`/`.oga` የድምፅ መልዕክቶችን በቀጥታ ይደግፋል።
+- **ይዘት ጠቋሚ እና ማስተካከያ (Progress Scrub Bar)**: በጊዜ ሰሌዳው ላይ በመጎተት ወይም በመጫን በቀላሉ ወደሚፈልጉት የድምፅ ክፍል ማሳለፍ የሚያስችል ነው።
+- **የድምፅ ሞገድ ምስል (Waveform Visualizer)**: የቴሌግራምን ትክክለኛ የሞገድ ውሂብ በማንበብ ያሳያል፤ ካልተገኘም በራስ-ሰር ተፈጥሯዊ የድምፅ ሞገድ አመንጭቶ ያቀርባል። በሞገዱ ላይ በመጫን በቀጥታ ማጫወት ይቻላል።
+- **የማጫወቻ ፍጥነት (Speed Control)**: የማጫወቻ ፍጥነትን በ `1x`፣ `1.5x`፣ እና `2x` መካከል በቀላሉ መቀያየር ይቻላል።
+- **የፋይል መረጃ እና ማውረጃ (Download & Metadata)**: የዘፈን ወይም የድምፅ ርዕስ፣ የአርቲስት ስም፣ ርዝመት እና የፋይል መጠን ያሳያል፤ እንዲሁም በቀጥታ ለማውረድ የሚያስችል ቁልፍ አለው።
+
+## 9: ተለዋዋጭ የማህበራዊ ሚዲያ ማጋሪያ ካርዶች (Dynamic Social Sharing Cards - Edge OpenGraph)
+
+እያንዳንዱ ጽሁፍ እና መልዕክት በኤጅ (Edge) ላይ በራስ-ሰር የሚመነጩ ውብ ባለ 1200x630 የማህበራዊ ሚዲያ ቅድመ-ዕይታ ካርዶችን ይጠቀማል:
+
+- **በኤጅ ላይ የተመሰረተ ምስል ማመንጨት**: በ `next/og` እና Satori የተጎላበተ ፈጣን የ PNG ምስል ማመንጨት እና በአለም አቀፍ የይዘት ማሰራጫ (CDN) የሚቀመጥ።
+- **የጽሁፉ ዝርዝር መረጃዎች**: የጽሁፉ ሙሉ ርዕስ፣ የታተመበት ቀን፣ የንባብ ርዝመት (ለምሳሌ: `3 min read`)፣ የቻናሉ ስም እና አርማ (avatar) በግልጽ ይታያሉ።
+- **ሙሉ የማህበራዊ ሚዲያ ድጋፍ**: ለ Discord፣ Twitter/X፣ Telegram፣ LinkedIn እና Facebook ከፍተኛ ጥራት ያላቸውን ቅድመ-ዕይታ ካርዶች ያቀርባል።
+
+## 10: ፈቃድ (License)
 
 ይህ ፕሮጀክት በ [AGPL-3.0](./LICENSE) ፈቃድ የተጠበቀ ነው።
 
-## 9: የገጽ ፍጥነት (Page Speed Insights)
+## 11: የገጽ ፍጥነት (Page Speed Insights)
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

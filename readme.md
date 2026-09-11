@@ -452,10 +452,30 @@ Teleboros includes built-in audience retention tools to help you grow and mainta
 - Configure VAPID keys: `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` (generate via `npx web-push generate-vapid-keys`).
 - New post broadcasts automatically trigger push notifications during `/compose` publishing.
 
-## 10: License
+## 10: Telegram Audio & Voice Message Player
+
+Teleboros natively parses and renders Telegram audio files and voice notes using a custom, high-performance embedded audio widget:
+
+- **Format Support**: Direct support for Telegram `.mp3`, `.m4a`, `.wav` audio files and `.ogg`/`.oga` voice messages.
+- **Interactive Progress Scrub Bar**: Smooth seeking with interactive hover time preview, draggable scrub thumb, and buffered stream indicators.
+- **Waveform Visualizer Simulation**: Renders Telegram's native waveform data when present (both comma-separated and 5-bit packed bar values) and deterministically generates speech/audio frequency envelopes when missing. Interactive bars allow click-to-seek directly on the waveform.
+- **Playback Speed Control**: Cycle between `1x`, `1.5x`, and `2x` speeds with instantaneous playback rate adjustment.
+- **Metadata & Direct Download**: Displays track title, artist/channel name, duration, and file size badge with a dedicated 1-click download button.
+- **Audio Coordination (Mutex)**: Emits global playback events ensuring only one audio or video item plays at a time across the site.
+- **Compose Studio Support**: Select and upload audio files directly from `/compose`, with live dual-preview support and Telegram Bot API `sendAudio`/`sendVoice` dispatch.
+
+## 11: Dynamic Social Sharing Cards (Edge OpenGraph)
+
+Every article and post automatically resolves custom, branded 1200x630 social preview cards generated on the fly at the edge (`/api/og`):
+
+- **Edge Runtime Generation**: Powered by `next/og` and Satori for lightning-fast PNG generation with global CDN caching (`Cache-Control: public, max-age=86400`).
+- **Post Metadata Display**: Automatically extracts and displays the post's full title, publication date, calculated reading time (e.g. `3 min read`), channel name, handle, and channel avatar.
+- **Full Social Crawler Compatibility**: Configured with standard `<meta property="og:image">` and `twitter:card="summary_large_image"` tags for rich, high-resolution cards across Discord, Twitter/X, Telegram, LinkedIn, and Facebook.
+
+## 12: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 
-## 11: Page Speed Insights
+## 13: Page Speed Insights
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)
