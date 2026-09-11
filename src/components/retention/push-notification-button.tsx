@@ -91,19 +91,23 @@ export function PushNotificationButton({ className }: { className?: string }) {
       onClick={handleSubscribe}
       disabled={loading || (permission === 'granted' && isSubscribed)}
     >
-      {loading ? (
-        <Loader2 className="h-3.5 w-3.5 animate-spin" />
-      ) : isSubscribed ? (
-        <>
-          <Check className="h-3.5 w-3.5 text-emerald-500" />
-          <span>Notifications Active</span>
-        </>
-      ) : (
-        <>
-          <Bell className="h-3.5 w-3.5" />
-          <span>Enable Push Alerts</span>
-        </>
-      )}
+      {loading
+        ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          )
+        : isSubscribed
+          ? (
+              <>
+                <Check className="h-3.5 w-3.5 text-emerald-500" />
+                <span>Notifications Active</span>
+              </>
+            )
+          : (
+              <>
+                <Bell className="h-3.5 w-3.5" />
+                <span>Enable Push Alerts</span>
+              </>
+            )}
     </Button>
   )
 }

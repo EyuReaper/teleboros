@@ -1,7 +1,7 @@
+import type { LongFormPost, StorageAdapter, StorageUploadResult } from '../types'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import type { LongFormPost, StorageAdapter, StorageUploadResult } from '../types'
 
 export class LocalStorageAdapter implements StorageAdapter {
   readonly name = 'local' as const
@@ -27,7 +27,7 @@ export class LocalStorageAdapter implements StorageAdapter {
     filename: string,
     contentType: string,
   ): Promise<StorageUploadResult> {
-    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const safeName = filename.replace(/[^\w.-]/g, '_')
     const uniqueFilename = `${Date.now()}-${safeName}`
 
     try {

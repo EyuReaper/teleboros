@@ -302,6 +302,200 @@ function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: str
   return videoElements.join('')
 }
 
+const AUDIO_EXT_PATTERN = /\.(?:mp3|ogg|oga|m4a|aac|wav|opus|flac|wma)(?:\?|$)/i
+
+function isAudioDocumentWrap($: cheerio.CheerioAPI, wrap: cheerio.Cheerio<any>): boolean {
+  if (wrap.find('.tgme_widget_message_document_icon.audio').length > 0) {
+    return true
+  }
+  if (wrap.find('audio').length > 0) {
+    return true
+  }
+  const href = wrap.attr('href') || ''
+  const title = wrap.find('.tgme_widget_message_document_title').text().trim()
+  if (AUDIO_EXT_PATTERN.test(href) || AUDIO_EXT_PATTERN.test(title)) {
+    return true
+  }
+  const extra = wrap.find('.tgme_widget_message_document_extra').text().trim()
+  if (/\b(?:audio|voice|mp3|ogg|m4a|wav|podcast)\b/i.test(extra)) {
+    return true
+  }
+  return false
+}
+
+function getAudio($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, _index: number): string {
+  const audioElements: string[] = []
+  const handledSrcs = new Set<string>()
+
+  // 1. Voice players (.tgme_widget_message_voice_player)
+  $(item).find('.tgme_widget_message_voice_player, .js-message_voice_player').each((_vIndex, vEl) => {
+    const wrap = $(vEl)
+    const audioEl = wrap.find('audio.tgme_widget_message_voice, audio.js-message_voice, audio')
+    const rawSrc = audioEl.attr('src') || audioEl.attr('data-ogg') || wrap.attr('href') || ''
+    if (!rawSrc)
+      return
+
+    const src = buildStaticProxyUrl(staticProxy, rawSrc)
+    if (handledSrcs.has(src))
+      return
+    handledSrcs.add(src)
+
+    const waveform = audioEl.attr('data-waveform') || wrap.attr('data-waveform') || ''
+    const duration = wrap.find('.tgme_widget_message_voice_duration, .js-message_voice_duration').text().trim()
+    const title = 'Voice message'
+
+    audioElements.push(`
+      <div class="teleboros-audio-player my-3"
+           data-src="${escapeHtmlAttr(src)}"
+           data-title="${escapeHtmlAttr(title)}"
+           data-duration="${escapeHtmlAttr(duration)}"
+           data-waveform="${escapeHtmlAttr(waveform)}"
+           data-voice="true">
+        <audio preload="metadata" src="${escapeHtmlAttr(src)}" class="hidden"></audio>
+        <div class="teleboros-audio-card flex items-center gap-3 rounded-2xl border bg-card/80 p-3.5 shadow-sm">
+          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="truncate text-sm font-semibold text-foreground">${escapeHtmlAttr(title)}</div>
+            <div class="text-xs text-muted-foreground">${escapeHtmlAttr(duration || 'Voice Note')}</div>
+          </div>
+          <a href="${escapeHtmlAttr(src)}" download="voice_message.ogg" class="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition hover:text-foreground" title="Download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    `)
+  })
+
+  // 2. Audio documents (.tgme_widget_message_document_wrap with audio)
+  $(item).find('.tgme_widget_message_document_wrap').each((_dIndex, dEl) => {
+    const wrap = $(dEl)
+    if (!isAudioDocumentWrap($, wrap)) {
+      return
+    }
+
+    const rawSrc = wrap.find('audio').attr('src') || wrap.find('source').attr('src') || wrap.attr('href') || ''
+    if (!rawSrc)
+      return
+
+    const src = buildStaticProxyUrl(staticProxy, rawSrc)
+    if (handledSrcs.has(src))
+      return
+    handledSrcs.add(src)
+
+    const title = wrap.find('.tgme_widget_message_document_title').text().trim() || 'Audio Track'
+    const extra = wrap.find('.tgme_widget_message_document_extra').text().trim()
+
+    let artist = ''
+    let duration = ''
+    let filesize = ''
+
+    if (extra) {
+      const durMatch = extra.match(/\b\d{1,2}:\d{2}(?::\d{2})?\b/)
+      if (durMatch)
+        duration = durMatch[0]
+
+      const sizeMatch = extra.match(/\b[\d.]+\s*(?:KB|MB|GB|B)\b/i)
+      if (sizeMatch)
+        filesize = sizeMatch[0]
+
+      if (extra.includes('–') || extra.includes('—') || extra.includes('-')) {
+        const parts = extra.split(/[–—\-]/)
+        if (parts[0])
+          artist = parts[0].trim()
+      }
+    }
+
+    const filename = title.includes('.') ? title : `${title}.mp3`
+
+    audioElements.push(`
+      <div class="teleboros-audio-player my-3"
+           data-src="${escapeHtmlAttr(src)}"
+           data-title="${escapeHtmlAttr(title)}"
+           data-artist="${escapeHtmlAttr(artist)}"
+           data-duration="${escapeHtmlAttr(duration)}"
+           data-filesize="${escapeHtmlAttr(filesize)}"
+           data-voice="false">
+        <audio preload="metadata" src="${escapeHtmlAttr(src)}" class="hidden"></audio>
+        <div class="teleboros-audio-card flex items-center gap-3 rounded-2xl border bg-card/80 p-3.5 shadow-sm">
+          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="truncate text-sm font-semibold text-foreground">${escapeHtmlAttr(title)}</div>
+            <div class="flex items-center gap-2 text-xs text-muted-foreground">
+              ${artist ? `<span>${escapeHtmlAttr(artist)}</span><span>•</span>` : ''}
+              <span>${escapeHtmlAttr(duration || 'Audio')}</span>
+              ${filesize ? `<span>•</span><span>${escapeHtmlAttr(filesize)}</span>` : ''}
+            </div>
+          </div>
+          <a href="${escapeHtmlAttr(src)}" download="${escapeHtmlAttr(filename)}" class="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition hover:text-foreground" title="Download">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    `)
+  })
+
+  // 3. Any standalone <audio> elements
+  $(item).find('audio').each((_aIndex, aEl) => {
+    const audioEl = $(aEl)
+    if (audioEl.closest('.tgme_widget_message_voice_player, .tgme_widget_message_document_wrap, .teleboros-audio-player').length > 0) {
+      return
+    }
+
+    const rawSrc = audioEl.attr('src') || audioEl.find('source').attr('src') || ''
+    if (!rawSrc)
+      return
+
+    const src = buildStaticProxyUrl(staticProxy, rawSrc)
+    if (handledSrcs.has(src))
+      return
+    handledSrcs.add(src)
+
+    const title = audioEl.attr('data-title') || 'Audio Track'
+    const artist = audioEl.attr('data-artist') || ''
+    const duration = audioEl.attr('data-duration') || ''
+    const waveform = audioEl.attr('data-waveform') || ''
+    const isVoice = audioEl.attr('data-voice') === 'true'
+
+    audioElements.push(`
+      <div class="teleboros-audio-player my-3"
+           data-src="${escapeHtmlAttr(src)}"
+           data-title="${escapeHtmlAttr(title)}"
+           data-artist="${escapeHtmlAttr(artist)}"
+           data-duration="${escapeHtmlAttr(duration)}"
+           data-waveform="${escapeHtmlAttr(waveform)}"
+           data-voice="${isVoice ? 'true' : 'false'}">
+        <audio preload="metadata" src="${escapeHtmlAttr(src)}" class="hidden"></audio>
+      </div>
+    `)
+  })
+
+  return audioElements.join('')
+}
+
+function getNonAudioDocuments($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string): string {
+  const docElements: string[] = []
+
+  $(item).find('.tgme_widget_message_document_wrap').each((_dIndex, dEl) => {
+    const wrap = $(dEl)
+    if (isAudioDocumentWrap($, wrap)) {
+      return // skip, already rendered by getAudio()
+    }
+
+    const href = wrap.attr('href')
+    if (href) {
+      wrap.attr('href', buildStaticProxyUrl(staticProxy, href))
+    }
+
+    docElements.push($.html(wrap))
+  })
+
+  return docElements.join('')
+}
+
 function getLinkPreview($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, _index: number) {
   const link = $(item).find('.tgme_widget_message_link_preview')
   const title = $(item).find('.link_preview_title')?.text() || $(item).find('.link_preview_site_name')?.text() || ''
@@ -589,11 +783,12 @@ async function getPost(
     getReply($, messageNode[0], channel),
     await getImages($, messageNode[0], staticProxy, index, title),
     getVideo($, messageNode[0], staticProxy, index),
+    getAudio($, messageNode[0], staticProxy, index),
     contentNode?.html(),
     getImageStickers($, messageNode[0], staticProxy, index),
     getVideoStickers($, messageNode[0], staticProxy, index),
     messageNode.find('.tgme_widget_message_poll')?.html(),
-    $.html(messageNode.find('.tgme_widget_message_document_wrap')),
+    getNonAudioDocuments($, messageNode[0], staticProxy),
     hasDirectVideo ? '' : $.html(messageNode.find('.tgme_widget_message_video_player.not_supported')),
     $.html(messageNode.find('.tgme_widget_message_location_wrap')),
     getLinkPreview($, messageNode[0], staticProxy, index),

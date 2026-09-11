@@ -190,4 +190,3 @@ globalThis.addEventListener('notificationclick', (event) => {
     }),
   )
 })
-

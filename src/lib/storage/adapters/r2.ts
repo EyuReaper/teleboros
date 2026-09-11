@@ -1,7 +1,7 @@
+import type { LongFormPost, PresignedUploadUrl, StorageAdapter, StorageUploadResult } from '../types'
 import process from 'node:process'
 import { GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import type { LongFormPost, PresignedUploadUrl, StorageAdapter, StorageUploadResult } from '../types'
 
 export class CloudflareR2Adapter implements StorageAdapter {
   readonly name = 'r2' as const
@@ -58,7 +58,7 @@ export class CloudflareR2Adapter implements StorageAdapter {
   ): Promise<StorageUploadResult> {
     const { client, bucketName, publicDomain } = this.getS3Client()
     const { accountId } = this.getCredentials()
-    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const safeName = filename.replace(/[^\w.-]/g, '_')
     const key = `media/${Date.now()}-${safeName}`
 
     let bodyData: Buffer | Uint8Array
@@ -151,7 +151,7 @@ export class CloudflareR2Adapter implements StorageAdapter {
   ): Promise<PresignedUploadUrl> {
     const { client, bucketName, publicDomain } = this.getS3Client()
     const { accountId } = this.getCredentials()
-    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const safeName = filename.replace(/[^\w.-]/g, '_')
     const key = `media/${Date.now()}-${safeName}`
 
     const command = new PutObjectCommand({

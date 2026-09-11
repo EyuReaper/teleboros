@@ -80,17 +80,19 @@ export function FeedModal({
                 className="shrink-0 h-8 text-xs gap-1.5"
                 onClick={() => copyToClipboard(rssUrl, 'rss')}
               >
-                {copiedKey === 'rss' ? (
-                  <>
-                    <Check className="h-3.5 w-3.5 text-emerald-500" />
-                    Copied
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    Copy
-                  </>
-                )}
+                {copiedKey === 'rss'
+                  ? (
+                      <>
+                        <Check className="h-3.5 w-3.5 text-emerald-500" />
+                        Copied
+                      </>
+                    )
+                  : (
+                      <>
+                        <Copy className="h-3.5 w-3.5" />
+                        Copy
+                      </>
+                    )}
               </Button>
             </div>
 
@@ -102,7 +104,9 @@ export function FeedModal({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-medium text-foreground hover:underline"
               >
-                Feedly <ExternalLink className="h-3 w-3" />
+                Feedly
+                {' '}
+                <ExternalLink className="h-3 w-3" />
               </a>
               <span>·</span>
               <a
@@ -111,7 +115,9 @@ export function FeedModal({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-medium text-foreground hover:underline"
               >
-                Inoreader <ExternalLink className="h-3 w-3" />
+                Inoreader
+                {' '}
+                <ExternalLink className="h-3 w-3" />
               </a>
             </div>
           </div>
@@ -136,17 +142,19 @@ export function FeedModal({
                 className="shrink-0 h-8 text-xs gap-1.5"
                 onClick={() => copyToClipboard(jsonFeedUrl, 'json')}
               >
-                {copiedKey === 'json' ? (
-                  <>
-                    <Check className="h-3.5 w-3.5 text-emerald-500" />
-                    Copied
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" />
-                    Copy
-                  </>
-                )}
+                {copiedKey === 'json'
+                  ? (
+                      <>
+                        <Check className="h-3.5 w-3.5 text-emerald-500" />
+                        Copied
+                      </>
+                    )
+                  : (
+                      <>
+                        <Copy className="h-3.5 w-3.5" />
+                        Copy
+                      </>
+                    )}
               </Button>
             </div>
           </div>
@@ -168,7 +176,9 @@ export function FeedModal({
                 </div>
                 <Button asChild size="sm" className="shrink-0 h-8 text-xs gap-1.5">
                   <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
-                    Join <ExternalLink className="h-3.5 w-3.5" />
+                    Join
+                    {' '}
+                    <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </Button>
               </div>

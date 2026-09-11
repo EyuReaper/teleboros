@@ -1,10 +1,11 @@
 'use client'
 
 import { upload } from '@vercel/blob/client'
-import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
+import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
 import { marked } from 'marked'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
+import { AudioPlayerCard } from '@/components/audio/audio-player-card'
 import { Button } from '@/components/ui/button'
 
 const STORAGE_KEY = 'teleboros_admin_token'
@@ -62,7 +63,7 @@ export function ComposeForm() {
   const [adminToken, setAdminToken] = useState('')
   const [media, setMedia] = useState<File | null>(null)
   const [mediaPreviewUrl, setMediaPreviewUrl] = useState<string | null>(null)
-  const [mediaType, setMediaType] = useState<'image' | 'video' | null>(null)
+  const [mediaType, setMediaType] = useState<'image' | 'video' | 'audio' | null>(null)
 
   const [activePreviewTab, setActivePreviewTab] = useState<'telegram' | 'website'>('telegram')
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
@@ -112,8 +113,9 @@ export function ComposeForm() {
 
     if (file) {
       const isVideo = file.type.startsWith('video/') || /\.(?:mp4|mov|webm|mkv|avi|m4v)$/i.test(file.name)
+      const isAudio = file.type.startsWith('audio/') || /\.(?:mp3|ogg|oga|m4a|aac|wav|opus|flac)$/i.test(file.name)
       setMedia(file)
-      setMediaType(isVideo ? 'video' : 'image')
+      setMediaType(isVideo ? 'video' : isAudio ? 'audio' : 'image')
       setMediaPreviewUrl(URL.createObjectURL(file))
     }
     else {
@@ -383,6 +385,9 @@ export function ComposeForm() {
         if (mediaType === 'video') {
           formData.append('video', media)
         }
+        else if (mediaType === 'audio') {
+          formData.append('audio', media)
+        }
         else {
           formData.append('image', media)
         }
@@ -545,15 +550,21 @@ export function ComposeForm() {
                                   className="h-full w-full object-cover"
                                 />
                               )
-                            : (
-                                <Image src={mediaPreviewUrl} alt="Preview" fill unoptimized className="object-cover" />
-                              )}
+                            : mediaType === 'audio'
+                              ? (
+                                  <div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary">
+                                    <Headphones className="h-6 w-6" />
+                                  </div>
+                                )
+                              : (
+                                  <Image src={mediaPreviewUrl} alt="Preview" fill unoptimized className="object-cover" />
+                                )}
                         </div>
                         <div className="min-w-0">
                           <p className="text-xs font-medium truncate">{media.name}</p>
                           <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                            {mediaType === 'video' ? <Film className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
-                            {mediaType === 'video' ? 'Video Clip' : 'Image'}
+                            {mediaType === 'video' ? <Film className="h-3 w-3" /> : mediaType === 'audio' ? <Headphones className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
+                            {mediaType === 'video' ? 'Video Clip' : mediaType === 'audio' ? 'Audio Track' : 'Image'}
                             {' '}
                             ·
                             <span className={isMediaOversized ? 'text-rose-600 dark:text-rose-400 font-semibold' : ''}>
@@ -587,7 +598,10 @@ export function ComposeForm() {
                         <div className="space-y-0.5">
                           <p className="font-semibold">Vercel Blob Direct Streaming Enabled</p>
                           <p className="text-[11px] leading-relaxed opacity-90">
-                            This media file ({(media.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 4.5 MB serverless limit and will stream directly into your Vercel Blob storage with full original quality.
+                            This media file (
+                            {(media.size / (1024 * 1024)).toFixed(2)}
+                            {' '}
+                            MB) exceeds the 4.5 MB serverless limit and will stream directly into your Vercel Blob storage with full original quality.
                           </p>
                         </div>
                       </div>
@@ -599,7 +613,7 @@ export function ComposeForm() {
                     <input
                       id="media-upload"
                       type="file"
-                      accept="image/*,video/*"
+                      accept="image/*,video/*,audio/*,.mp3,.ogg,.wav,.m4a"
                       onChange={handleMediaChange}
                       className="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-xs ring-offset-background file:border-0 file:bg-transparent file:text-xs file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
@@ -720,7 +734,10 @@ export function ComposeForm() {
                   <Loader2 className="h-4 w-4 animate-spin text-sky-600 dark:text-sky-400" />
                   {uploadProgress.text}
                 </span>
-                <span className="font-mono text-sky-700 dark:text-sky-300">{uploadProgress.percent}%</span>
+                <span className="font-mono text-sky-700 dark:text-sky-300">
+                  {uploadProgress.percent}
+                  %
+                </span>
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-sky-200 dark:bg-sky-900">
                 <div
@@ -853,17 +870,28 @@ export function ComposeForm() {
                           className="max-h-72 w-full object-cover"
                         />
                       )
-                    : (
-                        <div className="relative max-h-72 w-full min-h-[160px] bg-black/10">
-                          <Image
-                            src={mediaPreviewUrl}
-                            alt="Telegram media preview"
-                            fill
-                            unoptimized
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
+                    : mediaType === 'audio'
+                      ? (
+                          <div className="p-2 bg-background/95">
+                            <AudioPlayerCard
+                              src={mediaPreviewUrl}
+                              title={title || media?.name || 'Audio Track'}
+                              isVoice={/\.(?:ogg|oga|opus)$/i.test(media?.name || '')}
+                              filesize={media ? `${(media.size / (1024 * 1024)).toFixed(2)} MB` : undefined}
+                            />
+                          </div>
+                        )
+                      : (
+                          <div className="relative max-h-72 w-full min-h-[160px] bg-black/10">
+                            <Image
+                              src={mediaPreviewUrl}
+                              alt="Telegram media preview"
+                              fill
+                              unoptimized
+                              className="object-contain"
+                            />
+                          </div>
+                        )}
                 </div>
               )}
 
@@ -942,17 +970,28 @@ export function ComposeForm() {
                           className="max-h-80 w-full object-cover"
                         />
                       )
-                    : (
-                        <div className="relative max-h-80 w-full min-h-[180px]">
-                          <Image
-                            src={mediaPreviewUrl}
-                            alt="Website post media"
-                            fill
-                            unoptimized
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
+                    : mediaType === 'audio'
+                      ? (
+                          <div className="p-2 bg-card">
+                            <AudioPlayerCard
+                              src={mediaPreviewUrl}
+                              title={title || media?.name || 'Audio Track'}
+                              isVoice={/\.(?:ogg|oga|opus)$/i.test(media?.name || '')}
+                              filesize={media ? `${(media.size / (1024 * 1024)).toFixed(2)} MB` : undefined}
+                            />
+                          </div>
+                        )
+                      : (
+                          <div className="relative max-h-80 w-full min-h-[180px]">
+                            <Image
+                              src={mediaPreviewUrl}
+                              alt="Website post media"
+                              fill
+                              unoptimized
+                              className="object-contain"
+                            />
+                          </div>
+                        )}
                 </div>
               )}
 

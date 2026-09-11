@@ -1,8 +1,9 @@
+import type { LongFormPost } from './storage'
 import path from 'node:path'
 import process from 'node:process'
 import { marked } from 'marked'
 import { sanitizePostHtml } from './sanitize'
-import { loadPost as loadFromStorage, type LongFormPost, savePost as saveToStorage } from './storage'
+import { loadPost as loadFromStorage, savePost as saveToStorage } from './storage'
 
 export type { LongFormPost } from './storage'
 
@@ -43,7 +44,7 @@ export async function saveLongFormPost(
   condensedText?: string,
   title?: string,
   mediaUrl?: string,
-  mediaType?: 'video' | 'image',
+  mediaType?: 'video' | 'image' | 'audio',
 ): Promise<LongFormPost> {
   let html = await renderMarkdownToHtml(text)
   const inferredTitle = title?.trim() || extractTitleFromMarkdown(text) || text.slice(0, 80).split('\n')[0]?.trim() || `Post ${id}`
@@ -56,6 +57,11 @@ export async function saveLongFormPost(
     else if (mediaType === 'image') {
       const imgTag = `<div class="image-list-container mb-4"><img src="${mediaUrl}" alt="${inferredTitle}" class="zoomable rounded-xl" loading="lazy" /></div>\n`
       html = `${imgTag}${html}`
+    }
+    else if (mediaType === 'audio') {
+      const isVoice = /\.(?:ogg|oga|opus)(?:\?|$)/i.test(mediaUrl)
+      const audioTag = `<div class="teleboros-audio-player mb-4" data-src="${mediaUrl}" data-title="${inferredTitle}" data-voice="${isVoice ? 'true' : 'false'}"><audio src="${mediaUrl}" preload="metadata" class="hidden"></audio></div>\n`
+      html = `${audioTag}${html}`
     }
   }
 

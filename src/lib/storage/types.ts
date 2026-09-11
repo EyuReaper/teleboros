@@ -5,7 +5,7 @@ export interface LongFormPost {
   html: string
   condensedText?: string
   mediaUrl?: string
-  mediaType?: 'video' | 'image'
+  mediaType?: 'video' | 'image' | 'audio'
   createdAt: string
 }
 
@@ -26,16 +26,16 @@ export interface PresignedUploadUrl {
 
 export interface StorageAdapter {
   readonly name: 'r2' | 'blob' | 'local'
-  isConfigured(): boolean
-  uploadMedia(
+  isConfigured: () => boolean
+  uploadMedia: (
     file: Buffer | Uint8Array | ArrayBuffer | Blob,
     filename: string,
     contentType: string,
-  ): Promise<StorageUploadResult>
-  savePost(id: string, post: LongFormPost): Promise<void>
-  loadPost(id: string): Promise<LongFormPost | null>
-  getPresignedUploadUrl?(
+  ) => Promise<StorageUploadResult>
+  savePost: (id: string, post: LongFormPost) => Promise<void>
+  loadPost: (id: string) => Promise<LongFormPost | null>
+  getPresignedUploadUrl?: (
     filename: string,
     contentType: string,
-  ): Promise<PresignedUploadUrl>
+  ) => Promise<PresignedUploadUrl>
 }

@@ -13,15 +13,17 @@ export async function POST(req: Request) {
     const customCondensedText = formData.get('condensedText') as string | null
     const adminToken = formData.get('adminToken') as string
     const mediaUrl = (formData.get('mediaUrl') as string) || null
-    const mediaTypeParam = (formData.get('mediaType') as 'video' | 'image' | null) || null
+    const mediaTypeParam = (formData.get('mediaType') as 'video' | 'image' | 'audio' | null) || null
     const image = formData.get('image') as File | null
     const video = formData.get('video') as File | null
+    const audio = formData.get('audio') as File | null
     const media = formData.get('media') as File | null
 
     const videoFile = video || (media && (media.type.startsWith('video/') || /\.(?:mp4|mov|webm|mkv|avi|m4v)$/i.test(media.name)) ? media : null)
-    const imageFile = image || (media && !videoFile ? media : null)
-    const effectiveMediaType: 'video' | 'image' | null = (videoFile || mediaTypeParam === 'video') ? 'video' : (imageFile || mediaTypeParam === 'image') ? 'image' : null
-    const hasMedia = Boolean(videoFile || imageFile || mediaUrl) || formData.get('hasMedia') === 'true'
+    const audioFile = audio || (media && !videoFile && (media.type.startsWith('audio/') || /\.(?:mp3|ogg|oga|m4a|aac|wav|opus|flac)$/i.test(media.name)) ? media : null)
+    const imageFile = image || (media && !videoFile && !audioFile ? media : null)
+    const effectiveMediaType: 'video' | 'image' | 'audio' | null = (videoFile || mediaTypeParam === 'video') ? 'video' : (audioFile || mediaTypeParam === 'audio') ? 'audio' : (imageFile || mediaTypeParam === 'image') ? 'image' : null
+    const hasMedia = Boolean(videoFile || audioFile || imageFile || mediaUrl) || formData.get('hasMedia') === 'true'
 
     // 1. Verify Admin Token
     const envAdminToken = process.env.ADMIN_TOKEN
@@ -200,6 +202,27 @@ export async function POST(req: Request) {
         body: tgFormData,
       })
     }
+    else if (audioFile) {
+      const isVoice = /\.(?:ogg|oga|opus)$/i.test(audioFile.name)
+      const endpoint = isVoice ? 'sendVoice' : 'sendAudio'
+      const paramName = isVoice ? 'voice' : 'audio'
+      const tgFormData = new FormData()
+      tgFormData.append('chat_id', telegramChatId)
+      tgFormData.append('caption', telegramTextToSend)
+      tgFormData.append('parse_mode', 'HTML')
+      tgFormData.append(paramName, audioFile)
+      if (title && !isVoice) {
+        tgFormData.append('title', title)
+      }
+      if (replyMarkupJson) {
+        tgFormData.append('reply_markup', replyMarkupJson)
+      }
+
+      telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/${endpoint}`, {
+        method: 'POST',
+        body: tgFormData,
+      })
+    }
     else if (mediaUrl) {
       if (effectiveMediaType === 'video') {
         // Attempt sendVideo by URL
@@ -239,6 +262,27 @@ export async function POST(req: Request) {
             body: JSON.stringify(payload),
           })
         }
+      }
+      else if (effectiveMediaType === 'audio') {
+        const isVoice = /\.(?:ogg|oga|opus)(?:\?|$)/i.test(mediaUrl)
+        const endpoint = isVoice ? 'sendVoice' : 'sendAudio'
+        const paramName = isVoice ? 'voice' : 'audio'
+        const tgFormData = new FormData()
+        tgFormData.append('chat_id', telegramChatId)
+        tgFormData.append('caption', telegramTextToSend)
+        tgFormData.append('parse_mode', 'HTML')
+        tgFormData.append(paramName, mediaUrl)
+        if (title && !isVoice) {
+          tgFormData.append('title', title)
+        }
+        if (replyMarkupJson) {
+          tgFormData.append('reply_markup', replyMarkupJson)
+        }
+
+        telegramRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/${endpoint}`, {
+          method: 'POST',
+          body: tgFormData,
+        })
       }
       else {
         // Image by URL

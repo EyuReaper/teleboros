@@ -64,7 +64,10 @@ const SUPPORTED_MEDIA_ATTRIBUTES: Array<[selector: string, attribute: string]> =
   ['img[srcset]', 'srcset'],
   ['video[src]', 'src'],
   ['video[poster]', 'poster'],
+  ['audio[src]', 'src'],
   ['source[src]', 'src'],
+  ['.teleboros-audio-player[data-src]', 'data-src'],
+  ['[data-audio-src]', 'data-audio-src'],
 ]
 
 const CONTENT_TYPE_EXTENSIONS = new Map<string, string>([
@@ -78,6 +81,14 @@ const CONTENT_TYPE_EXTENSIONS = new Map<string, string>([
   ['video/mp4', '.mp4'],
   ['video/webm', '.webm'],
   ['video/quicktime', '.mov'],
+  ['audio/mpeg', '.mp3'],
+  ['audio/mp3', '.mp3'],
+  ['audio/ogg', '.ogg'],
+  ['audio/opus', '.ogg'],
+  ['audio/wav', '.wav'],
+  ['audio/x-m4a', '.m4a'],
+  ['audio/mp4', '.m4a'],
+  ['audio/aac', '.aac'],
 ])
 
 const URL_IN_STYLE_PATTERN = /url\((['"]?)(.*?)\1\)/gi

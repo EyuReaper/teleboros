@@ -13,7 +13,7 @@ interface SubscriberRecord {
 const SUBSCRIBERS_FILE = path.resolve(process.cwd(), 'data/subscribers.json')
 
 function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  return /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/.test(email)
 }
 
 async function saveLocalSubscriber(subscriber: SubscriberRecord): Promise<void> {

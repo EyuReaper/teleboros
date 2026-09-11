@@ -1,5 +1,6 @@
+import type { HandleUploadBody } from '@vercel/blob/client'
 import process from 'node:process'
-import { type HandleUploadBody, handleUpload } from '@vercel/blob/client'
+import { handleUpload } from '@vercel/blob/client'
 import { NextResponse } from 'next/server'
 import { getPrimaryStorageName, uploadMedia } from '@/lib/storage'
 

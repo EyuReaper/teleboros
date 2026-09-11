@@ -90,11 +90,13 @@ export function SubscribeCard({
                 : 'bg-destructive/10 text-destructive'
             }`}
           >
-            {status.type === 'success' ? (
-              <Check className="h-4 w-4 shrink-0" />
-            ) : (
-              <AlertCircle className="h-4 w-4 shrink-0" />
-            )}
+            {status.type === 'success'
+              ? (
+                  <Check className="h-4 w-4 shrink-0" />
+                )
+              : (
+                  <AlertCircle className="h-4 w-4 shrink-0" />
+                )}
             <span>{status.message}</span>
           </div>
         )}
@@ -113,14 +115,16 @@ export function SubscribeCard({
             />
           </div>
           <Button type="submit" disabled={loading} className="h-10 px-5 text-xs sm:text-sm font-semibold shrink-0">
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Subscribing...
-              </>
-            ) : (
-              'Subscribe'
-            )}
+            {loading
+              ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Subscribing...
+                  </>
+                )
+              : (
+                  'Subscribe'
+                )}
           </Button>
         </form>
 

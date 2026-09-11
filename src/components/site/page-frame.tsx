@@ -2,8 +2,9 @@ import type { ReactNode } from 'react'
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
-import { Github, House, Languages, Pencil, Rss, Send, Tag } from 'lucide-react'
+import { Github, House, Languages, Pencil, Send, Tag } from 'lucide-react'
 import Image from 'next/image'
+import { FeedButton } from '@/components/retention/feed-button'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -17,11 +18,11 @@ import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath, normalizeAppLocale, SUPPORTED_LOCALES } from '@/lib/i18n'
 import { renderInlineMarkdown } from '@/lib/sanitize'
 import { cn } from '@/lib/utils'
-import { FeedButton } from '@/components/retention/feed-button'
 import packageJson from '../../../package.json'
 import { CollapsibleDescription } from './collapsible-description'
 import { CommandPalette } from './command-palette'
 import { ContentAlbum } from './content-album'
+import { ContentAudioPlayer } from './content-audio-player'
 import { ContentCodeCopy } from './content-code-copy'
 import { ContentTwemoji } from './content-twemoji'
 import { ContentVideoPlayer } from './content-video-player'
@@ -405,6 +406,7 @@ export function PageFrame({
           <ContentCodeCopy copyLabel={resolvedMessages.codeCopy.copyCode} copiedLabel={resolvedMessages.codeCopy.copied} />
           <ContentTwemoji />
           <ContentVideoPlayer />
+          <ContentAudioPlayer />
           <div>{children}</div>
         </main>
 

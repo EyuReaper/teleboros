@@ -1,6 +1,6 @@
+import type { LongFormPost, StorageAdapter, StorageUploadResult } from '../types'
 import process from 'node:process'
 import { list, put } from '@vercel/blob'
-import type { LongFormPost, StorageAdapter, StorageUploadResult } from '../types'
 
 export class VercelBlobStorageAdapter implements StorageAdapter {
   readonly name = 'blob' as const
@@ -29,7 +29,7 @@ export class VercelBlobStorageAdapter implements StorageAdapter {
       throw new Error('Vercel Blob token is not configured.')
     }
 
-    const safeName = filename.replace(/[^a-zA-Z0-9._-]/g, '_')
+    const safeName = filename.replace(/[^\w.-]/g, '_')
     const key = `media/${Date.now()}-${safeName}`
 
     let bodyData: any = file
