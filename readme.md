@@ -472,10 +472,19 @@ Every article and post automatically resolves custom, branded 1200x630 social pr
 - **Post Metadata Display**: Automatically extracts and displays the post's full title, publication date, calculated reading time (e.g. `3 min read`), channel name, handle, and channel avatar.
 - **Full Social Crawler Compatibility**: Configured with standard `<meta property="og:image">` and `twitter:card="summary_large_image"` tags for rich, high-resolution cards across Discord, Twitter/X, Telegram, LinkedIn, and Facebook.
 
-## 12: License
+## 12: Native Telegram Media Groups (Photo/Video Albums)
+
+Teleboros natively clusters Telegram media albums into justified collage layouts with an interactive lightbox:
+
+- **Media Group Clustering & Metadata**: Automatically detects Telegram grouped posts and media group IDs, associating consecutive photos and videos with indexed ordering (`data-album-id`, `data-media-index`, `data-total`).
+- **Telegram-Style Collage Solver**: Dynamically calculates the optimal balanced rectangular layout (rows, columns, or L-shapes) matching Telegram's native desktop presentation for 2 to 10 photos/videos.
+- **Interactive Full-Screen Lightbox & Zoom**: Clicking any photo or video opens a rich full-screen modal featuring keyboard arrow navigation (`ArrowLeft`, `ArrowRight`, `Escape`), swipe gestures on mobile, zoom controls (`+`/`-`), image counter (`3 / 8`), fullscreen toggle, and direct downloads.
+- **Seamless Mobile Carousel Fallback**: On screens with viewports $\le 640\text{px}$, albums smoothly transition into a touch-swipeable horizontal snap-scroll carousel with active indicator dots.
+
+## 13: License
 
 This project is licensed under [AGPL-3.0](./LICENSE).
 
-## 13: Page Speed Insights
+## 14: Page Speed Insights
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

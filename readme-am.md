@@ -134,10 +134,19 @@ curl -X POST "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/setWebhook" \
 - **የጽሁፉ ዝርዝር መረጃዎች**: የጽሁፉ ሙሉ ርዕስ፣ የታተመበት ቀን፣ የንባብ ርዝመት (ለምሳሌ: `3 min read`)፣ የቻናሉ ስም እና አርማ (avatar) በግልጽ ይታያሉ።
 - **ሙሉ የማህበራዊ ሚዲያ ድጋፍ**: ለ Discord፣ Twitter/X፣ Telegram፣ LinkedIn እና Facebook ከፍተኛ ጥራት ያላቸውን ቅድመ-ዕይታ ካርዶች ያቀርባል።
 
-## 10: ፈቃድ (License)
+## 10: የቴሌግራም ሚዲያ አልበሞች እና ማሳያ (Native Telegram Media Groups - Photo/Video Albums)
+
+ቴሌቦሮስ የቴሌግራም ፎቶዎችን እና ቪዲዮዎችን በአንድ ላይ የተሰባሰቡ አልበሞችን (Media Groups) በውብ የኮላጅ ቅርጽ እና በዘመናዊ የፎቶ ማሳያ (Lightbox) ያቀርባል:
+
+- **የአልበም መረጃዎችን ማሰባሰብ (Media Group Clustering)**: በቴሌግራም የተለጠፉ ተከታታይ ፎቶዎችን እና ቪዲዮዎችን በመለየት በአንድ አልበም ስር ያደራጃል (`data-album-id`, `data-media-index`, `data-total`)።
+- **የቴሌግራም ስታይል ኮላጅ (Telegram-Style Collage Solver)**: ከ2 እስከ 10 የሚደርሱ ፎቶዎችን/ቪዲዮዎችን ትክክለኛ ቅርጻቸውን ጠብቆ በቴሌግራም ዴስክቶፕ እይታ ልክ በረድፍ፣ በአምድ ወይም በ L-ቅርጽ በተመጣጠነ ሬክታንግል ያዘጋጃል።
+- **ሙሉ ገጽ የፎቶና ቪዲዮ ማሳያ (Interactive Full-Screen Lightbox & Zoom)**: ማንኛውንም ፎቶ ወይም ቪዲዮ ሲጫኑ ሙሉውን ስክሪን የሚሸፍን ማሳያ ይከፈታል፤ በኪቦርድ ቀስቶች (`ArrowLeft`/`ArrowRight`/`Escape`) መቀያየር፣ በስልክ ላይ በጣት ማሳለፍ (swipe gestures)፣ ማሳደጊያ/ማሳነሻ (`+`/`-`)፣ የፎቶዎች ቁጥር (`3 / 8`) እና ቀጥታ ማውረጃ ያካትታል።
+- **ለተንቀሳቃሽ ስልኮች ተስማሚ እይታ (Mobile Carousel Fallback)**: ከ 640px በታች በሆኑ የስልክ ስክሪኖች ላይ፣ አልበሞች በጣት ወደ ግራ እና ቀኝ በቀላሉ ወደሚንሸራሸር (carousel) ይቀየራሉ፤ እንዲሁም የገጽ ጠቋሚ ነጥቦች (dots) አሏቸው።
+
+## 11: ፈቃድ (License)
 
 ይህ ፕሮጀክት በ [AGPL-3.0](./LICENSE) ፈቃድ የተጠበቀ ነው።
 
-## 11: የገጽ ፍጥነት (Page Speed Insights)
+## 12: የገጽ ፍጥነት (Page Speed Insights)
 
 ![Page Speed Metrics](https://cdn.jsdelivr.net/gh/andatoshiki/teleboros@master/.github/assets/pagespeed-metrics.svg)

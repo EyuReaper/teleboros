@@ -353,7 +353,54 @@ function boundingBox(layout: Layout): { w: number, h: number } {
   return { w: maxR, h: maxB }
 }
 
-/* ─── DOM application ──────────────────────────────────────────────── */
+function setupMobileCarousel(container: HTMLElement, images: HTMLImageElement[]) {
+  container.dataset.mobileCarousel = 'true'
+  container.dataset.albumLaid = 'true'
+  container.style.position = ''
+  container.style.width = ''
+  container.style.height = ''
+
+  images.forEach((img) => {
+    img.style.position = ''
+    img.style.left = ''
+    img.style.top = ''
+    img.style.width = ''
+    img.style.height = ''
+    img.style.objectFit = 'cover'
+    img.style.objectPosition = 'center'
+  })
+
+  // Add dots container if not already added and images > 1
+  if (images.length > 1 && !container.nextElementSibling?.classList.contains('album-carousel-dots')) {
+    const dotsContainer = document.createElement('div')
+    dotsContainer.className = 'album-carousel-dots'
+    images.forEach((_, idx) => {
+      const dot = document.createElement('div')
+      dot.className = 'album-carousel-dot'
+      if (idx === 0) {
+        dot.dataset.active = 'true'
+      }
+      dotsContainer.appendChild(dot)
+    })
+    container.after(dotsContainer)
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft
+      const itemWidth = container.clientWidth || 1
+      const activeIndex = Math.round(scrollLeft / itemWidth)
+      const dots = dotsContainer.querySelectorAll<HTMLElement>('.album-carousel-dot')
+      dots.forEach((dot, idx) => {
+        if (idx === activeIndex) {
+          dot.dataset.active = 'true'
+        }
+        else {
+          delete dot.dataset.active
+        }
+      })
+    }
+    container.addEventListener('scroll', handleScroll, { passive: true })
+  }
+}
 
 function layoutContainer(container: HTMLElement): boolean {
   const images = Array.from(
@@ -362,6 +409,19 @@ function layoutContainer(container: HTMLElement): boolean {
 
   if (images.length < 1) {
     return false
+  }
+
+  // Mobile carousel fallback on <= 640px for multi-image albums
+  if (window.innerWidth <= 640 && images.length > 1) {
+    setupMobileCarousel(container, images)
+    return true
+  }
+
+  // Remove mobile carousel state if previously set
+  delete container.dataset.mobileCarousel
+  const nextEl = container.nextElementSibling
+  if (nextEl?.classList.contains('album-carousel-dots')) {
+    nextEl.remove()
   }
 
   const W = container.clientWidth

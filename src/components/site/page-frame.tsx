@@ -22,11 +22,11 @@ import packageJson from '../../../package.json'
 import { CollapsibleDescription } from './collapsible-description'
 import { CommandPalette } from './command-palette'
 import { ContentAlbum } from './content-album'
+import { ContentAlbumLightbox } from './content-album-lightbox'
 import { ContentAudioPlayer } from './content-audio-player'
 import { ContentCodeCopy } from './content-code-copy'
 import { ContentTwemoji } from './content-twemoji'
 import { ContentVideoPlayer } from './content-video-player'
-import { ContentZoom } from './content-zoom'
 import { ScrollToTop } from './scroll-to-top'
 import { SidebarBackButton } from './sidebar-back-button'
 import { ThemeToggle } from './theme-toggle'
@@ -401,7 +401,7 @@ export function PageFrame({
             : (
                 <CollapsibleDescription descriptionHTML={channel.descriptionHTML} />
               )}
-          <ContentZoom />
+          <ContentAlbumLightbox />
           <ContentAlbum />
           <ContentCodeCopy copyLabel={resolvedMessages.codeCopy.copyCode} copiedLabel={resolvedMessages.codeCopy.copied} />
           <ContentTwemoji />

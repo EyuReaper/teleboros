@@ -194,15 +194,22 @@ function getImageStickers($: cheerio.CheerioAPI, item: cheerio.Element, staticPr
 
 async function getImages($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, index: number, title: string) {
   const metaMap = await getImageMetaMap()
-  const images = $(item)
-    .find('.tgme_widget_message_photo_wrap')
-    ?.map((_index, photo) => {
+  const photoWraps = $(item).find('.tgme_widget_message_photo_wrap').toArray()
+  const groupedWrap = $(item).find('.tgme_widget_message_grouped_wrap')
+  const isGrouped = groupedWrap.length > 0 || photoWraps.length > 1
+  const albumId = $(item).attr('data-post')?.replace(/^.*\//, '') || `album-${index}`
+  const totalCount = photoWraps.length
+
+  const images = photoWraps
+    .map((photo, pIndex) => {
       const style = $(photo).attr('style')
       const url = style?.match(/url\(["']?(.*?)["']?\)/)?.[1]
       if (!url) {
         return ''
       }
 
+      const rawRatio = $(photo).attr('data-ratio')
+      const ratioAttr = rawRatio ? ` data-ratio="${escapeHtmlAttr(rawRatio)}"` : ''
       const escapedTitle = escapeHtmlAttr(title || 'Post image')
       const proxyUrl = buildStaticProxyUrl(staticProxy, url)
       const escapedUrl = escapeHtmlAttr(proxyUrl)
@@ -212,24 +219,29 @@ async function getImages($: cheerio.CheerioAPI, item: cheerio.Element, staticPro
       const meta = metaMap[filename]
       const sizeAttrs = meta ? ` width="${meta.w}" height="${meta.h}"` : ''
       const blurAttr = meta?.b ? ` data-blur-src="${escapeHtmlAttr(meta.b)}"` : ''
+      const groupAttrs = isGrouped ? ` data-album-id="${escapeHtmlAttr(albumId)}" data-media-index="${pIndex}" data-total="${totalCount}"` : ''
 
       return `
-      <img class="zoomable" src="${escapedUrl}" alt="${escapedTitle}" loading="lazy"${sizeAttrs}${blurAttr} />`
+      <img class="zoomable" src="${escapedUrl}" alt="${escapedTitle}" loading="lazy"${sizeAttrs}${blurAttr}${ratioAttr}${groupAttrs} />`
     })
-    ?.get()
-    ?.filter(Boolean)
+    .filter(Boolean)
 
   if (!images || images.length === 0) {
     return ''
   }
 
-  return `<div class="image-list-container" data-image-count="${images.length}">${images.join('')}</div>`
+  const containerGroupAttr = isGrouped ? ` data-album-id="${escapeHtmlAttr(albumId)}"` : ''
+  return `<div class="image-list-container" data-image-count="${images.length}"${containerGroupAttr}>${images.join('')}</div>`
 }
 
 function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: string, index: number) {
   const videoElements: string[] = []
 
-  $(item).find('.tgme_widget_message_video_wrap').each((_wIndex, wrapEl) => {
+  const albumId = $(item).attr('data-post')?.replace(/^.*\//, '') || `album-${index}`
+  const videoWraps = $(item).find('.tgme_widget_message_video_wrap').toArray()
+  const hasGroupedWrap = $(item).find('.tgme_widget_message_grouped_wrap').length > 0 || videoWraps.length > 1
+
+  videoWraps.forEach((wrapEl, wIndex) => {
     const wrap = $(wrapEl)
     const video = wrap.find('video')
     if (video.length > 0) {
@@ -251,6 +263,18 @@ function getVideo($: cheerio.CheerioAPI, item: cheerio.Element, staticProxy: str
         if (urlMatch && urlMatch[1]) {
           video.attr('poster', buildStaticProxyUrl(staticProxy, urlMatch[1]))
         }
+      }
+
+      const playerWrap = wrap.closest('.tgme_widget_message_video_player')
+      const rawRatio = playerWrap.attr('data-ratio') || wrap.attr('data-ratio')
+      if (rawRatio) {
+        video.attr('data-ratio', rawRatio)
+      }
+
+      if (hasGroupedWrap) {
+        video.attr('data-album-id', albumId)
+        video.attr('data-media-index', String(wIndex))
+        video.attr('data-media-type', 'video')
       }
 
       video
