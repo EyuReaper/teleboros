@@ -9,7 +9,7 @@
 
 > A self-hosted, statically-generated microblog that mirrors your Telegram channel into a fast, searchable, and beautifully designed website built with Next.js, React, shadcn/ui, and Tailwind CSS.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fandatoshiki%2Fteleboros&env=ADMIN_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,GEMINI_API_KEY,DEPLOY_HOOK_URL,BLOB_READ_WRITE_TOKEN,R2_ACCOUNT_ID,R2_ACCESS_KEY_ID,R2_SECRET_ACCESS_KEY,R2_BUCKET_NAME,R2_PUBLIC_DOMAIN&envDescription=Configure%20your%20Telegram%20bot%2C%20security%2C%20and%20storage%20adapters&project-name=teleboros)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FEyuReaper%2Fteleboros&env=TELEGRAM_CHANNEL,NEXT_PUBLIC_SITE_URL,ADMIN_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,GEMINI_API_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_BUCKET_NAME&envDescription=Configure%20your%20Telegram%20channel%2C%20bot%2C%20and%20free%20Supabase%20storage&project-name=teleboros)
 
 [አማርኛ](./readme-am.md)
 

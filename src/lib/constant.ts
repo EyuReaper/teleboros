@@ -72,6 +72,15 @@ interface SiteConstantConfig {
   pinnedPostIds?: string[]
 }
 
+export interface GiscusConfig {
+  enabled: boolean
+  repo: string
+  repoId: string
+  category: string
+  categoryId: string
+  mapping?: string
+}
+
 export interface CommentsConfig {
   /** Enable or disable comments */
   enabled: boolean
@@ -81,6 +90,8 @@ export interface CommentsConfig {
   limit: number
   /** Color theme for the comments widget */
   color: string
+  /** Optional GitHub Discussions / Giscus comments */
+  giscus?: GiscusConfig
 }
 
 export const SITE_CONSTANTS: SiteConstantConfig = {

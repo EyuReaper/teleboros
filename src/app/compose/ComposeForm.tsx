@@ -1,12 +1,13 @@
 'use client'
 
 import { upload } from '@vercel/blob/client'
-import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
+import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Hash, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
 import { marked } from 'marked'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import { AudioPlayerCard } from '@/components/audio/audio-player-card'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const STORAGE_KEY = 'teleboros_admin_token'
 const MAX_MEDIA_BYTES = 4.5 * 1024 * 1024 // 4.5 MB Vercel Serverless Function payload limit
@@ -67,6 +68,8 @@ export function ComposeForm() {
 
   const [activePreviewTab, setActivePreviewTab] = useState<'telegram' | 'website'>('telegram')
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
+  const [editorTab, setEditorTab] = useState<'write' | 'preview'>('write')
+  const [draftSaved, setDraftSaved] = useState(false)
 
   const [isCondensing, setIsCondensing] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
@@ -80,18 +83,56 @@ export function ComposeForm() {
     step?: string
   } | null>(null)
 
-  // Load saved Admin Token from localStorage
+  // Load saved Admin Token and Draft from localStorage
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
         setAdminToken(saved)
       }
+      const savedDraft = localStorage.getItem('teleboros_compose_draft')
+      if (savedDraft) {
+        const parsed = JSON.parse(savedDraft)
+        if (parsed.text || parsed.title) {
+          setTitle(parsed.title || '')
+          setText(parsed.text || '')
+          setCondensedText(parsed.condensedText || '')
+          setDraftSaved(true)
+        }
+      }
     }
     catch {
       // Ignore local storage errors
     }
   }, [])
+
+  // Auto-save draft on changes
+  useEffect(() => {
+    if (text.trim() || title.trim() || condensedText.trim()) {
+      try {
+        localStorage.setItem(
+          'teleboros_compose_draft',
+          JSON.stringify({ title, text, condensedText }),
+        )
+        setDraftSaved(true)
+      }
+      catch {}
+    }
+  }, [title, text, condensedText])
+
+  const handleClearDraft = () => {
+    if (window.confirm('Are you sure you want to clear your draft?')) {
+      setTitle('')
+      setText('')
+      setCondensedText('')
+      removeMedia()
+      try {
+        localStorage.removeItem('teleboros_compose_draft')
+        setDraftSaved(false)
+      }
+      catch {}
+    }
+  }
 
   // Persist Admin Token
   const handleAdminTokenChange = (value: string) => {
@@ -409,11 +450,16 @@ export function ComposeForm() {
         telegramPostUrl: data.telegramPostUrl,
       })
 
-      // Reset form
+      // Reset form & clear draft
       setTitle('')
       setText('')
       setCondensedText('')
       removeMedia()
+      try {
+        localStorage.removeItem('teleboros_compose_draft')
+        setDraftSaved(false)
+      }
+      catch {}
     }
     catch (err: any) {
       setStatus({
@@ -513,21 +559,99 @@ export function ComposeForm() {
 
           {/* Post Content */}
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label htmlFor="text" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Post Content (Markdown)
-              </label>
-              <span className="text-[11px] text-muted-foreground">Full article on Teleboros</span>
+            <div className="flex items-center justify-between mb-1.5 flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <label htmlFor="text" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Post Content (Markdown)
+                </label>
+                {draftSaved && (
+                  <span className="inline-flex items-center gap-1 text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">
+                    <span>✓ Draft saved</span>
+                    <button
+                      type="button"
+                      onClick={handleClearDraft}
+                      className="ml-1 text-muted-foreground hover:text-destructive underline"
+                    >
+                      Clear
+                    </button>
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center rounded-lg border bg-muted/40 p-0.5">
+                <button
+                  type="button"
+                  onClick={() => setEditorTab('write')}
+                  className={cn(
+                    'flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                    editorTab === 'write' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  <FileText className="h-3 w-3" />
+                  <span>Write</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditorTab('preview')}
+                  className={cn(
+                    'flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                    editorTab === 'preview' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  <Eye className="h-3 w-3" />
+                  <span>Preview</span>
+                </button>
+              </div>
             </div>
-            <textarea
-              id="text"
-              value={text}
-              onChange={e => setText(e.target.value)}
-              required
-              rows={9}
-              className="flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm font-mono ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
-              placeholder="Write your full long-form thoughts here in Markdown...&#10;&#10;Supports **bold**, _italics_, `code`, blockquotes, and links."
-            />
+
+            {editorTab === 'write' ? (
+              <textarea
+                id="text"
+                value={text}
+                onChange={e => setText(e.target.value)}
+                required
+                rows={9}
+                className="flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm font-mono ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
+                placeholder="Write your full long-form thoughts here in Markdown...&#10;&#10;Supports **bold**, _italics_, `code`, blockquotes, and links."
+              />
+            ) : (
+              <div className="min-h-[220px] rounded-lg border border-input bg-muted/15 p-4 text-sm overflow-y-auto max-h-[380px]">
+                {renderedWebHtml ? (
+                  <div className="prose-telegram" dangerouslySetInnerHTML={{ __html: renderedWebHtml }} />
+                ) : (
+                  <p className="text-muted-foreground italic text-xs">Nothing to preview yet. Start typing in the Write tab.</p>
+                )}
+              </div>
+            )}
+
+            {/* Suggested Hashtags */}
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <span className="text-[11px] font-medium text-muted-foreground flex items-center gap-1 mr-1">
+                <Hash className="h-3 w-3" />
+                Tags:
+              </span>
+              {['tech', 'ai', 'dev', 'architecture', 'design', 'release', 'notes'].map(tag => {
+                const isPresent = text.includes(`#${tag}`)
+                return (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => {
+                      if (!isPresent) {
+                        setText(prev => `${prev.trimEnd()} #${tag} `)
+                      }
+                    }}
+                    className={cn(
+                      'rounded-full px-2.5 py-0.5 text-xs font-mono transition-colors cursor-pointer',
+                      isPresent
+                        ? 'bg-primary/15 text-primary border border-primary/30 font-medium'
+                        : 'bg-secondary/70 text-muted-foreground hover:bg-secondary hover:text-foreground',
+                    )}
+                  >
+                    #{tag}
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
           {/* Media Attachment */}

@@ -18,3 +18,14 @@ export function calculateReadingTime(text: string): string {
 
   return `${minutes} min read`
 }
+
+export function getWordCount(text: string): number {
+  if (!text || !text.trim()) {
+    return 0
+  }
+  const clean = text
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/[#*`_~[\]()]/g, ' ')
+    .trim()
+  return clean.split(/\s+/).filter(Boolean).length
+}

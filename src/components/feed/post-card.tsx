@@ -3,11 +3,12 @@
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelPost } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
-import { Eye, MessageCircle, Tag } from 'lucide-react'
+import { Clock, Eye, MessageCircle, Tag } from 'lucide-react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { localizePath } from '@/lib/i18n'
+import { calculateReadingTime } from '@/lib/reading-time'
 import { formatPostTimestamp } from '@/lib/time'
 import { feedItemVariants } from './animated-feed'
 import { AnimatedMetricNumber } from './animated-metric-number'
@@ -91,6 +92,16 @@ export function PostCard({
                 {formattedTime || post.datetime}
               </time>
             </a>
+
+            {(post.isLongForm || post.articleUrl) && post.text ? (
+              <>
+                <span className="text-muted-foreground">·</span>
+                <span className="inline-flex items-center gap-1 text-xs text-muted-foreground" title="Estimated reading time">
+                  <Clock className="h-3 w-3" />
+                  {calculateReadingTime(post.text)}
+                </span>
+              </>
+            ) : null}
 
           </div>
 

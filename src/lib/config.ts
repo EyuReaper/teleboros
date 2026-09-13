@@ -73,29 +73,52 @@ function normalizeStaticProxy(value: string) {
 }
 
 export function getAppConfig(): AppConfig {
+  const channel = (process.env.TELEGRAM_CHANNEL || process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL || SITE_CONSTANTS.channel || '').trim().replace(/^@/, '')
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || SITE_CONSTANTS.siteUrl || '').replace(/\/+$/, '')
+  const author = (process.env.AUTHOR_NAME || process.env.NEXT_PUBLIC_AUTHOR_NAME || SITE_CONSTANTS.seo.author || '').trim()
+  const twitter = (process.env.TWITTER_HANDLE || process.env.TWITTER || SITE_CONSTANTS.twitter || '').replace(/^@/, '').trim()
+  const github = (process.env.GITHUB_HANDLE || process.env.GITHUB || SITE_CONSTANTS.github || '').replace(/^@/, '').trim()
+  const commentsWebsiteId = (process.env.COMMENTS_WEBSITE_ID || process.env.NEXT_PUBLIC_COMMENTS_WEBSITE_ID || SITE_CONSTANTS.comments.websiteId || '').trim()
+
   return {
-    channel: SITE_CONSTANTS.channel,
-    locale: SITE_CONSTANTS.locale,
-    timezone: SITE_CONSTANTS.timezone,
-    siteUrl: SITE_CONSTANTS.siteUrl,
-    staticProxy: normalizeStaticProxy(SITE_CONSTANTS.staticProxy),
+    channel: channel || SITE_CONSTANTS.channel,
+    locale: process.env.DEFAULT_LOCALE || SITE_CONSTANTS.locale,
+    timezone: process.env.TIMEZONE || SITE_CONSTANTS.timezone,
+    siteUrl,
+    staticProxy: normalizeStaticProxy(process.env.STATIC_PROXY || SITE_CONSTANTS.staticProxy),
     cloudFlare: SITE_CONSTANTS.cloudFlare,
-    telegramHost: SITE_CONSTANTS.telegramHost,
+    telegramHost: process.env.TELEGRAM_HOST || SITE_CONSTANTS.telegramHost,
     hideDescription: SITE_CONSTANTS.hideDescription,
     reactionsEnabled: SITE_CONSTANTS.reactionsEnabled,
     pwa: SITE_CONSTANTS.pwa,
-    website: SITE_CONSTANTS.website,
-    twitter: SITE_CONSTANTS.twitter,
-    github: SITE_CONSTANTS.github,
-    telegram: SITE_CONSTANTS.telegram,
-    mastodon: SITE_CONSTANTS.mastodon,
-    bluesky: SITE_CONSTANTS.bluesky,
+    website: process.env.WEBSITE_URL || SITE_CONSTANTS.website,
+    twitter,
+    github,
+    telegram: channel || SITE_CONSTANTS.telegram,
+    mastodon: process.env.MASTODON_HANDLE || SITE_CONSTANTS.mastodon,
+    bluesky: process.env.BLUESKY_HANDLE || SITE_CONSTANTS.bluesky,
     customBanner: SITE_CONSTANTS.customBanner,
     customFooter: SITE_CONSTANTS.customFooter,
     rssBeautify: SITE_CONSTANTS.rssBeautify,
-    seo: SITE_CONSTANTS.seo,
+    seo: {
+      ...SITE_CONSTANTS.seo,
+      author: author || SITE_CONSTANTS.seo.author,
+      title: process.env.SITE_TITLE || (author ? `Teleboros – ${author}` : SITE_CONSTANTS.seo.title),
+    },
     analytics: SITE_CONSTANTS.analytics,
-    comments: SITE_CONSTANTS.comments,
+    comments: {
+      ...SITE_CONSTANTS.comments,
+      websiteId: commentsWebsiteId,
+      enabled: commentsWebsiteId ? true : SITE_CONSTANTS.comments.enabled,
+      giscus: {
+        enabled: Boolean(process.env.GISCUS_REPO && process.env.GISCUS_REPO_ID),
+        repo: process.env.GISCUS_REPO || '',
+        repoId: process.env.GISCUS_REPO_ID || '',
+        category: process.env.GISCUS_CATEGORY || 'General',
+        categoryId: process.env.GISCUS_CATEGORY_ID || '',
+        mapping: process.env.GISCUS_MAPPING || 'pathname',
+      },
+    },
     infiniteScroll: SITE_CONSTANTS.infiniteScroll,
     semanticSearch: SITE_CONSTANTS.semanticSearch,
     pinnedPostIds: SITE_CONSTANTS.pinnedPostIds,

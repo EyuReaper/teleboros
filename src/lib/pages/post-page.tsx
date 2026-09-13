@@ -2,11 +2,16 @@ import type { Metadata } from 'next'
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo, ChannelPost } from '@/lib/types'
 import { notFound } from 'next/navigation'
+import { AuthorBioCard } from '@/components/feed/author-bio-card'
 import { FeedList } from '@/components/feed/feed-list'
+import { GiscusComments } from '@/components/feed/giscus-comments'
+import { SocialShare } from '@/components/feed/social-share'
 import { TelegramComments } from '@/components/feed/telegram-comments'
 import { SubscribeCard } from '@/components/retention/subscribe-card'
 import { JsonLd } from '@/components/site/json-ld'
 import { PageFrame } from '@/components/site/page-frame'
+import { ReadingProgress } from '@/components/site/reading-progress'
+import { TableOfContents } from '@/components/feed/table-of-contents'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath } from '@/lib/i18n'
 import { loadLongFormPost } from '@/lib/long-form'
@@ -204,6 +209,8 @@ export async function renderPostPage(locale: AppLocale, id: string) {
       currentLocalePath={`/posts/${id}`}
       showBack
     >
+      <ReadingProgress />
+      <TableOfContents isLongForm={resolvedPost.isLongForm} />
       <JsonLd data={blogPostingJsonLd} />
       <FeedList
         posts={channel.posts}
@@ -218,7 +225,21 @@ export async function renderPostPage(locale: AppLocale, id: string) {
         uiLocale={locale}
         messages={messages}
       />
-      <div className="mx-auto max-w-2xl px-4 py-6">
+      <div className="mx-auto max-w-2xl px-4 py-4">
+        <SocialShare
+          url={`${siteUrl}${localizePath(locale, `/posts/${id}`)}`}
+          title={resolvedPost.title || `Post ${id}`}
+        />
+        <AuthorBioCard
+          channelTitle={channel.title}
+          channelUsername={channelUsername}
+          avatar={channelAvatar}
+          description={channel.description}
+          twitter={config.twitter}
+          github={config.github}
+          website={config.website}
+          subscriberCount={channel.subscriberCount}
+        />
         <SubscribeCard
           siteUrl={siteUrl}
           channelUsername={channelUsername}
@@ -232,6 +253,17 @@ export async function renderPostPage(locale: AppLocale, id: string) {
           limit={config.comments.limit}
           color={config.comments.color}
         />
+      )}
+      {config.comments?.giscus?.enabled && (
+        <div className="mx-auto max-w-2xl px-4">
+          <GiscusComments
+            repo={config.comments.giscus.repo}
+            repoId={config.comments.giscus.repoId}
+            category={config.comments.giscus.category}
+            categoryId={config.comments.giscus.categoryId}
+            mapping={config.comments.giscus.mapping}
+          />
+        </div>
       )}
     </PageFrame>
   )

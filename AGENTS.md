@@ -138,29 +138,29 @@ This document describes the agents used in this project.
 
 ## Mass Adoption & Fork-Readiness Roadmap
 
-- [ ] Zero-Code Environment Configuration (Frictionless Forking)
-  - [ ] Allow `TELEGRAM_CHANNEL` and `NEXT_PUBLIC_TELEGRAM_CHANNEL` in environment variables to override `SITE_CONSTANTS.channel`
-  - [ ] Allow `SITE_URL` and `NEXT_PUBLIC_SITE_URL` to override `SITE_CONSTANTS.siteUrl`
-  - [ ] Allow `AUTHOR_NAME`, `TWITTER_HANDLE`, `GITHUB_HANDLE`, and `COMMENTS_WEBSITE_ID` to be configured via environment variables
-  - [ ] Update `src/lib/config.ts` to dynamically resolve all branding and channel settings from `process.env` with fallback to `SITE_CONSTANTS`
-  - [ ] Update 1-Click "Deploy with Vercel" button in `README.md` with repository URL `EyuReaper/teleboros` and pre-configured environment prompts
+- [x] Zero-Code Environment Configuration (Frictionless Forking)
+  - [x] Allow `TELEGRAM_CHANNEL` and `NEXT_PUBLIC_TELEGRAM_CHANNEL` in environment variables to override `SITE_CONSTANTS.channel`
+  - [x] Allow `SITE_URL` and `NEXT_PUBLIC_SITE_URL` to override `SITE_CONSTANTS.siteUrl`
+  - [x] Allow `AUTHOR_NAME`, `TWITTER_HANDLE`, `GITHUB_HANDLE`, and `COMMENTS_WEBSITE_ID` to be configured via environment variables
+  - [x] Update `src/lib/config.ts` to dynamically resolve all branding and channel settings from `process.env` with fallback to `SITE_CONSTANTS`
+  - [x] Update 1-Click "Deploy with Vercel" button in `README.md` with repository URL `EyuReaper/teleboros` and pre-configured environment prompts
 
-- [ ] Long-Form Article Reading Experience & Engagement
-  - [ ] Add Estimated Reading Time (`⏱️ X min read`) and word count badge to article headers in `post-page.tsx`
-  - [ ] Implement Top Scroll Reading Progress Bar (subtle gradient indicator tracking reading progress through the article)
-  - [ ] Add Social Share Action Bar (Share to X/Twitter, Telegram, LinkedIn, and "Copy Link" button with toast confirmation)
-  - [ ] Implement Auto-Generated Table of Contents (TOC) for technical articles with multiple headings (`h2`, `h3`)
-  - [ ] Add Author Profile & Channel Bio card at the bottom of long-form articles
+- [x] Long-Form Article Reading Experience & Engagement
+  - [x] Add Estimated Reading Time (`⏱️ X min read`) and word count badge to article headers in `post-page.tsx`
+  - [x] Implement Top Scroll Reading Progress Bar (subtle gradient indicator tracking reading progress through the article)
+  - [x] Add Social Share Action Bar (Share to X/Twitter, Telegram, LinkedIn, and "Copy Link" button with toast confirmation)
+  - [x] Implement Auto-Generated Table of Contents (TOC) on the right side for long-form technical articles with multiple headings (`h2`, `h3`)
+  - [x] Add Author Profile & Channel Bio card at the bottom of long-form articles
 
-- [ ] Author Studio (`/compose`) Quality-of-Life Enhancements
-  - [ ] Implement LocalStorage Draft Auto-Save (preserves title, markdown content, and condensed teaser across browser refreshes)
-  - [ ] Add "Clear Draft" and "Restore Draft" controls in `ComposeForm.tsx`
-  - [ ] Add Tabbed or Split Markdown Live Preview in Compose form ("Write" vs "Preview" tabs)
-  - [ ] Add tags input field with auto-suggested hashtag pills
+- [x] Author Studio (`/compose`) Quality-of-Life Enhancements
+  - [x] Implement LocalStorage Draft Auto-Save (preserves title, markdown content, and condensed teaser across browser refreshes)
+  - [x] Add "Clear Draft" and "Restore Draft" controls in `ComposeForm.tsx`
+  - [x] Add Tabbed or Split Markdown Live Preview in Compose form ("Write" vs "Preview" tabs)
+  - [x] Add tags input field with auto-suggested hashtag pills
 
-- [ ] Universal Developer Commenting (Giscus / GitHub Discussions Fallback)
-  - [ ] Implement optional Giscus (GitHub Discussions) comments adapter alongside Telegram Native Comments
-  - [ ] Add `COMMENTS_PROVIDER` environment variable (`telegram` | `giscus` | `both`)
-  - [ ] Automatically synchronize Giscus theme with active light/dark mode
+- [x] Universal Developer Commenting (Giscus / GitHub Discussions Fallback)
+  - [x] Implement optional Giscus (GitHub Discussions) comments adapter alongside Telegram Native Comments
+  - [x] Add `COMMENTS_PROVIDER` environment variable (`telegram` | `giscus` | `both`)
+  - [x] Automatically synchronize Giscus theme with active light/dark mode
 
 
