@@ -55,7 +55,13 @@ export async function generatePostPageMetadata(locale: AppLocale, id: string): P
     .flatMap(page => page.channel.posts)
     .find(item => item.id === id)
 
-  const longForm = await loadLongFormPost(id)
+  let longForm = await loadLongFormPost(id)
+  if (!longForm && post?.articleUrl) {
+    const articleSlug = post.articleUrl.replace(/^\/posts\//, '').split('?')[0]
+    if (articleSlug && articleSlug !== id) {
+      longForm = await loadLongFormPost(articleSlug)
+    }
+  }
 
   if (!post && !longForm)
     return {}
@@ -130,7 +136,13 @@ export async function renderPostPage(locale: AppLocale, id: string) {
     .flatMap(page => page.channel.posts)
     .find(item => item.id === id) as ChannelPost | undefined
 
-  const longForm = await loadLongFormPost(id)
+  let longForm = await loadLongFormPost(id)
+  if (!longForm && post?.articleUrl) {
+    const articleSlug = post.articleUrl.replace(/^\/posts\//, '').split('?')[0]
+    if (articleSlug && articleSlug !== id) {
+      longForm = await loadLongFormPost(articleSlug)
+    }
+  }
 
   if (!post && !longForm) {
     notFound()
