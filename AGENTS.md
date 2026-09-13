@@ -128,3 +128,39 @@ This document describes the agents used in this project.
   - [x] Complete `.env.example` with step-by-step bot creation walkthrough
   - [x] Dockerfile and `docker-compose.yml` for self-hosters
 
+- [x] Supabase Free-Tier Storage & Long-Form Polish
+  - [x] Implement native `SupabaseStorageAdapter` (100% free, zero credit card, high-speed S3 CDN)
+  - [x] Support direct client-side presigned uploads via Supabase REST API
+  - [x] Build collapsible distraction-free sidebar with local persistence (`teleboros_sidebar_collapsed`)
+  - [x] Synchronize `comments.app` widget with dark/light themes via `next-themes`
+  - [x] Parse Telegram inline keyboard buttons (`tgme_widget_message_inline_button`) to automatically link short-form posts to long-form articles
+  - [x] Convert homepage and locale feeds from static freeze to Incremental Static Regeneration (`revalidate = 60`) with on-publish revalidation
+
+## Mass Adoption & Fork-Readiness Roadmap
+
+- [ ] Zero-Code Environment Configuration (Frictionless Forking)
+  - [ ] Allow `TELEGRAM_CHANNEL` and `NEXT_PUBLIC_TELEGRAM_CHANNEL` in environment variables to override `SITE_CONSTANTS.channel`
+  - [ ] Allow `SITE_URL` and `NEXT_PUBLIC_SITE_URL` to override `SITE_CONSTANTS.siteUrl`
+  - [ ] Allow `AUTHOR_NAME`, `TWITTER_HANDLE`, `GITHUB_HANDLE`, and `COMMENTS_WEBSITE_ID` to be configured via environment variables
+  - [ ] Update `src/lib/config.ts` to dynamically resolve all branding and channel settings from `process.env` with fallback to `SITE_CONSTANTS`
+  - [ ] Update 1-Click "Deploy with Vercel" button in `README.md` with repository URL `EyuReaper/teleboros` and pre-configured environment prompts
+
+- [ ] Long-Form Article Reading Experience & Engagement
+  - [ ] Add Estimated Reading Time (`⏱️ X min read`) and word count badge to article headers in `post-page.tsx`
+  - [ ] Implement Top Scroll Reading Progress Bar (subtle gradient indicator tracking reading progress through the article)
+  - [ ] Add Social Share Action Bar (Share to X/Twitter, Telegram, LinkedIn, and "Copy Link" button with toast confirmation)
+  - [ ] Implement Auto-Generated Table of Contents (TOC) for technical articles with multiple headings (`h2`, `h3`)
+  - [ ] Add Author Profile & Channel Bio card at the bottom of long-form articles
+
+- [ ] Author Studio (`/compose`) Quality-of-Life Enhancements
+  - [ ] Implement LocalStorage Draft Auto-Save (preserves title, markdown content, and condensed teaser across browser refreshes)
+  - [ ] Add "Clear Draft" and "Restore Draft" controls in `ComposeForm.tsx`
+  - [ ] Add Tabbed or Split Markdown Live Preview in Compose form ("Write" vs "Preview" tabs)
+  - [ ] Add tags input field with auto-suggested hashtag pills
+
+- [ ] Universal Developer Commenting (Giscus / GitHub Discussions Fallback)
+  - [ ] Implement optional Giscus (GitHub Discussions) comments adapter alongside Telegram Native Comments
+  - [ ] Add `COMMENTS_PROVIDER` environment variable (`telegram` | `giscus` | `both`)
+  - [ ] Automatically synchronize Giscus theme with active light/dark mode
+
+
