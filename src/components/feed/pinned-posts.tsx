@@ -221,10 +221,10 @@ export function PinnedPosts({
                   </div>
                 )}
 
-                {currentPost.isLongForm && (
+                {(currentPost.isLongForm || currentPost.articleUrl) && (
                   <div className="mt-3">
                     <a
-                      href={localizePath(uiLocale, `/posts/${currentPost.id}`)}
+                      href={currentPost.articleUrl ? (currentPost.articleUrl.startsWith('/posts/') ? localizePath(uiLocale, currentPost.articleUrl) : currentPost.articleUrl) : localizePath(uiLocale, `/posts/${currentPost.id}`)}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-opacity hover:opacity-80"
                     >
                       <span>Read full article</span>

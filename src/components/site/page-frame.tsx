@@ -1,8 +1,11 @@
+'use client'
+
 import type { ReactNode } from 'react'
 import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
-import { Github, House, Languages, Pencil, Send, Tag } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import { Github, House, Languages, PanelLeftClose, PanelLeftOpen, Pencil, Send, Tag } from 'lucide-react'
 import Image from 'next/image'
 import { FeedButton } from '@/components/retention/feed-button'
 import { Button } from '@/components/ui/button'
@@ -141,6 +144,31 @@ export function PageFrame({
   const bannerMarkdownHtml = renderInlineMarkdown(config.customBanner)
   const footerMarkdownHtml = renderInlineMarkdown(config.customFooter)
 
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    try {
+      const saved = localStorage.getItem('teleboros_sidebar_collapsed')
+      if (saved === 'true') {
+        setIsSidebarCollapsed(true)
+      }
+    }
+    catch {}
+  }, [])
+
+  const toggleSidebar = useCallback(() => {
+    setIsSidebarCollapsed((prev) => {
+      const next = !prev
+      try {
+        localStorage.setItem('teleboros_sidebar_collapsed', String(next))
+      }
+      catch {}
+      return next
+    })
+  }, [])
+
   return (
     <div className="min-h-screen bg-background">
       {bannerMarkdownHtml
@@ -151,8 +179,15 @@ export function PageFrame({
           )
         : null}
 
-      <div className={cn('mx-auto grid grid-cols-[60px_minmax(0,1fr)] border-r sm:grid-cols-[72px_minmax(0,1fr)]', wide ? 'max-w-6xl' : 'max-w-[784px]')}>
-        <aside className="sticky top-0 z-10 h-screen border-r bg-background/95">
+      <div className={cn(
+        'mx-auto grid border-r transition-[grid-template-columns] duration-300',
+        isSidebarCollapsed ? 'grid-cols-1' : 'grid-cols-[60px_minmax(0,1fr)] sm:grid-cols-[72px_minmax(0,1fr)]',
+        wide ? 'max-w-6xl' : 'max-w-[784px]',
+      )}>
+        <aside className={cn(
+          'sticky top-0 z-10 h-screen border-r bg-background/95 transition-all duration-300',
+          isSidebarCollapsed ? 'hidden w-0 overflow-hidden border-r-0' : 'block',
+        )}>
           <TooltipProvider delayDuration={150}>
             <div className="flex h-full w-full flex-col items-center gap-1.5 px-1 py-3 sm:gap-2 sm:px-2 sm:py-4">
               <Tooltip>
@@ -174,6 +209,20 @@ export function PageFrame({
                   </a>
                 </TooltipTrigger>
                 <TooltipContent side="right">Teleboros</TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    onClick={toggleSidebar}
+                    className={sidebarIconButtonClass}
+                    aria-label="Collapse sidebar"
+                  >
+                    <PanelLeftClose className={sidebarIconGlyphClass} />
+                    <span className="sr-only">Collapse sidebar</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right">Collapse sidebar</TooltipContent>
               </Tooltip>
               {showBack
                 ? (
@@ -371,28 +420,49 @@ export function PageFrame({
         <main className="min-w-0">
           <div className="sticky top-0 z-[5] border-b bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
             <div className="flex items-center justify-between gap-3">
-              <a href={localizePath(resolvedLocale, '/')} className="flex min-w-0 items-center gap-3">
-                <Image
-                  src={avatar}
-                  alt={channel.title}
-                  width={44}
-                  height={44}
-                  className="h-11 w-11 rounded-full border object-cover"
-                  loading="eager"
-                />
-                <div className="min-w-0">
-                  <p className="truncate text-base font-semibold leading-tight">{channel.title}</p>
-                  {channel.subscriberCount
-                    ? (
-                        <p className="truncate text-xs text-muted-foreground">
-                          {channel.subscriberCount}
-                          {' '}
-                          {resolvedMessages.feed.subscribers}
-                        </p>
-                      )
-                    : null}
-                </div>
-              </a>
+              <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                {isSidebarCollapsed && (
+                  <TooltipProvider delayDuration={150}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={toggleSidebar}
+                          className="h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                          aria-label="Expand sidebar"
+                        >
+                          <PanelLeftOpen className="h-5 w-5" />
+                          <span className="sr-only">Expand sidebar</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom">Expand sidebar</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+                <a href={localizePath(resolvedLocale, '/')} className="flex min-w-0 items-center gap-3">
+                  <Image
+                    src={avatar}
+                    alt={channel.title}
+                    width={44}
+                    height={44}
+                    className="h-11 w-11 rounded-full border object-cover"
+                    loading="eager"
+                  />
+                  <div className="min-w-0">
+                    <p className="truncate text-base font-semibold leading-tight">{channel.title}</p>
+                    {channel.subscriberCount
+                      ? (
+                          <p className="truncate text-xs text-muted-foreground">
+                            {channel.subscriberCount}
+                            {' '}
+                            {resolvedMessages.feed.subscribers}
+                          </p>
+                        )
+                      : null}
+                  </div>
+                </a>
+              </div>
               <p className="shrink-0 text-sm font-medium text-muted-foreground">{getPageTitle(currentPath, resolvedMessages, pageNumber)}</p>
             </div>
           </div>
@@ -412,12 +482,12 @@ export function PageFrame({
 
         {footerMarkdownHtml
           ? (
-              <footer className="col-start-2 border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground">
+              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "col-start-2")}>
                 <div className="[overflow-wrap:anywhere] [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-foreground [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.9em] [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: footerMarkdownHtml }} />
               </footer>
             )
           : (
-              <footer className="col-start-2 border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground">
+              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "col-start-2")}>
                 <p>
                   Built with love by
                   {' '}

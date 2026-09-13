@@ -825,6 +825,30 @@ async function getPost(
       return `url("${targetUrl}")`
     })
 
+  let isLongForm = false
+  let articleUrl: string | undefined
+
+  messageNode.find('.tgme_widget_message_inline_button').each((_i, btn) => {
+    const btnHref = $(btn).attr('href') || ''
+    const btnText = $(btn).text()?.trim() || ''
+    if (btnHref) {
+      if (
+        btnHref.includes('/posts/')
+        || /read\s+(?:the\s+)?(?:full\s+)?article/i.test(btnText)
+        || /full\s+article/i.test(btnText)
+      ) {
+        isLongForm = true
+        try {
+          const parsed = new URL(btnHref)
+          articleUrl = `${parsed.pathname}${parsed.search}`
+        }
+        catch {
+          articleUrl = btnHref
+        }
+      }
+    }
+  })
+
   return {
     id,
     title,
@@ -837,6 +861,8 @@ async function getPost(
     text,
     content: sanitizePostHtml(rawContent),
     reactions: reactionsEnabled ? getReactions($, messageNode[0], staticProxy) : [],
+    isLongForm,
+    articleUrl,
   }
 }
 

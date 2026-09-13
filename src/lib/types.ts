@@ -19,6 +19,7 @@ export interface ChannelPost {
   content: string
   reactions: ChannelReaction[]
   isLongForm?: boolean
+  articleUrl?: string
   fullContent?: string
   isPinned?: boolean
   accentColor?: string

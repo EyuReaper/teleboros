@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 export interface TelegramCommentsProps {
   websiteId: string
@@ -11,16 +12,25 @@ export interface TelegramCommentsProps {
 
 export function TelegramComments({ websiteId, pageId, limit = 5, color = 'E22F38' }: TelegramCommentsProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (!containerRef.current)
       return
     if (!websiteId)
       return
+    if (!mounted)
+      return
 
-    // Clear previous widget if it exists (e.g., during dev hot reload)
+    // Clear previous widget if it exists (e.g., during theme switch or hot reload)
     containerRef.current.innerHTML = ''
 
+    const isDark = resolvedTheme === 'dark'
     const script = document.createElement('script')
     script.src = 'https://comments.app/js/widget.js?3'
     script.async = true
@@ -30,16 +40,17 @@ export function TelegramComments({ websiteId, pageId, limit = 5, color = 'E22F38
     }
     script.setAttribute('data-limit', limit.toString())
     script.setAttribute('data-color', color)
+    script.setAttribute('data-dark', isDark ? '1' : '0')
 
     containerRef.current.appendChild(script)
 
     return () => {
-      // Cleanup on unmount
+      // Cleanup on unmount or theme switch
       if (containerRef.current) {
         containerRef.current.innerHTML = ''
       }
     }
-  }, [websiteId, pageId, limit, color])
+  }, [websiteId, pageId, limit, color, resolvedTheme, mounted])
 
   if (!websiteId)
     return null

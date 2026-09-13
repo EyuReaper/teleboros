@@ -1,4 +1,5 @@
 import process from 'node:process'
+import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { SITE_CONSTANTS } from '@/lib/constant'
 import { saveLongFormPost } from '@/lib/long-form'
@@ -351,6 +352,20 @@ export async function POST(req: Request) {
       catch (aliasErr) {
         console.warn('[teleboros] Non-fatal error saving messageId alias:', aliasErr)
       }
+    }
+
+    // Invalidate ISR cache so the post immediately appears on home feed and article routes
+    try {
+      revalidatePath('/')
+      revalidatePath('/[locale]', 'page')
+      revalidatePath('/posts/[id]', 'page')
+      revalidatePath(`/posts/${canonicalPostId}`)
+      if (messageId) {
+        revalidatePath(`/posts/${messageId}`)
+      }
+    }
+    catch (revErr) {
+      console.warn('[teleboros compose] Revalidation warning:', revErr)
     }
 
     // 3. Trigger Deploy Hook (optional site rebuild)

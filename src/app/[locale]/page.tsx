@@ -11,7 +11,7 @@ import { getSnapshotPaginationLinks } from '@/lib/pagination/snapshot-pagination
 import { enrichPostsWithAccentColors, resolvePinnedPosts } from '@/lib/pinned-posts'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
 
-export const dynamic = 'force-static'
+export const revalidate = 60
 
 interface HomePageProps {
   params: Promise<{

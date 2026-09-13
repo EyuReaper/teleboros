@@ -113,11 +113,11 @@ export function PostCard({
               )
             : null}
 
-          {post.isLongForm
+          {(post.isLongForm || post.articleUrl)
             ? (
                 <div className="mt-3">
                   <a
-                    href={localizePath(uiLocale, `/posts/${post.id}`)}
+                    href={post.articleUrl ? (post.articleUrl.startsWith('/posts/') ? localizePath(uiLocale, post.articleUrl) : post.articleUrl) : localizePath(uiLocale, `/posts/${post.id}`)}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-opacity hover:opacity-80"
                   >
                     <span>Read full article</span>

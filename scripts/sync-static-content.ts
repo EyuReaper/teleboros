@@ -888,17 +888,32 @@ function toIco(pngBuffer: Buffer, size: number): Buffer {
 
 async function enrichSnapshotWithLongFormPosts(snapshot: StaticSnapshot) {
   let longFormCount = 0
-  for (const page of snapshot.pages) {
-    for (const post of page.channel.posts) {
-      const longForm = await loadLongFormPost(post.id)
-      if (longForm) {
-        post.isLongForm = true
-        post.fullContent = longForm.html
-        if (longForm.title) {
-          post.title = longForm.title
-        }
-        longFormCount += 1
+  const allPosts = [
+    ...(snapshot.root?.posts || []),
+    ...snapshot.pages.flatMap(p => p.channel.posts),
+  ]
+  const seenPosts = new Set<string>()
+
+  for (const post of allPosts) {
+    if (seenPosts.has(post.id))
+      continue
+    seenPosts.add(post.id)
+
+    let longForm = await loadLongFormPost(post.id)
+    if (!longForm && post.articleUrl) {
+      const slug = post.articleUrl.replace(/^\/posts\//, '').split(/[?#]/)[0]
+      if (slug) {
+        longForm = await loadLongFormPost(slug)
       }
+    }
+
+    if (longForm) {
+      post.isLongForm = true
+      post.fullContent = longForm.html
+      if (longForm.title) {
+        post.title = longForm.title
+      }
+      longFormCount += 1
     }
   }
   if (longFormCount > 0) {
