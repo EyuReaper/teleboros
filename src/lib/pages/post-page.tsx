@@ -11,6 +11,7 @@ import { SubscribeCard } from '@/components/retention/subscribe-card'
 import { JsonLd } from '@/components/site/json-ld'
 import { PageFrame } from '@/components/site/page-frame'
 import { ReadingProgress } from '@/components/site/reading-progress'
+import type { TocItem } from '@/components/feed/table-of-contents'
 import { TableOfContents } from '@/components/feed/table-of-contents'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath } from '@/lib/i18n'
@@ -18,6 +19,37 @@ import { loadLongFormPost } from '@/lib/long-form'
 import { calculateReadingTime } from '@/lib/reading-time'
 import { resolveSeoImageUrl } from '@/lib/seo'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
+
+function extractHeadingsAndInjectIds(html?: string): { html: string, headings: TocItem[] } {
+  if (!html) return { html: '', headings: [] }
+  const headings: TocItem[] = []
+  let index = 0
+
+  const updatedHtml = html.replace(/<(h[2-4])([^>]*)>(.*?)<\/\1>/gi, (match, tag, attrs, text) => {
+    const cleanText = text.replace(/<[^>]+>/g, '').trim()
+    if (!cleanText) return match
+
+    const idMatch = attrs.match(/id=["']([^"']+)["']/i)
+    let id = idMatch ? idMatch[1] : ''
+
+    if (!id) {
+      id = cleanText
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .concat(`-${index}`)
+      attrs = ` id="${id}"${attrs}`
+    }
+
+    const level = tag.toLowerCase() === 'h4' ? 4 : tag.toLowerCase() === 'h3' ? 3 : 2
+    headings.push({ id, text: cleanText, level })
+    index++
+
+    return `<${tag}${attrs}>${text}</${tag}>`
+  })
+
+  return { html: updatedHtml, headings }
+}
 
 export function resolvePostDynamicOgUrl(options: {
   siteUrl: string
@@ -150,13 +182,17 @@ export async function renderPostPage(locale: AppLocale, id: string) {
 
   const siteUrl = config.siteUrl || 'https://example.com'
 
+  const { html: processedContent, headings: tocHeadings } = extractHeadingsAndInjectIds(
+    longForm ? longForm.html : post?.content,
+  )
+
   const resolvedPost: ChannelPost = longForm
     ? {
         id,
         title: longForm.title || post?.title || `Post ${id}`,
         type: 'text',
         text: longForm.text,
-        content: longForm.html,
+        content: processedContent || longForm.html || '',
         isLongForm: true,
         datetime: post?.datetime || longForm.createdAt || new Date().toISOString(),
         views: post?.views,
@@ -164,7 +200,10 @@ export async function renderPostPage(locale: AppLocale, id: string) {
         tags: post?.tags || [],
         reactions: post?.reactions || [],
       }
-    : post!
+    : {
+        ...post!,
+        content: processedContent || post?.content || '',
+      }
 
   const channel: ChannelInfo = {
     ...channelInfo,
@@ -222,7 +261,7 @@ export async function renderPostPage(locale: AppLocale, id: string) {
       showBack
     >
       <ReadingProgress />
-      <TableOfContents isLongForm={resolvedPost.isLongForm} />
+      <TableOfContents headings={tocHeadings} isLongForm={resolvedPost.isLongForm || tocHeadings.length >= 2} />
       <JsonLd data={blogPostingJsonLd} />
       <FeedList
         posts={channel.posts}
