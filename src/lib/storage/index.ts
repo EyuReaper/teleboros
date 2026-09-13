@@ -216,12 +216,16 @@ export async function uploadMedia(
 }
 
 /**
- * Get presigned URL for direct-to-cloud client-side uploads (e.g. Cloudflare R2).
+ * Get presigned / direct upload URL for client-side uploads (Supabase or Cloudflare R2).
  */
 export async function getPresignedUploadUrl(
   filename: string,
   contentType: string,
 ): Promise<PresignedUploadUrl | null> {
+  const supabase = getSupabaseAdapter()
+  if (supabase.isConfigured() && supabase.getPresignedUploadUrl) {
+    return await supabase.getPresignedUploadUrl(filename, contentType)
+  }
   const r2 = getR2Adapter()
   if (r2.isConfigured() && r2.getPresignedUploadUrl) {
     return await r2.getPresignedUploadUrl(filename, contentType)
