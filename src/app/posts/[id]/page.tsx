@@ -15,7 +15,21 @@ interface DefaultPostPageProps {
 
 export async function generateStaticParams() {
   const snapshot = await getStaticSnapshot()
-  return snapshot.postIds.map(id => ({ id }))
+  const postIds = new Set(snapshot.postIds)
+  try {
+    const fs = await import('node:fs/promises')
+    const path = await import('node:path')
+    const files = await fs.readdir(path.resolve(process.cwd(), 'data/posts'))
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        postIds.add(file.replace(/\.json$/, ''))
+      }
+    }
+  }
+  catch {
+    // Ignore if directory missing
+  }
+  return Array.from(postIds).map(id => ({ id }))
 }
 
 export async function generateMetadata({ params }: DefaultPostPageProps): Promise<Metadata> {

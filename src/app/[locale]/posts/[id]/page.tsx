@@ -16,8 +16,23 @@ interface PostPageProps {
 
 export async function generateStaticParams() {
   const snapshot = await getStaticSnapshot()
+  const postIds = new Set(snapshot.postIds)
+  try {
+    const fs = await import('node:fs/promises')
+    const path = await import('node:path')
+    const files = await fs.readdir(path.resolve(process.cwd(), 'data/posts'))
+    for (const file of files) {
+      if (file.endsWith('.json')) {
+        postIds.add(file.replace(/\.json$/, ''))
+      }
+    }
+  }
+  catch {
+    // Ignore if directory missing
+  }
+  const allIds = Array.from(postIds)
   return NON_DEFAULT_LOCALES.flatMap(locale =>
-    snapshot.postIds.map(id => ({ locale, id })),
+    allIds.map(id => ({ locale, id })),
   )
 }
 

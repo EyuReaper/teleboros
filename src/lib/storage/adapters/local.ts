@@ -93,7 +93,26 @@ export class LocalStorageAdapter implements StorageAdapter {
       return JSON.parse(content) as LongFormPost
     }
     catch {
+      try {
+        const { readdir } = await import('node:fs/promises')
+        const files = await readdir(this.postsDir)
+        const cleanId = id.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        const match = files.find((f) => {
+          if (!f.endsWith('.json'))
+            return false
+          const base = f.replace(/\.json$/, '').toLowerCase()
+          return base === cleanId || cleanId.startsWith(base) || base.startsWith(cleanId.slice(0, 32))
+        })
+        if (match) {
+          const content = await readFile(path.join(this.postsDir, match), 'utf8')
+          return JSON.parse(content) as LongFormPost
+        }
+      }
+      catch {
+        // Ignore fallback errors
+      }
       return null
     }
   }
 }
+
