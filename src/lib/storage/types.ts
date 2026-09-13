@@ -25,7 +25,7 @@ export interface PresignedUploadUrl {
 }
 
 export interface StorageAdapter {
-  readonly name: 'r2' | 'blob' | 'local'
+  readonly name: 'r2' | 'blob' | 'local' | 'supabase'
   isConfigured: () => boolean
   uploadMedia: (
     file: Buffer | Uint8Array | ArrayBuffer | Blob,

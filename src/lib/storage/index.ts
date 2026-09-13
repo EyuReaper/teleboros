@@ -1,13 +1,22 @@
 import type { LongFormPost, PresignedUploadUrl, StorageAdapter, StorageUploadResult } from './types'
 import { LocalStorageAdapter } from './adapters/local'
 import { CloudflareR2Adapter } from './adapters/r2'
+import { SupabaseStorageAdapter } from './adapters/supabase'
 import { VercelBlobStorageAdapter } from './adapters/vercel-blob'
 
 export * from './types'
 
+let supabaseAdapterInstance: SupabaseStorageAdapter | null = null
 let r2AdapterInstance: CloudflareR2Adapter | null = null
 let blobAdapterInstance: VercelBlobStorageAdapter | null = null
 let localAdapterInstance: LocalStorageAdapter | null = null
+
+function getSupabaseAdapter(): SupabaseStorageAdapter {
+  if (!supabaseAdapterInstance) {
+    supabaseAdapterInstance = new SupabaseStorageAdapter()
+  }
+  return supabaseAdapterInstance
+}
 
 function getR2Adapter(): CloudflareR2Adapter {
   if (!r2AdapterInstance) {
@@ -32,11 +41,17 @@ function getLocalAdapter(): LocalStorageAdapter {
 
 /**
  * Resolve the primary storage adapter based on environment configuration:
- * 1. Cloudflare R2 (Recommended primary production adapter: zero egress fees, 10GB free tier)
- * 2. Vercel Blob (Turnkey 1-click Vercel deployments)
- * 3. Local Filesystem (Docker, self-hosted VPS, or local development)
+ * 1. Supabase Storage (100% Free, zero credit card, high-speed S3 CDN)
+ * 2. Cloudflare R2 (Recommended primary production adapter: zero egress fees, 10GB free tier)
+ * 3. Vercel Blob (Turnkey 1-click Vercel deployments)
+ * 4. Local Filesystem (Docker, self-hosted VPS, or local development)
  */
 export function getStorageAdapter(): StorageAdapter {
+  const supabase = getSupabaseAdapter()
+  if (supabase.isConfigured()) {
+    return supabase
+  }
+
   const r2 = getR2Adapter()
   if (r2.isConfigured()) {
     return r2
@@ -55,6 +70,10 @@ export function getStorageAdapter(): StorageAdapter {
  */
 export function getAllActiveAdapters(): StorageAdapter[] {
   const adapters: StorageAdapter[] = []
+  const supabase = getSupabaseAdapter()
+  if (supabase.isConfigured()) {
+    adapters.push(supabase)
+  }
   const r2 = getR2Adapter()
   if (r2.isConfigured()) {
     adapters.push(r2)
@@ -67,7 +86,7 @@ export function getAllActiveAdapters(): StorageAdapter[] {
   return adapters
 }
 
-export function getPrimaryStorageName(): 'r2' | 'blob' | 'local' {
+export function getPrimaryStorageName(): 'supabase' | 'r2' | 'blob' | 'local' {
   return getStorageAdapter().name
 }
 
@@ -131,6 +150,20 @@ export async function loadPost(id: string): Promise<LongFormPost | null> {
   }
 
   // 2. Query configured cloud adapters
+  const supabase = getSupabaseAdapter()
+  if (supabase.isConfigured()) {
+    try {
+      const supabasePost = await supabase.loadPost(id)
+      if (supabasePost) {
+        postLookupCache.set(id, { post: supabasePost, timestamp: Date.now() })
+        return supabasePost
+      }
+    }
+    catch {
+      // Continue to next adapter
+    }
+  }
+
   const r2 = getR2Adapter()
   if (r2.isConfigured()) {
     try {
