@@ -91,7 +91,7 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   // Timezone for date formatting (e.g. UTC, America/New_York).
   timezone: 'UTC',
   // Canonical base URL of the published site.
-  siteUrl: 'https://tg.toshiki.dev',
+  siteUrl: 'https://teleboros.vercel.app',
   // Telegram host used for channel fetches and public links (e.g. t.me).
   telegramHost: 't.me',
   // Proxy base URL for Telegram-origin media. Leave empty unless you need a runtime proxy.
@@ -109,19 +109,19 @@ export const SITE_CONSTANTS: SiteConstantConfig = {
   // Whether to enable Progressive Web App (PWA) support (service worker, manifest, offline caching).
   pwa: true,
   // Main website URL for the author/org.
-  website: 'https://toshiki.dev',
+  website: 'https://eyus-portfolio.vercel.app',
   // Twitter/X username only (no URL prefix).
-  twitter: 'andatoshiki',
+  twitter: 'eyu_gx',
   // GitHub username only (no URL prefix).
-  github: 'andatoshiki',
+  github: 'EyuReaper',
   // Telegram username only (no URL prefix).
   telegram: 'techops_re',
   // Mastodon profile host/path without protocol (e.g. mastodon.social/@username).
-  mastodon: 'mastodon.social/@andatoshiki',
+  mastodon: '',
   // Bluesky handle (e.g. username.bsky.social).
-  bluesky: 'andatoshiki.bsky.social',
+  bluesky: '',
   // Optional inline markdown shown above main content (e.g. **alert**, [link](https://...)).
-  customBanner: '**This project is open source under AGPL-3.0.** [Get Teleboros on GitHub](https://github.com/andatoshiki/teleboros) and launch your own instance in minutes with minimal configuration!',
+  customBanner: '',
   // Optional inline markdown to replace the default footer.
   customFooter: '',
   // Whether to beautify RSS output with XSLT styling.
