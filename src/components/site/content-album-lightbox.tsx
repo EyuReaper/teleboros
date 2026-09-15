@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 
-const ZOOMABLE_SELECTOR = '.prose-telegram img.zoomable, .prose-telegram video.post-video'
+const ZOOMABLE_SELECTOR = '.prose-telegram img.zoomable, .prose-telegram img.article-media-compact, .prose-telegram video.post-video, .article-media-wrapper img'
 
 interface MediaItem {
   src: string
@@ -90,7 +90,7 @@ export function ContentAlbumLightbox() {
       let albumItems: MediaItem[] = []
 
       if (albumContainer) {
-        const elements = Array.from(albumContainer.querySelectorAll<HTMLElement>('img.zoomable, video.post-video'))
+        const elements = Array.from(albumContainer.querySelectorAll<HTMLElement>('img.zoomable, img.article-media-compact, video.post-video, .article-media-wrapper img'))
         if (elements.length > 0) {
           albumItems = elements.map((el, i) => {
             const isVideo = el instanceof HTMLVideoElement || el.tagName.toLowerCase() === 'video'
@@ -107,6 +107,30 @@ export function ContentAlbumLightbox() {
               total: elements.length,
             }
           })
+        }
+      }
+      else {
+        // Check if part of a long-form article or post with multiple inline media elements
+        const articleContainer = target.closest<HTMLElement>('.prose-telegram, article, .group-post')
+        if (articleContainer) {
+          const rawElements = Array.from(articleContainer.querySelectorAll<HTMLElement>('img.zoomable, img.article-media-compact, video.post-video, .article-media-wrapper img'))
+          const uniqueElements = Array.from(new Set(rawElements))
+          if (uniqueElements.length > 1) {
+            albumItems = uniqueElements.map((el, i) => {
+              const isVideo = el instanceof HTMLVideoElement || el.tagName.toLowerCase() === 'video'
+              const src = (el instanceof HTMLImageElement ? el.src : (el as HTMLVideoElement).currentSrc || (el as HTMLVideoElement).src) || ''
+              const alt = (el as HTMLImageElement).alt || (isVideo ? 'Post video' : 'Post image')
+              const poster = isVideo ? (el as HTMLVideoElement).poster : undefined
+              return {
+                src,
+                alt,
+                type: isVideo ? 'video' : 'image',
+                poster,
+                index: i,
+                total: uniqueElements.length,
+              }
+            })
+          }
         }
       }
 

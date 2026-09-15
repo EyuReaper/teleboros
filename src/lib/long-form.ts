@@ -1,7 +1,7 @@
 import type { LongFormPost } from './storage'
 import path from 'node:path'
 import process from 'node:process'
-import { marked } from 'marked'
+import { renderArticleMarkdown } from './markdown'
 import { sanitizePostHtml } from './sanitize'
 import { loadPost as loadFromStorage, savePost as saveToStorage } from './storage'
 
@@ -17,7 +17,7 @@ export function getLongFormFilePath(id: string): string {
  * Render Markdown into sanitized HTML suitable for Teleboros article pages.
  */
 export async function renderMarkdownToHtml(markdown: string): Promise<string> {
-  const rawHtml = await marked.parse(markdown)
+  const rawHtml = await renderArticleMarkdown(markdown)
   return sanitizePostHtml(rawHtml)
 }
 

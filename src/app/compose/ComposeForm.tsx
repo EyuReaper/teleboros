@@ -1,12 +1,13 @@
 'use client'
 
 import { upload } from '@vercel/blob/client'
-import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, Globe, Hash, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, X } from 'lucide-react'
-import { marked } from 'marked'
+import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, FolderArchive, Globe, Hash, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, UploadCloud, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import { AudioPlayerCard } from '@/components/audio/audio-player-card'
 import { Button } from '@/components/ui/button'
+import { importMarkdownBundle } from '@/lib/bundle-importer'
+import { renderArticleMarkdown } from '@/lib/markdown'
 import { cn } from '@/lib/utils'
 
 const STORAGE_KEY = 'teleboros_admin_token'
@@ -83,6 +84,13 @@ export function ComposeForm() {
     step?: string
   } | null>(null)
 
+  // Markdown & Bundle Import States
+  const [isImportingBundle, setIsImportingBundle] = useState(false)
+  const [bundleImportStatus, setBundleImportStatus] = useState<string | null>(null)
+  const [isDraggingOverEditor, setIsDraggingOverEditor] = useState(false)
+  const [inlineUploadActive, setInlineUploadActive] = useState(false)
+  const bundleFileInputRef = React.useRef<HTMLInputElement | null>(null)
+
   // Load saved Admin Token and Draft from localStorage
   useEffect(() => {
     try {
@@ -120,7 +128,17 @@ export function ComposeForm() {
     }
   }, [title, text, condensedText])
 
+  const removeMedia = () => {
+    if (mediaPreviewUrl) {
+      URL.revokeObjectURL(mediaPreviewUrl)
+    }
+    setMedia(null)
+    setMediaType(null)
+    setMediaPreviewUrl(null)
+  }
+
   const handleClearDraft = () => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Are you sure you want to clear your draft?')) {
       setTitle('')
       setText('')
@@ -166,15 +184,6 @@ export function ComposeForm() {
     }
   }
 
-  const removeMedia = () => {
-    if (mediaPreviewUrl) {
-      URL.revokeObjectURL(mediaPreviewUrl)
-    }
-    setMedia(null)
-    setMediaType(null)
-    setMediaPreviewUrl(null)
-  }
-
   // Clean up object URL on unmount
   useEffect(() => {
     return () => {
@@ -184,7 +193,7 @@ export function ComposeForm() {
     }
   }, [mediaPreviewUrl])
 
-  // Asynchronously render markdown for Website preview
+  // Asynchronously render markdown for Website preview with compact zoomable media
   useEffect(() => {
     let isMounted = true
     if (!text.trim()) {
@@ -192,16 +201,15 @@ export function ComposeForm() {
       return
     }
 
-    const parsed = marked.parse(text, { breaks: true, gfm: true })
-    if (parsed instanceof Promise) {
-      parsed.then((html) => {
+    renderArticleMarkdown(text)
+      .then((html) => {
         if (isMounted)
           setRenderedWebHtml(html)
       })
-    }
-    else {
-      setRenderedWebHtml(parsed)
-    }
+      .catch(() => {
+        if (isMounted)
+          setRenderedWebHtml(text)
+      })
 
     return () => {
       isMounted = false
@@ -253,7 +261,10 @@ export function ComposeForm() {
   }
 
   // Helper to stream media to Cloudflare R2, Vercel Blob, or local fallback
-  const streamMediaWithProgress = async (fileToUpload: File): Promise<string> => {
+  const uploadFileToActiveStorage = async (
+    fileToUpload: File,
+    onProgress?: (pct: number, text: string) => void,
+  ): Promise<string> => {
     const sizeMb = (fileToUpload.size / (1024 * 1024)).toFixed(1)
 
     // 1. Try Cloudflare R2 Presigned Streaming (Zero egress, no Vercel limit)
@@ -271,11 +282,7 @@ export function ComposeForm() {
       if (r2Res.ok) {
         const r2Data = await r2Res.json()
         if (r2Data.uploadUrl && r2Data.publicUrl) {
-          setUploadProgress({
-            active: true,
-            percent: 5,
-            text: `Streaming ${sizeMb} MB directly to Cloudflare R2...`,
-          })
+          onProgress?.(5, `Streaming ${sizeMb} MB directly to Cloudflare R2...`)
 
           await new Promise<void>((resolve, reject) => {
             const xhr = new XMLHttpRequest()
@@ -288,11 +295,7 @@ export function ComposeForm() {
             xhr.upload.onprogress = (e) => {
               if (e.lengthComputable) {
                 const pct = Math.round((e.loaded / e.total) * 100)
-                setUploadProgress({
-                  active: true,
-                  percent: pct,
-                  text: `Streaming to Cloudflare R2 (${pct}%)...`,
-                })
+                onProgress?.(pct, `Streaming to Cloudflare R2 (${pct}%)...`)
               }
             }
             xhr.onload = () => {
@@ -307,11 +310,7 @@ export function ComposeForm() {
             xhr.send(fileToUpload)
           })
 
-          setUploadProgress({
-            active: true,
-            percent: 100,
-            text: 'Media uploaded to Cloudflare R2! Broadcasting post...',
-          })
+          onProgress?.(100, 'Media uploaded to Cloudflare R2!')
           return r2Data.publicUrl
         }
       }
@@ -322,11 +321,7 @@ export function ComposeForm() {
 
     // 2. Try Vercel Blob
     try {
-      setUploadProgress({
-        active: true,
-        percent: 0,
-        text: `Streaming ${sizeMb} MB to Vercel Blob...`,
-      })
+      onProgress?.(0, `Streaming ${sizeMb} MB to Vercel Blob...`)
 
       const blob = await upload(fileToUpload.name, fileToUpload, {
         access: 'public',
@@ -334,19 +329,11 @@ export function ComposeForm() {
         clientPayload: JSON.stringify({ adminToken }),
         onUploadProgress: (progress) => {
           const percent = Math.round(progress.percentage)
-          setUploadProgress({
-            active: true,
-            percent,
-            text: `Uploading media to Vercel Blob (${percent}%)...`,
-          })
+          onProgress?.(percent, `Uploading media to Vercel Blob (${percent}%)...`)
         },
       })
 
-      setUploadProgress({
-        active: true,
-        percent: 100,
-        text: 'Media uploaded to Blob! Broadcasting post...',
-      })
+      onProgress?.(100, 'Media uploaded to Blob!')
       return blob.url
     }
     catch (blobErr) {
@@ -354,11 +341,7 @@ export function ComposeForm() {
     }
 
     // 3. Fallback to Local Multipart Upload
-    setUploadProgress({
-      active: true,
-      percent: 20,
-      text: `Uploading ${sizeMb} MB to local storage...`,
-    })
+    onProgress?.(20, `Uploading ${sizeMb} MB to local storage...`)
     const localFormData = new FormData()
     localFormData.append('file', fileToUpload)
     localFormData.append('adminToken', adminToken)
@@ -371,16 +354,200 @@ export function ComposeForm() {
     if (localRes.ok) {
       const data = await localRes.json()
       if (data.url) {
-        setUploadProgress({
-          active: true,
-          percent: 100,
-          text: 'Media uploaded to local storage! Broadcasting post...',
-        })
+        onProgress?.(100, 'Media uploaded to storage!')
         return data.url
       }
     }
 
-    throw new Error('Failed to stream media: Please check your Cloudflare R2 or Vercel Blob storage configuration.')
+    throw new Error('Failed to upload media: Please check your storage configuration (R2, Supabase, Vercel Blob, or local permissions).')
+  }
+
+  // Wrapper for publish streaming with state progress banner
+  const streamMediaWithProgress = async (fileToUpload: File): Promise<string> => {
+    return await uploadFileToActiveStorage(fileToUpload, (pct, text) => {
+      setUploadProgress({
+        active: true,
+        percent: pct,
+        text,
+      })
+    })
+  }
+
+  // Handle clipboard paste of images into Markdown editor (Ctrl + V)
+  const handleEditorPaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const items = e.clipboardData?.items
+    if (!items)
+      return
+
+    const imageItem = Array.from(items).find(item => item.type.startsWith('image/'))
+    if (!imageItem)
+      return
+
+    e.preventDefault()
+    const file = imageItem.getAsFile()
+    if (!file)
+      return
+
+    if (!adminToken.trim()) {
+      setStatus({
+        type: 'error',
+        message: 'Admin Token is required to upload pasted screenshots to storage.',
+      })
+      return
+    }
+
+    const textarea = e.currentTarget
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+    const timestamp = Date.now()
+    const placeholder = `![Uploading screenshot...](uploading-${timestamp})`
+
+    const updatedText = text.slice(0, start) + placeholder + text.slice(end)
+    setText(updatedText)
+    setInlineUploadActive(true)
+
+    try {
+      const url = await uploadFileToActiveStorage(file)
+      const finalTag = `\n![Screenshot](${url})\n`
+      setText(prev => prev.replace(placeholder, finalTag))
+      setStatus({
+        type: 'success',
+        message: 'Pasted screenshot uploaded and inserted into markdown.',
+      })
+    }
+    catch (err: any) {
+      console.error('[Editor paste error]:', err)
+      setText(prev => prev.replace(placeholder, ''))
+      setStatus({
+        type: 'error',
+        message: `Failed to upload pasted image: ${err.message || 'Storage error'}`,
+      })
+    }
+    finally {
+      setInlineUploadActive(false)
+    }
+  }
+
+  // Handle drag & drop of media files into Markdown editor
+  const handleEditorDrop = async (e: React.DragEvent<HTMLTextAreaElement>) => {
+    const files = Array.from(e.dataTransfer?.files || [])
+    const mediaFiles = files.filter(f => f.type.startsWith('image/') || f.type.startsWith('video/') || f.type.startsWith('audio/'))
+    if (mediaFiles.length === 0)
+      return
+
+    e.preventDefault()
+    setIsDraggingOverEditor(false)
+
+    if (!adminToken.trim()) {
+      setStatus({
+        type: 'error',
+        message: 'Admin Token is required to upload media to storage.',
+      })
+      return
+    }
+
+    const textarea = e.currentTarget
+    const start = textarea.selectionStart || text.length
+    const end = textarea.selectionEnd || text.length
+
+    let currentText = text
+    setInlineUploadActive(true)
+
+    for (const file of mediaFiles) {
+      const timestamp = Date.now()
+      const placeholder = `![Uploading ${file.name}...](uploading-${timestamp})`
+      currentText = `${currentText.slice(0, start)}\n${placeholder}\n${currentText.slice(end)}`
+      setText(currentText)
+
+      try {
+        const url = await uploadFileToActiveStorage(file)
+        const isVideo = file.type.startsWith('video/')
+        const isAudio = file.type.startsWith('audio/')
+        let finalTag = `\n![${file.name}](${url})\n`
+        if (isVideo) {
+          finalTag = `\n<video src="${url}" controls class="post-video w-full rounded-xl"></video>\n`
+        }
+        else if (isAudio) {
+          finalTag = `\n<audio src="${url}" controls class="w-full my-3"></audio>\n`
+        }
+        currentText = currentText.replace(placeholder, finalTag)
+        setText(currentText)
+      }
+      catch (err: any) {
+        console.error('[Editor drop upload failed]:', err)
+        currentText = currentText.replace(placeholder, '')
+        setText(currentText)
+        setStatus({
+          type: 'error',
+          message: `Failed to upload ${file.name}: ${err.message || 'Storage error'}`,
+        })
+      }
+    }
+    setInlineUploadActive(false)
+  }
+
+  // Handle importing a .md file or .zip Markdown bundle
+  const handleBundleImport = async (file: File) => {
+    if (!file)
+      return
+
+    const isZip = file.name.toLowerCase().endsWith('.zip') || file.type.includes('zip')
+    if (isZip && !adminToken.trim()) {
+      setStatus({
+        type: 'error',
+        message: 'Admin Token is required to upload local images from a .zip bundle to storage.',
+      })
+      return
+    }
+
+    setIsImportingBundle(true)
+    setBundleImportStatus('Reading file...')
+
+    try {
+      const result = await importMarkdownBundle(
+        file,
+        async (fileToUpload) => {
+          return await uploadFileToActiveStorage(fileToUpload)
+        },
+        (stage, pct) => {
+          setBundleImportStatus(`${stage} (${pct}%)`)
+        },
+      )
+
+      if (result.title) {
+        setTitle(result.title)
+      }
+      setText(result.text)
+
+      if (result.coverUrl) {
+        setMediaPreviewUrl(result.coverUrl)
+        setMediaType('image')
+      }
+
+      if (result.tags && result.tags.length > 0) {
+        const tagsToAdd = result.tags.map(t => `#${t.replace(/^#/, '')}`).filter(t => !result.text.includes(t))
+        if (tagsToAdd.length > 0) {
+          setText(prev => `${prev.trimEnd()}\n\n${tagsToAdd.join(' ')}`)
+        }
+      }
+
+      setDraftSaved(true)
+      setStatus({
+        type: 'success',
+        message: `Successfully imported "${file.name}"! ${result.uploadedAssetsCount > 0 ? `${result.uploadedAssetsCount} media asset(s) uploaded to storage.` : ''}${result.warnings.length > 0 ? ` (${result.warnings.join('; ')})` : ''}`,
+      })
+    }
+    catch (err: any) {
+      console.error('[Bundle import error]:', err)
+      setStatus({
+        type: 'error',
+        message: `Import failed: ${err.message || 'Error processing markdown bundle'}`,
+      })
+    }
+    finally {
+      setIsImportingBundle(false)
+      setBundleImportStatus(null)
+    }
   }
 
   // Final Publish action
@@ -542,6 +709,57 @@ export function ComposeForm() {
           onSubmit={handlePublish}
           className={`space-y-5 ${mobileTab === 'edit' ? 'block' : 'hidden lg:block'}`}
         >
+          {/* Markdown & Bundle Import Dropzone */}
+          <div className="rounded-xl border border-dashed border-primary/30 bg-primary/[0.03] p-3.5 transition-colors hover:border-primary/50 hover:bg-primary/[0.06]">
+            <input
+              ref={bundleFileInputRef}
+              type="file"
+              accept=".md,.markdown,.zip"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) {
+                  handleBundleImport(file)
+                  e.target.value = ''
+                }
+              }}
+            />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <FolderArchive className="h-4 w-4" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-foreground">Import Markdown or .zip Bundle</p>
+                  <p className="text-[11px] text-muted-foreground truncate">
+                    Drop Obsidian / Notion .md or .zip archives with local images
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
+                {isImportingBundle
+                  ? (
+                      <div className="inline-flex items-center gap-2 text-xs text-primary font-medium bg-primary/10 px-3 py-1.5 rounded-lg w-full sm:w-auto justify-center">
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        <span>{bundleImportStatus || 'Importing...'}</span>
+                      </div>
+                    )
+                  : (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => bundleFileInputRef.current?.click()}
+                        className="h-8 text-xs font-medium w-full sm:w-auto flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <UploadCloud className="h-3.5 w-3.5" />
+                        <span>Select .md or .zip</span>
+                      </Button>
+                    )}
+              </div>
+            </div>
+          </div>
+
           {/* Post Title */}
           <div>
             <label htmlFor="title" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
@@ -603,25 +821,47 @@ export function ComposeForm() {
               </div>
             </div>
 
-            {editorTab === 'write' ? (
-              <textarea
-                id="text"
-                value={text}
-                onChange={e => setText(e.target.value)}
-                required
-                rows={9}
-                className="flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm font-mono ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
-                placeholder="Write your full long-form thoughts here in Markdown...&#10;&#10;Supports **bold**, _italics_, `code`, blockquotes, and links."
-              />
-            ) : (
-              <div className="min-h-[220px] rounded-lg border border-input bg-muted/15 p-4 text-sm overflow-y-auto max-h-[380px]">
-                {renderedWebHtml ? (
-                  <div className="prose-telegram" dangerouslySetInnerHTML={{ __html: renderedWebHtml }} />
-                ) : (
-                  <p className="text-muted-foreground italic text-xs">Nothing to preview yet. Start typing in the Write tab.</p>
+            {editorTab === 'write'
+              ? (
+                  <div className="relative">
+                    <textarea
+                      id="text"
+                      value={text}
+                      onChange={e => setText(e.target.value)}
+                      onPaste={handleEditorPaste}
+                      onDrop={handleEditorDrop}
+                      onDragOver={(e) => {
+                        e.preventDefault()
+                        setIsDraggingOverEditor(true)
+                      }}
+                      onDragLeave={() => setIsDraggingOverEditor(false)}
+                      required
+                      rows={9}
+                      className={cn(
+                        'flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm font-mono ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y transition-all',
+                        isDraggingOverEditor && 'border-primary ring-2 ring-primary/30 bg-primary/[0.02]',
+                      )}
+                      placeholder="Write your full long-form thoughts here in Markdown...&#10;&#10;💡 Tip: Paste screenshots directly (Ctrl+V) or drop images here to auto-upload to storage."
+                    />
+                    {inlineUploadActive && (
+                      <div className="absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-md bg-background/90 px-2.5 py-1 text-xs text-primary shadow-sm border border-primary/20 backdrop-blur-sm">
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                        <span>Uploading media...</span>
+                      </div>
+                    )}
+                  </div>
+                )
+              : (
+                  <div className="min-h-[220px] rounded-lg border border-input bg-muted/15 p-4 text-sm overflow-y-auto max-h-[380px]">
+                    {renderedWebHtml
+                      ? (
+                          <div className="prose-telegram" dangerouslySetInnerHTML={{ __html: renderedWebHtml }} />
+                        )
+                      : (
+                          <p className="text-muted-foreground italic text-xs">Nothing to preview yet. Start typing in the Write tab.</p>
+                        )}
+                  </div>
                 )}
-              </div>
-            )}
 
             {/* Suggested Hashtags */}
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
@@ -629,7 +869,7 @@ export function ComposeForm() {
                 <Hash className="h-3 w-3" />
                 Tags:
               </span>
-              {['tech', 'ai', 'dev', 'architecture', 'design', 'release', 'notes'].map(tag => {
+              {['tech', 'ai', 'dev', 'architecture', 'design', 'release', 'notes'].map((tag) => {
                 const isPresent = text.includes(`#${tag}`)
                 return (
                   <button
@@ -647,7 +887,8 @@ export function ComposeForm() {
                         : 'bg-secondary/70 text-muted-foreground hover:bg-secondary hover:text-foreground',
                     )}
                   >
-                    #{tag}
+                    #
+                    {tag}
                   </button>
                 )
               })}
