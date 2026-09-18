@@ -173,16 +173,96 @@ export function rewriteMarkdownMediaUrls(markdown: string, urlMap: Record<string
 }
 
 /**
- * Configured marked instance with compact article media rendering and lightbox zoomable support.
+ * Renders an official ASCII-framed block character sparkline (@mdx-graphs/graph-spark)
+ * into a responsive, beautifully styled framed component.
+ */
+export function renderGraphSparkHtml(raw: string): string {
+  let title = 'SPARK'
+  let data: number[] = []
+  let caption = ''
+
+  for (const line of raw.split('\n')) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('title:')) {
+      title = trimmed.replace(/^title:\s*/, '').replace(/^["']|["']$/g, '')
+    }
+    else if (trimmed.startsWith('caption:')) {
+      caption = trimmed.replace(/^caption:\s*/, '').replace(/^["']|["']$/g, '')
+    }
+    else if (trimmed.startsWith('data:')) {
+      const match = trimmed.match(/\[(.*?)\]/)
+      if (match) {
+        data = match[1]
+          .split(',')
+          .map(n => Number(n.trim()))
+          .filter(n => !Number.isNaN(n))
+      }
+    }
+  }
+
+  if (data.length === 0) {
+    const numbers = raw.match(/-?\d+(?:\.\d+)?/g)
+    if (numbers && numbers.length > 1) {
+      data = numbers.map(Number).filter(n => !Number.isNaN(n))
+    }
+  }
+
+  const glyphs = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
+  const max = Math.max(...data, 1)
+  const lastIndex = data.length - 1
+
+  const pointsHtml = data
+    .map((val, i) => {
+      const glyphIndex = Math.min(glyphs.length - 1, Math.round((val / max) * (glyphs.length - 1)))
+      const glyph = glyphs[glyphIndex]
+      const isLast = i === lastIndex
+      return isLast
+        ? `<span class="text-primary font-bold inline-block mx-0.5" title="${val}">${glyph}</span>`
+        : `<span class="text-muted-foreground opacity-75 inline-block mx-0.5" title="${val}">${glyph}</span>`
+    })
+    .join('')
+
+  return `<div class="graph-frame-wrapper my-6 flex justify-center not-prose">
+  <div class="rounded-xl border border-dashed border-border bg-card/60 p-4 font-mono shadow-sm max-w-md w-full">
+    <div class="flex items-center justify-between text-xs text-muted-foreground border-b border-dashed border-border/60 pb-2 mb-3">
+      <span class="font-semibold tracking-wider text-foreground">[ ${title.toUpperCase()} ]</span>
+      <span class="text-[10px] text-muted-foreground/60 tracking-widest font-sans uppercase">Spark</span>
+    </div>
+    <div class="text-xl tracking-widest flex items-center justify-center my-3 select-none">
+      ${pointsHtml}
+    </div>
+    ${caption ? `<p class="text-[11px] text-muted-foreground text-center mt-2 font-sans">${caption}</p>` : ''}
+  </div>
+</div>\n`
+}
+
+/**
+ * Configured marked instance with compact article media rendering, Mermaid diagrams,
+ * Markdown Graphs (@mdx-graphs), and lightbox zoomable support.
  */
 export const articleMarked = new Marked({
   breaks: true,
   gfm: true,
 })
 
-// Configure custom image renderer
+// Configure custom renderers
 articleMarked.use({
   renderer: {
+    code({ text, lang }: Tokens.Code) {
+      const normalizedLang = (lang || '').toLowerCase().trim()
+
+      // 1. Mermaid Flowcharts and Diagrams
+      if (normalizedLang === 'mermaid') {
+        return `<div class="mermaid-diagram-container my-6 flex justify-center not-prose"><pre class="language-mermaid">${text}</pre></div>\n`
+      }
+
+      // 2. Markdown Graphs: GraphSpark
+      if (normalizedLang === 'graph-spark' || normalizedLang === 'spark') {
+        return renderGraphSparkHtml(text)
+      }
+
+      return false
+    },
     image({ href, title, text }: Tokens.Image) {
       const cleanHref = href || ''
       const cleanAlt = text || ''
@@ -197,11 +277,19 @@ articleMarked.use({
 })
 
 /**
- * Render article markdown to HTML with compact media framing and zoomable lightbox hooks.
+ * Render article markdown to HTML with Mermaid diagrams, Markdown Graphs,
+ * compact media framing, and zoomable lightbox hooks.
  */
 export async function renderArticleMarkdown(markdown: string): Promise<string> {
   if (!markdown)
     return ''
-  const parsed = await articleMarked.parse(markdown)
+
+  // Preprocess Comark ::graph-spark ... :: into fenced ```graph-spark blocks
+  const processed = markdown.replace(/::graph-spark\s*[\r\n]+([\s\S]*?)[\r\n]+::/g, (_match, body) => {
+    const cleanBody = body.replace(/^---\s*[\r\n]+/, '').replace(/[\r\n]+---\s*$/, '').trim()
+    return `\n\`\`\`graph-spark\n${cleanBody}\n\`\`\`\n`
+  })
+
+  const parsed = await articleMarked.parse(processed)
   return parsed
 }

@@ -28,6 +28,7 @@ import { ContentAlbum } from './content-album'
 import { ContentAlbumLightbox } from './content-album-lightbox'
 import { ContentAudioPlayer } from './content-audio-player'
 import { ContentCodeCopy } from './content-code-copy'
+import { ContentMermaid } from './content-mermaid'
 import { ContentTwemoji } from './content-twemoji'
 import { ContentVideoPlayer } from './content-video-player'
 import { ScrollToTop } from './scroll-to-top'
@@ -474,6 +475,7 @@ export function PageFrame({
           <ContentAlbumLightbox />
           <ContentAlbum />
           <ContentCodeCopy copyLabel={resolvedMessages.codeCopy.copyCode} copiedLabel={resolvedMessages.codeCopy.copied} />
+          <ContentMermaid />
           <ContentTwemoji />
           <ContentVideoPlayer />
           <ContentAudioPlayer />
