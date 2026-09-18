@@ -46,7 +46,12 @@ export class SupabaseStorageAdapter implements StorageAdapter {
 
     let bodyData: any = file
     let size = 0
-    if (typeof Blob !== 'undefined' && file instanceof Blob) {
+    if (typeof (file as any)?.arrayBuffer === 'function') {
+      const arrayBuf = await (file as any).arrayBuffer()
+      bodyData = Buffer.from(arrayBuf)
+      size = bodyData.length
+    }
+    else if (typeof Blob !== 'undefined' && file instanceof Blob) {
       bodyData = file
       size = file.size
     }

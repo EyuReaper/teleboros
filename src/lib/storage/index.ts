@@ -208,8 +208,11 @@ export async function uploadMedia(
   try {
     return await primary.uploadMedia(file, filename, contentType)
   }
-  catch (primaryErr) {
-    console.warn(`[teleboros storage] Primary adapter (${primary.name}) media upload failed, falling back to local:`, primaryErr)
+  catch (primaryErr: any) {
+    console.error(`[teleboros storage] Primary adapter (${primary.name}) media upload failed:`, primaryErr)
+    if (primary.name !== 'local') {
+      throw new Error(`Storage (${primary.name}) upload failed: ${primaryErr?.message || primaryErr}`)
+    }
     const local = getLocalAdapter()
     return await local.uploadMedia(file, filename, contentType)
   }

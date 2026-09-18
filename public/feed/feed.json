@@ -1,24 +1,47 @@
 {
-  "generatedAt": "2026-09-13T22:34:00.549Z",
+  "generatedAt": "2026-09-18T19:22:11.129Z",
   "pages": [
     {
       "cursor": "",
       "posts": [
+        {
+          "id": "132",
+          "title": "Apparently people are using this choreography to make AI slop memes...there are no measures to stop this infringement.  ",
+          "type": "text",
+          "datetime": "2026-09-18T10:38:16+00:00",
+          "edited": false,
+          "views": "9",
+          "comments": "",
+          "tags": [],
+          "text": "Apparently people are using this choreography to make AI slop memes...there are no measures to stop this infringement.  https://youtu.be/x6_mbnsh6VU",
+          "content": "Apparently people are using this choreography to make AI slop memes...there are no measures to stop this infringement.  <a href=\"https://youtu.be/x6_mbnsh6VU\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://youtu.be/x6_mbnsh6VU\">https://youtu.be/x6_mbnsh6VU</a><a class=\"tgme_widget_message_link_preview\" href=\"https://youtu.be/x6_mbnsh6VU\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"GENER8ION - STORM I &amp; II starring Yung Lean Stream it here: https://gener8ionworld.lnk.to/LoveAndTears(p) Iconoclast Music Film by: Romain GAVRAS Choreography: Damien JALET Creative Direction: Ben SURKIN Produced by Iconoclast: Maeva TENNERONI -…\">\n  <i class=\"link_preview_right_image\"></i>\n  <div class=\"link_preview_site_name accent_color\">YouTube</div>\n  \n  <div class=\"link_preview_title\">GENER8ION - STORM starring Yung Lean</div>\n  <div class=\"link_preview_description\">GENER8ION - STORM I &amp; II starring Yung Lean <br><br>Stream it here: https://gener8ionworld.lnk.to/LoveAndTears<br><br>(p) Iconoclast Music <br><br>Film by: Romain GAVRAS <br>Choreography: Damien JALET <br>Creative Direction: Ben SURKIN <br>Produced by Iconoclast: Maeva TENNERONI -…</div>\n</a>",
+          "reactions": [],
+          "isLongForm": false
+        },
         {
           "id": "131",
           "title": "🖥️ Beyond Eye Candy: The \"Agentic Desktop\" on Fedora 44While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by Omarchy.⚡ Highlights:• Fedora 44 + Hyprland: Zero GNOME bloat, pure Wayland speed, rock-solid stability.• 🤖 AI Integration: Dropdown AI scratchpad (Super+A), status telemetry, and local voice updates.• 🎨 Zero-Downtime Themes: Hot-reload 8 palettes via dynamic IPC scripts.• 🛠️ Wayland Fixes: Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.👇 Full system architecture, code snippets, and config breakdown below!",
           "type": "text",
           "datetime": "2026-09-13T16:24:21+00:00",
           "edited": false,
-          "views": "8",
+          "views": "25",
           "comments": "",
           "tags": [],
           "text": "🖥️ Beyond Eye Candy: The \"Agentic Desktop\" on Fedora 44While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by Omarchy.⚡ Highlights:• Fedora 44 + Hyprland: Zero GNOME bloat, pure Wayland speed, rock-solid stability.• 🤖 AI Integration: Dropdown AI scratchpad (Super+A), status telemetry, and local voice updates.• 🎨 Zero-Downtime Themes: Hot-reload 8 palettes via dynamic IPC scripts.• 🛠️ Wayland Fixes: Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.👇 Full system architecture, code snippets, and config breakdown below!",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/84e31846a0fe6578d35bb50699f8f942.jpg\" alt=\"🖥️ Beyond Eye Candy: The &quot;Agentic Desktop&quot; on Fedora 44While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by Omarchy.⚡ Highlights:• Fedora 44 + Hyprland: Zero GNOME bloat, pure Wayland speed, rock-solid stability.• 🤖 AI Integration: Dropdown AI scratchpad (Super+A), status telemetry, and local voice updates.• 🎨 Zero-Downtime Themes: Hot-reload 8 palettes via dynamic IPC scripts.• 🛠️ Wayland Fixes: Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.👇 Full system architecture, code snippets, and config breakdown below!\" loading=\"lazy\"></div><i class=\"emoji\"><b>🖥️</b></i> <b>Beyond Eye Candy: The \"Agentic Desktop\" on Fedora 44</b><br><br>While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by <i>Omarchy</i>.<br><br><i class=\"emoji\"><b>⚡</b></i> <b>Highlights:</b><br>• <b>Fedora 44 + Hyprland:</b> Zero GNOME bloat, pure Wayland speed, rock-solid stability.<br>• <i class=\"emoji\"><b>🤖</b></i> <b>AI Integration:</b> Dropdown AI scratchpad (<code>Super+A</code>), status telemetry, and local voice updates.<br>• <i class=\"emoji\"><b>🎨</b></i> <b>Zero-Downtime Themes:</b> Hot-reload 8 palettes via dynamic IPC scripts.<br>• <i class=\"emoji\"><b>🛠️</b></i> <b>Wayland Fixes:</b> Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.<br><br><i class=\"emoji\"><b>👇</b></i> <i>Full system architecture, code snippets, and config breakdown below!</i>",
-          "reactions": [],
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/b549ba2488c0dd98e71264b2e6652bb2.jpg\" alt=\"🖥️ Beyond Eye Candy: The &quot;Agentic Desktop&quot; on Fedora 44While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by Omarchy.⚡ Highlights:• Fedora 44 + Hyprland: Zero GNOME bloat, pure Wayland speed, rock-solid stability.• 🤖 AI Integration: Dropdown AI scratchpad (Super+A), status telemetry, and local voice updates.• 🎨 Zero-Downtime Themes: Hot-reload 8 palettes via dynamic IPC scripts.• 🛠️ Wayland Fixes: Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.👇 Full system architecture, code snippets, and config breakdown below!\" loading=\"lazy\"></div><i class=\"emoji\"><b>🖥️</b></i> <b>Beyond Eye Candy: The \"Agentic Desktop\" on Fedora 44</b><br><br>While most of the hype was around Omarchy, I figured why not build it. I built a hyper-minimalist workstation engineered specifically for production engineering and autonomous AI agents—inspired by <i>Omarchy</i>.<br><br><i class=\"emoji\"><b>⚡</b></i> <b>Highlights:</b><br>• <b>Fedora 44 + Hyprland:</b> Zero GNOME bloat, pure Wayland speed, rock-solid stability.<br>• <i class=\"emoji\"><b>🤖</b></i> <b>AI Integration:</b> Dropdown AI scratchpad (<code>Super+A</code>), status telemetry, and local voice updates.<br>• <i class=\"emoji\"><b>🎨</b></i> <b>Zero-Downtime Themes:</b> Hot-reload 8 palettes via dynamic IPC scripts.<br>• <i class=\"emoji\"><b>🛠️</b></i> <b>Wayland Fixes:</b> Solved squashed GTK modal dialogs, Waybar crashes, and bus conflicts.<br><br><i class=\"emoji\"><b>👇</b></i> <i>Full system architecture, code snippets, and config breakdown below!</i>",
+          "reactions": [
+            {
+              "emoji": "🔥",
+              "emojiId": "",
+              "emojiImage": "",
+              "count": "1",
+              "isPaid": false
+            }
+          ],
           "isLongForm": true,
           "articleUrl": "/posts/building-an-agentic-desktop-on-fedora-44-inspire-e135",
-          "accentColor": "24, 24, 24"
+          "accentColor": "24, 24, 24",
+          "isPinned": true
         },
         {
           "id": "128",
@@ -26,11 +49,11 @@
           "type": "text",
           "datetime": "2026-09-11T05:34:46+00:00",
           "edited": false,
-          "views": "21",
+          "views": "31",
           "comments": "",
           "tags": [],
           "text": "Happy new year everyone!",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/a1be2dc192c3041c8bfda0c70101770c.jpg\" alt=\"Happy new year everyone!\" loading=\"lazy\"></div>Happy new year everyone!",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/445bc9b7e2cc1b35e4f91cf754a9cc93.jpg\" alt=\"Happy new year everyone!\" loading=\"lazy\"></div>Happy new year everyone!",
           "reactions": [
             {
               "emoji": "❤️",
@@ -50,7 +73,7 @@
           "type": "text",
           "datetime": "2026-09-10T16:02:06+00:00",
           "edited": false,
-          "views": "23",
+          "views": "31",
           "comments": "",
           "tags": [],
           "text": "https://mdx-graphs.kshv.me/docs/graph-spark",
@@ -64,7 +87,7 @@
           "type": "text",
           "datetime": "2026-09-06T14:55:18+00:00",
           "edited": false,
-          "views": "36",
+          "views": "41",
           "comments": "",
           "tags": [],
           "text": "Almost there but great progressAlmost there but great progress",
@@ -78,8 +101,7 @@
               "isPaid": false
             }
           ],
-          "isLongForm": false,
-          "isPinned": true
+          "isLongForm": false
         },
         {
           "id": "123",
@@ -87,7 +109,7 @@
           "type": "text",
           "datetime": "2026-09-06T14:43:19+00:00",
           "edited": false,
-          "views": "511",
+          "views": "533",
           "comments": "",
           "tags": [],
           "text": "🎙️ My terminal now speaks back to me!In Part 1, I built Winston: a British butler AI pair-programmer. But text wasn't enough—I wanted a true Jarvis experience.The test: I hit push-to-talk in my terminal: \"Can you hear me, Winston?\"🔊 \"Loud and clear, sir. Your dictation in Kitty is working splendidly.\"🔒 100% Local. Zero subscriptions, zero data leaving my PC. look at the Demo video below. 👇",
@@ -101,11 +123,11 @@
           "type": "text",
           "datetime": "2026-09-06T06:27:38+00:00",
           "edited": false,
-          "views": "37",
+          "views": "46",
           "comments": "",
           "tags": [],
           "text": "https://uipkge.dev/react/",
-          "content": "<a href=\"https://uipkge.dev/react/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://uipkge.dev/react/\">https://uipkge.dev/react/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://uipkge.dev/react\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open-source UI component registry for Vue 3 and React. Copy-paste 200+ accessible components, dashboard blocks, and Tailwind CSS v4 primitives without npm package dependencies.\">\n  \n  <div class=\"link_preview_site_name accent_color\">uipkge</div>\n  <img class=\"link_preview_image\" alt=\"uipkge — UI registry for React (Next.js) and Vue (Nuxt)\" src=\"/media/a1fd7ebcd0566fae1933d9dce8de97fe.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">uipkge — UI registry for React (Next.js) and Vue (Nuxt)</div>\n  <div class=\"link_preview_description\">Open-source UI component registry for Vue 3 and React. Copy-paste 200+ accessible components, dashboard blocks, and Tailwind CSS v4 primitives without npm package dependencies.</div>\n</a>",
+          "content": "<a href=\"https://uipkge.dev/react/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://uipkge.dev/react/\">https://uipkge.dev/react/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://uipkge.dev/react\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open-source UI component registry for Vue 3 and React. Copy-paste 200+ accessible components, dashboard blocks, and Tailwind CSS v4 primitives without npm package dependencies.\">\n  \n  <div class=\"link_preview_site_name accent_color\">uipkge</div>\n  <img class=\"link_preview_image\" alt=\"uipkge — UI registry for React (Next.js) and Vue (Nuxt)\" src=\"/media/10495a48ddd5ea8527a9c7ab888ea39c.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">uipkge — UI registry for React (Next.js) and Vue (Nuxt)</div>\n  <div class=\"link_preview_description\">Open-source UI component registry for Vue 3 and React. Copy-paste 200+ accessible components, dashboard blocks, and Tailwind CSS v4 primitives without npm package dependencies.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -116,11 +138,11 @@
           "type": "text",
           "datetime": "2026-09-04T09:49:28+00:00",
           "edited": false,
-          "views": "481",
+          "views": "495",
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/5f558155ec47fd3b92087462af9c157c.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/725792b6ae56fa308083120f35c0d2cd.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "216, 216, 216"
@@ -131,11 +153,11 @@
           "type": "text",
           "datetime": "2026-09-02T19:05:29+00:00",
           "edited": true,
-          "views": "44",
+          "views": "47",
           "comments": "",
           "tags": [],
           "text": "Making Winston part 1recently, I got tired of opening my Agent in a specific directory i want to work on. So i put a mark down in  that agent .config directory by specifying to it where my working spaces are, plus i added a persona so it acts like a butler.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/596117272218c5bb5edfe13ba2366c7e.jpg\" alt=\"Making Winston part 1recently, I got tired of opening my Agent in a specific directory i want to work on. So i put a mark down in  that agent .config directory by specifying to it where my working spaces are, plus i added a persona so it acts like a butler.\" loading=\"lazy\"></div><b>Making Winston part 1</b><br><br>recently, I got tired of opening my Agent in a specific directory i want to work on. So i put a mark down in  that agent .config directory by specifying to it where my working spaces are, plus i added a persona so it acts like a butler.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/9cbb50079f7fd9a74afe0fa972e95d37.jpg\" alt=\"Making Winston part 1recently, I got tired of opening my Agent in a specific directory i want to work on. So i put a mark down in  that agent .config directory by specifying to it where my working spaces are, plus i added a persona so it acts like a butler.\" loading=\"lazy\"></div><b>Making Winston part 1</b><br><br>recently, I got tired of opening my Agent in a specific directory i want to work on. So i put a mark down in  that agent .config directory by specifying to it where my working spaces are, plus i added a persona so it acts like a butler.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 24"
@@ -146,11 +168,11 @@
           "type": "text",
           "datetime": "2026-09-01T22:07:45+00:00",
           "edited": false,
-          "views": "48",
+          "views": "51",
           "comments": "",
           "tags": [],
           "text": "https://twitter.com/choopyplug1/status/2088973320964215253",
-          "content": "<a href=\"https://twitter.com/choopyplug1/status/2088973320964215253\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://twitter.com/choopyplug1/status/2088973320964215253\">https://twitter.com/choopyplug1/status/2088973320964215253</a><a class=\"tgme_widget_message_link_preview\" href=\"https://twitter.com/choopyplug1/status/2088973320964215253\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Harness Engineering: the skill that replaced prompt engineering in 2026\">\n  \n  <div class=\"link_preview_site_name accent_color\">X (formerly Twitter)</div>\n  <img class=\"link_preview_image\" alt=\"chuplung (@choopyplug1) on X\" src=\"/media/bc71b11fe741bf5da4eb5e4dd5783bdb.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">chuplung (@choopyplug1) on X</div>\n  <div class=\"link_preview_description\">Harness Engineering: the skill that replaced prompt engineering in 2026</div>\n</a>",
+          "content": "<a href=\"https://twitter.com/choopyplug1/status/2088973320964215253\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://twitter.com/choopyplug1/status/2088973320964215253\">https://twitter.com/choopyplug1/status/2088973320964215253</a><a class=\"tgme_widget_message_link_preview\" href=\"https://twitter.com/choopyplug1/status/2088973320964215253\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Harness Engineering: the skill that replaced prompt engineering in 2026\">\n  \n  <div class=\"link_preview_site_name accent_color\">X (formerly Twitter)</div>\n  <img class=\"link_preview_image\" alt=\"chuplung (@choopyplug1) on X\" src=\"/media/ad068bee9aa61538785076725623a0a0.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">chuplung (@choopyplug1) on X</div>\n  <div class=\"link_preview_description\">Harness Engineering: the skill that replaced prompt engineering in 2026</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -161,11 +183,11 @@
           "type": "text",
           "datetime": "2026-08-31T15:43:21+00:00",
           "edited": false,
-          "views": "48",
+          "views": "51",
           "comments": "",
           "tags": [],
           "text": "https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&utm_medium=referral&utm_source=Bundle",
-          "content": "<a href=\"https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\">https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle</a><a class=\"tgme_widget_message_link_preview\" href=\"https://engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better\" target=\"_blank\" rel=\"noopener noreferrer\">\n  \n  <div class=\"link_preview_site_name accent_color\">Engadget</div>\n  <img class=\"link_preview_image\" alt=\"Does turning off Bluetooth actually make Wi-Fi better? - Engadget\" src=\"/media/64736f4504c2503722f06705f28acafb.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Does turning off Bluetooth actually make Wi-Fi better? - Engadget</div>\n  \n</a>",
+          "content": "<a href=\"https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\">https://www.engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better/?utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle</a><a class=\"tgme_widget_message_link_preview\" href=\"https://engadget.com/2245494/does-turning-off-bluetooth-actually-make-wi-fi-better\" target=\"_blank\" rel=\"noopener noreferrer\">\n  \n  <div class=\"link_preview_site_name accent_color\">Engadget</div>\n  <img class=\"link_preview_image\" alt=\"Does turning off Bluetooth actually make Wi-Fi better? - Engadget\" src=\"/media/941ee271591510c1e9bd21390a75299d.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Does turning off Bluetooth actually make Wi-Fi better? - Engadget</div>\n  \n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 24"
@@ -176,7 +198,7 @@
           "type": "text",
           "datetime": "2026-08-30T19:26:22+00:00",
           "edited": false,
-          "views": "35",
+          "views": "37",
           "comments": "",
           "tags": [],
           "text": "https://youtu.be/Ffl2DFHoZdY?si=65h1a1DVxX4ydzEq",
@@ -190,7 +212,7 @@
           "type": "text",
           "datetime": "2026-08-27T15:07:59+00:00",
           "edited": false,
-          "views": "47",
+          "views": "48",
           "comments": "",
           "tags": [],
           "text": "Glad i don't own a Mac",
@@ -204,11 +226,11 @@
           "type": "text",
           "datetime": "2026-08-27T15:06:41+00:00",
           "edited": true,
-          "views": "48",
+          "views": "49",
           "comments": "",
           "tags": [],
           "text": "https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&utm_campaign=Bundle&utm_medium=referral&utm_source=Bundle",
-          "content": "<a href=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\">https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle</a><a class=\"tgme_widget_message_link_preview\" href=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Malicious npm packages bypass macOS defenses entirely. How supply chain attacks hit Mac developers, orgs, and everyday users — and why you're exposed.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Hackernoon</div>\n  <img class=\"link_preview_image\" alt=\"The Mac You Trust Runs the Code You Never See\" src=\"/media/56c9d285f16f6da12dd4ed8dbe0f0642.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">The Mac You Trust Runs the Code You Never See</div>\n  <div class=\"link_preview_description\">Malicious npm packages bypass macOS defenses entirely. How supply chain attacks hit Mac developers, orgs, and everyday users — and why you're exposed.</div>\n</a>",
+          "content": "<a href=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle\">https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss&amp;utm_campaign=Bundle&amp;utm_medium=referral&amp;utm_source=Bundle</a><a class=\"tgme_widget_message_link_preview\" href=\"https://hackernoon.com/the-mac-you-trust-runs-the-code-you-never-see?source=rss\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Malicious npm packages bypass macOS defenses entirely. How supply chain attacks hit Mac developers, orgs, and everyday users — and why you're exposed.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Hackernoon</div>\n  <img class=\"link_preview_image\" alt=\"The Mac You Trust Runs the Code You Never See\" src=\"/media/57eb1727839631aa960b7e994011044b.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">The Mac You Trust Runs the Code You Never See</div>\n  <div class=\"link_preview_description\">Malicious npm packages bypass macOS defenses entirely. How supply chain attacks hit Mac developers, orgs, and everyday users — and why you're exposed.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "136, 136, 200"
@@ -219,11 +241,11 @@
           "type": "text",
           "datetime": "2026-08-24T11:06:23+00:00",
           "edited": false,
-          "views": "45",
+          "views": "48",
           "comments": "",
           "tags": [],
           "text": "https://animateicons.in",
-          "content": "<a href=\"https://animateicons.in/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://animateicons.in\">https://animateicons.in</a><a class=\"tgme_widget_message_link_preview\" href=\"https://animateicons.in/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"542+ free, open-source animated SVG icons for React, built on Lucide and Motion. Add them with the shadcn CLI or npm, and make them move on hover, focus, or with your code.\">\n  \n  <div class=\"link_preview_site_name accent_color\">AnimateIcons</div>\n  <img class=\"link_preview_image\" alt=\"AnimateIcons | 542+ Free Animated React Icons\" src=\"/media/74468b40c82c263552f42d69a2c4b07f.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">AnimateIcons | 542+ Free Animated React Icons</div>\n  <div class=\"link_preview_description\">542+ free, open-source animated SVG icons for React, built on Lucide and Motion. Add them with the shadcn CLI or npm, and make them move on hover, focus, or with your code.</div>\n</a>",
+          "content": "<a href=\"https://animateicons.in/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://animateicons.in\">https://animateicons.in</a><a class=\"tgme_widget_message_link_preview\" href=\"https://animateicons.in/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"542+ free, open-source animated SVG icons for React, built on Lucide and Motion. Add them with the shadcn CLI or npm, and make them move on hover, focus, or with your code.\">\n  \n  <div class=\"link_preview_site_name accent_color\">AnimateIcons</div>\n  <img class=\"link_preview_image\" alt=\"AnimateIcons | 542+ Free Animated React Icons\" src=\"/media/5dfb8304ce981ef9b278fa557e61fc50.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">AnimateIcons | 542+ Free Animated React Icons</div>\n  <div class=\"link_preview_description\">542+ free, open-source animated SVG icons for React, built on Lucide and Motion. Add them with the shadcn CLI or npm, and make them move on hover, focus, or with your code.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -238,7 +260,7 @@
           "comments": "",
           "tags": [],
           "text": "https://github.com/remotion-dev/remotion",
-          "content": "<a href=\"https://github.com/remotion-dev/remotion\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/remotion-dev/remotion\">https://github.com/remotion-dev/remotion</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/remotion-dev/remotion\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"🎥      Make videos programmatically with React. Contribute to remotion-dev/remotion development by creating an account on GitHub.\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - remotion-dev/remotion: 🎥      Make videos programmatically with React\" src=\"/media/567a2609b3125ddcc6201324bada21b3.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - remotion-dev/remotion: <i class=\"emoji\"><b>🎥</b></i>      Make videos programmatically with React</div>\n  <div class=\"link_preview_description\"><i class=\"emoji\"><b>🎥</b></i>      Make videos programmatically with React. Contribute to remotion-dev/remotion development by creating an account on GitHub.</div>\n</a>",
+          "content": "<a href=\"https://github.com/remotion-dev/remotion\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/remotion-dev/remotion\">https://github.com/remotion-dev/remotion</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/remotion-dev/remotion\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"🎥      Make videos programmatically with React. Contribute to remotion-dev/remotion development by creating an account on GitHub.\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - remotion-dev/remotion: 🎥      Make videos programmatically with React\" src=\"/media/5a3a2cb6e6ba0d9c56e3d3a39475c006.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - remotion-dev/remotion: <i class=\"emoji\"><b>🎥</b></i>      Make videos programmatically with React</div>\n  <div class=\"link_preview_description\"><i class=\"emoji\"><b>🎥</b></i>      Make videos programmatically with React. Contribute to remotion-dev/remotion development by creating an account on GitHub.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -256,7 +278,12 @@
           "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/110\"><blockquote><small>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_text js-message_reply_text\">https://steamcommunity.com/app/4072240/</div>\n</small></blockquote></a>the comment section for this game is comedy gold",
           "reactions": [],
           "isLongForm": false
-        },
+        }
+      ]
+    },
+    {
+      "cursor": "111",
+      "posts": [
         {
           "id": "110",
           "title": "",
@@ -267,7 +294,7 @@
           "comments": "",
           "tags": [],
           "text": "https://steamcommunity.com/app/4072240/",
-          "content": "<a href=\"https://steamcommunity.com/app/4072240/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://steamcommunity.com/app/4072240/\">https://steamcommunity.com/app/4072240/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://steamcommunity.com/app/4072240\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Woman Simulator - Experience life as a woman - cleaning, cooking, laundry, and no time to rest. Full immersion into the world of everyday chaos!\">\n  \n  <div class=\"link_preview_site_name accent_color\">Steamcommunity</div>\n  <img class=\"link_preview_image\" alt=\"Steam Community :: Woman Simulator\" src=\"/media/8199fbf4b4e2f098c7c7a5b122ff3245.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Steam Community :: Woman Simulator</div>\n  <div class=\"link_preview_description\">Woman Simulator - Experience life as a woman - cleaning, cooking, laundry, and no time to rest. Full immersion into the world of everyday chaos!</div>\n</a>",
+          "content": "<a href=\"https://steamcommunity.com/app/4072240/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://steamcommunity.com/app/4072240/\">https://steamcommunity.com/app/4072240/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://steamcommunity.com/app/4072240\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Woman Simulator - Experience life as a woman - cleaning, cooking, laundry, and no time to rest. Full immersion into the world of everyday chaos!\">\n  \n  <div class=\"link_preview_site_name accent_color\">Steamcommunity</div>\n  <img class=\"link_preview_image\" alt=\"Steam Community :: Woman Simulator\" src=\"/media/7433120f949d48aac509b98358827f20.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Steam Community :: Woman Simulator</div>\n  <div class=\"link_preview_description\">Woman Simulator - Experience life as a woman - cleaning, cooking, laundry, and no time to rest. Full immersion into the world of everyday chaos!</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "200, 200, 184"
@@ -278,26 +305,21 @@
           "type": "text",
           "datetime": "2026-08-21T22:24:28+00:00",
           "edited": false,
-          "views": "41",
+          "views": "42",
           "comments": "",
           "tags": [],
           "text": "i can't lol",
           "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/108\"><blockquote><small>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_text js-message_reply_text\">https://youtu.be/UMZ2u5imAt8</div>\n</small></blockquote></a>i can't lol",
           "reactions": [],
           "isLongForm": false
-        }
-      ]
-    },
-    {
-      "cursor": "109",
-      "posts": [
+        },
         {
           "id": "108",
           "title": "",
           "type": "text",
           "datetime": "2026-08-21T22:23:33+00:00",
           "edited": false,
-          "views": "43",
+          "views": "45",
           "comments": "",
           "tags": [],
           "text": "https://youtu.be/UMZ2u5imAt8",
@@ -311,7 +333,7 @@
           "type": "text",
           "datetime": "2026-08-20T17:07:12+00:00",
           "edited": false,
-          "views": "36",
+          "views": "37",
           "comments": "",
           "tags": [],
           "text": "AI in a nutshell",
@@ -325,11 +347,11 @@
           "type": "text",
           "datetime": "2026-08-18T19:49:22+00:00",
           "edited": false,
-          "views": "600",
+          "views": "609",
           "comments": "",
           "tags": [],
           "text": "Today I learned JSON-LD is the language behind the Google data retrieval we see when searching. It is collected by web crawlers that search engines deploy to get a quick glimpse of what a site is about and for filtered data retrieval. It helps data be linked on the WWW. We can add this in the <head> section of the HTML page by enclosing it in a <script> tag since it is a JavaScript Object Notation (JSON). It is, low key, what runs the web's discoverability.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/6a2b8d65715b68711bab2ecb327822d5.jpg\" alt=\"Today I learned JSON-LD is the language behind the Google data retrieval we see when searching. It is collected by web crawlers that search engines deploy to get a quick glimpse of what a site is about and for filtered data retrieval. It helps data be linked on the WWW. We can add this in the <head> section of the HTML page by enclosing it in a <script> tag since it is a JavaScript Object Notation (JSON). It is, low key, what runs the web's discoverability.\" loading=\"lazy\"></div><b>Today I learned</b> JSON-LD is the language behind the Google data retrieval we see when searching. It is collected by web crawlers that search engines deploy to get a quick glimpse of what a site is about and for filtered data retrieval. It helps data be linked on the WWW. We can add this in the &lt;head&gt; section of the HTML page by enclosing it in a &lt;script&gt; tag since it is a JavaScript Object Notation (JSON). It is, low key, what runs the web's discoverability.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/ebfb90ae9a7a1a14f9a10ac84e1d22e7.jpg\" alt=\"Today I learned JSON-LD is the language behind the Google data retrieval we see when searching. It is collected by web crawlers that search engines deploy to get a quick glimpse of what a site is about and for filtered data retrieval. It helps data be linked on the WWW. We can add this in the <head> section of the HTML page by enclosing it in a <script> tag since it is a JavaScript Object Notation (JSON). It is, low key, what runs the web's discoverability.\" loading=\"lazy\"></div><b>Today I learned</b> JSON-LD is the language behind the Google data retrieval we see when searching. It is collected by web crawlers that search engines deploy to get a quick glimpse of what a site is about and for filtered data retrieval. It helps data be linked on the WWW. We can add this in the &lt;head&gt; section of the HTML page by enclosing it in a &lt;script&gt; tag since it is a JavaScript Object Notation (JSON). It is, low key, what runs the web's discoverability.",
           "reactions": [
             {
               "emoji": "🔥",
@@ -352,7 +374,7 @@
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<video src=\"/media/a77bb84d6c6563beb2b1ba619a10021f.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"auto\" playsinline=\"true\"></video>",
+          "content": "<video src=\"/media/39aa8d139540954955ad321cfd20c57e.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"metadata\" playsinline=\"true\"></video>",
           "reactions": [],
           "isLongForm": false
         },
@@ -366,7 +388,7 @@
           "comments": "",
           "tags": [],
           "text": "https://namethatui.com",
-          "content": "<a href=\"https://namethatui.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://namethatui.com\">https://namethatui.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://namethatui.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"See the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.\">\n  \n  <div class=\"link_preview_site_name accent_color\">NameThatUI</div>\n  <img class=\"link_preview_image\" alt=\"NameThatUI — What Is This UI Element Called?\" src=\"/media/a2247a71d50128e41627e6b59c77ba90.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">NameThatUI — What Is This UI Element Called?</div>\n  <div class=\"link_preview_description\">See the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.</div>\n</a>",
+          "content": "<a href=\"https://namethatui.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://namethatui.com\">https://namethatui.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://namethatui.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"See the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.\">\n  \n  <div class=\"link_preview_site_name accent_color\">NameThatUI</div>\n  <img class=\"link_preview_image\" alt=\"NameThatUI — What Is This UI Element Called?\" src=\"/media/4853f25cf6444f191ba7b8438e11c95e.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">NameThatUI — What Is This UI Element Called?</div>\n  <div class=\"link_preview_description\">See the UI element, learn its real name and API symbol, and copy a precise prompt for your coding agent.</div>\n</a>",
           "reactions": [
             {
               "emoji": "🔥",
@@ -385,11 +407,11 @@
           "type": "text",
           "datetime": "2026-08-13T06:18:23+00:00",
           "edited": false,
-          "views": "39",
+          "views": "40",
           "comments": "",
           "tags": [],
           "text": "https://feralui.dev",
-          "content": "<a href=\"https://feralui.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://feralui.dev\">https://feralui.dev</a><a class=\"tgme_widget_message_link_preview\" href=\"https://feralui.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A small library of playful, physics-driven React elements: a ceiling pull-cord with a real Verlet rope, a claw-machine captcha, and more.\">\n  \n  <div class=\"link_preview_site_name accent_color\">feralui.dev</div>\n  <img class=\"link_preview_image\" alt=\"FeralUI · playful, physics-driven React elements\" src=\"/media/dc63a6c229d326c47454e8abb748f288.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">FeralUI · playful, physics-driven React elements</div>\n  <div class=\"link_preview_description\">A small library of playful, physics-driven React elements: a ceiling pull-cord with a real Verlet rope, a claw-machine captcha, and more.</div>\n</a>",
+          "content": "<a href=\"https://feralui.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://feralui.dev\">https://feralui.dev</a><a class=\"tgme_widget_message_link_preview\" href=\"https://feralui.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A small library of playful, physics-driven React elements: a ceiling pull-cord with a real Verlet rope, a claw-machine captcha, and more.\">\n  \n  <div class=\"link_preview_site_name accent_color\">feralui.dev</div>\n  <img class=\"link_preview_image\" alt=\"FeralUI · playful, physics-driven React elements\" src=\"/media/6e1bcd19592a62b392c74cec5bc52bf0.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">FeralUI · playful, physics-driven React elements</div>\n  <div class=\"link_preview_description\">A small library of playful, physics-driven React elements: a ceiling pull-cord with a real Verlet rope, a claw-machine captcha, and more.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -400,11 +422,11 @@
           "type": "text",
           "datetime": "2026-08-11T12:03:20+00:00",
           "edited": false,
-          "views": "35",
+          "views": "36",
           "comments": "",
           "tags": [],
           "text": "Honestly, I have been using the Zed editor for a while now. Since most of the time I work on the terminal, I wanted an editor which integrates with the terminal like Neovim. For a while, I refrained from trying it because of the learning curve. Last week though, I decided to try it. I have been tinkering with it since, and to my surprise, it was not as intimidating as it looks. I know it has depth, but once you know the basics, you will have an easier time exploring the rest in your spare time. So, I am loving my setup. The lesson I learned is that the things that seem hard to explore are the ones worth exploring.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/73a45063d3817f39d37bdb14876b02dd.jpg\" alt=\"Honestly, I have been using the Zed editor for a while now. Since most of the time I work on the terminal, I wanted an editor which integrates with the terminal like Neovim. For a while, I refrained from trying it because of the learning curve. Last week though, I decided to try it. I have been tinkering with it since, and to my surprise, it was not as intimidating as it looks. I know it has depth, but once you know the basics, you will have an easier time exploring the rest in your spare time. So, I am loving my setup. The lesson I learned is that the things that seem hard to explore are the ones worth exploring.\" loading=\"lazy\"></div>Honestly, I have been using the Zed editor for a while now. Since most of the time I work on the terminal, I wanted an editor which integrates with the terminal like Neovim. For a while, I refrained from trying it because of the learning curve. Last week though, I decided to try it. I have been tinkering with it since, and to my surprise, it was not as intimidating as it looks. I know it has depth, but once you know the basics, you will have an easier time exploring the rest in your spare time. So, I am loving my setup. The lesson I learned is that the things that seem hard to explore are the ones worth exploring.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/fbbd4e6436bbd31765925aab949108e2.jpg\" alt=\"Honestly, I have been using the Zed editor for a while now. Since most of the time I work on the terminal, I wanted an editor which integrates with the terminal like Neovim. For a while, I refrained from trying it because of the learning curve. Last week though, I decided to try it. I have been tinkering with it since, and to my surprise, it was not as intimidating as it looks. I know it has depth, but once you know the basics, you will have an easier time exploring the rest in your spare time. So, I am loving my setup. The lesson I learned is that the things that seem hard to explore are the ones worth exploring.\" loading=\"lazy\"></div>Honestly, I have been using the Zed editor for a while now. Since most of the time I work on the terminal, I wanted an editor which integrates with the terminal like Neovim. For a while, I refrained from trying it because of the learning curve. Last week though, I decided to try it. I have been tinkering with it since, and to my surprise, it was not as intimidating as it looks. I know it has depth, but once you know the basics, you will have an easier time exploring the rest in your spare time. So, I am loving my setup. The lesson I learned is that the things that seem hard to explore are the ones worth exploring.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "40, 40, 56"
@@ -415,7 +437,7 @@
           "type": "text",
           "datetime": "2026-08-10T19:12:09+00:00",
           "edited": false,
-          "views": "33",
+          "views": "34",
           "comments": "",
           "tags": [],
           "text": "https://3d-brain-explorer.vercel.app",
@@ -429,7 +451,7 @@
           "type": "text",
           "datetime": "2026-08-10T18:42:22+00:00",
           "edited": false,
-          "views": "692",
+          "views": "698",
           "comments": "",
           "tags": [],
           "text": "",
@@ -443,11 +465,11 @@
           "type": "text",
           "datetime": "2026-08-10T09:36:20+00:00",
           "edited": false,
-          "views": "42",
+          "views": "44",
           "comments": "",
           "tags": [],
           "text": "https://gradientsaas.blogspot.com",
-          "content": "<a href=\"https://gradientsaas.blogspot.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://gradientsaas.blogspot.com\">https://gradientsaas.blogspot.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://gradientsaas.blogspot.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Premium editorial CSS gradients with light treatments. Export CSS, Tailwind, or SCSS free. By Amit Gajare.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Gradient Studio</div>\n  <img class=\"link_preview_image\" alt=\"Gradient Studio — Free Procedural CSS Gradient Generator\" src=\"/media/933445f0836cbadc3021a0158a61c513.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gradient Studio — Free Procedural CSS Gradient Generator</div>\n  <div class=\"link_preview_description\">Premium editorial CSS gradients with light treatments. Export CSS, Tailwind, or SCSS free. By Amit Gajare.</div>\n</a>",
+          "content": "<a href=\"https://gradientsaas.blogspot.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://gradientsaas.blogspot.com\">https://gradientsaas.blogspot.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://gradientsaas.blogspot.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Premium editorial CSS gradients with light treatments. Export CSS, Tailwind, or SCSS free. By Amit Gajare.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Gradient Studio</div>\n  <img class=\"link_preview_image\" alt=\"Gradient Studio — Free Procedural CSS Gradient Generator\" src=\"/media/0f72e1728e3e231b694728ae3fa17553.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gradient Studio — Free Procedural CSS Gradient Generator</div>\n  <div class=\"link_preview_description\">Premium editorial CSS gradients with light treatments. Export CSS, Tailwind, or SCSS free. By Amit Gajare.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 24"
@@ -458,7 +480,7 @@
           "type": "text",
           "datetime": "2026-08-04T22:31:13+00:00",
           "edited": false,
-          "views": "51",
+          "views": "52",
           "comments": "",
           "tags": [],
           "text": "this guy paints in his sleep",
@@ -472,7 +494,7 @@
           "type": "text",
           "datetime": "2026-08-04T22:30:40+00:00",
           "edited": false,
-          "views": "48",
+          "views": "49",
           "comments": "",
           "tags": [],
           "text": "https://www.leehadwin.com",
@@ -486,11 +508,11 @@
           "type": "text",
           "datetime": "2026-08-04T11:50:53+00:00",
           "edited": false,
-          "views": "60",
+          "views": "61",
           "comments": "",
           "tags": [],
           "text": "https://www.morphicons.com",
-          "content": "<a href=\"https://www.morphicons.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.morphicons.com\">https://www.morphicons.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://morphicons.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Morph any SVG icon into any other with spring physics. Animate Lucide, Tabler and Heroicons in React, Vue, Svelte, React Native, Astro or vanilla JS. Zero dependencies, ~6 KB gzip.\">\n  \n  <div class=\"link_preview_site_name accent_color\">morphicons</div>\n  <img class=\"link_preview_image\" alt=\"morphicons — SVG icon morphing library for React, Vue &amp; Svelte\" src=\"/media/558abda5417f72bbdc8ed5b01024584e.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">morphicons — SVG icon morphing library for React, Vue &amp; Svelte</div>\n  <div class=\"link_preview_description\">Morph any SVG icon into any other with spring physics. Animate Lucide, Tabler and Heroicons in React, Vue, Svelte, React Native, Astro or vanilla JS. Zero dependencies, ~6 KB gzip.</div>\n</a>",
+          "content": "<a href=\"https://www.morphicons.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.morphicons.com\">https://www.morphicons.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://morphicons.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Morph any SVG icon into any other with spring physics. Animate Lucide, Tabler and Heroicons in React, Vue, Svelte, React Native, Astro or vanilla JS. Zero dependencies, ~6 KB gzip.\">\n  \n  <div class=\"link_preview_site_name accent_color\">morphicons</div>\n  <img class=\"link_preview_image\" alt=\"morphicons — SVG icon morphing library for React, Vue &amp; Svelte\" src=\"/media/9b5fb840057c9fe12fc25a393e700b85.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">morphicons — SVG icon morphing library for React, Vue &amp; Svelte</div>\n  <div class=\"link_preview_description\">Morph any SVG icon into any other with spring physics. Animate Lucide, Tabler and Heroicons in React, Vue, Svelte, React Native, Astro or vanilla JS. Zero dependencies, ~6 KB gzip.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -501,7 +523,7 @@
           "type": "text",
           "datetime": "2026-08-03T18:53:51+00:00",
           "edited": false,
-          "views": "47",
+          "views": "48",
           "comments": "",
           "tags": [],
           "text": "can't argue with the logic but for me what appeals me is being able to edit inline with out going to external css files is what i adore about tailwind.",
@@ -515,7 +537,7 @@
           "type": "text",
           "datetime": "2026-08-03T18:43:37+00:00",
           "edited": false,
-          "views": "52",
+          "views": "54",
           "comments": "",
           "tags": [],
           "text": "https://en.andros.dev/blog/af3ee191/why-i-dont-recommend-tailwind-css/?via=dailydev",
@@ -529,11 +551,11 @@
           "type": "text",
           "datetime": "2026-08-01T20:48:44+00:00",
           "edited": false,
-          "views": "55",
+          "views": "57",
           "comments": "",
           "tags": [],
           "text": "https://ariseui.vercel.app",
-          "content": "<a href=\"https://ariseui.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://ariseui.vercel.app\">https://ariseui.vercel.app</a><a class=\"tgme_widget_message_link_preview\" href=\"https://ariseui.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A shadcn registry of best animated React components.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Arise UI</div>\n  <img class=\"link_preview_image\" alt=\"Arise UI\" src=\"/media/3d566f7c5822f2ea9b78bbef226f06d9.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">A shadcn registry of best animated React components.</div>\n</a>",
+          "content": "<a href=\"https://ariseui.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://ariseui.vercel.app\">https://ariseui.vercel.app</a><a class=\"tgme_widget_message_link_preview\" href=\"https://ariseui.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A shadcn registry of best animated React components.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Arise UI</div>\n  <img class=\"link_preview_image\" alt=\"Arise UI\" src=\"/media/ead6f5a27bffb76ac4cd4ab269785b17.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">A shadcn registry of best animated React components.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -544,11 +566,11 @@
           "type": "text",
           "datetime": "2026-07-31T07:28:16+00:00",
           "edited": false,
-          "views": "53",
+          "views": "54",
           "comments": "",
           "tags": [],
           "text": "leerob.com/rust",
-          "content": "<a href=\"http://leerob.com/rust\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"leerob.com/rust\">leerob.com/rust</a><a class=\"tgme_widget_message_link_preview\" href=\"https://leerob.com/rust\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Why is Rust being used to replace parts of the JavaScript web ecosystem like minification (Terser), transpilation (Babel), formatting (Prettier), bundling (webpack), linting (ESLint), and more?\">\n  \n  <div class=\"link_preview_site_name accent_color\">Leerob</div>\n  <img class=\"link_preview_image\" alt=\"Rust Is Eating JavaScript | Lee Robinson\" src=\"/media/b9a6b232f845d9c67ff218cef1d2565f.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Rust Is Eating JavaScript | Lee Robinson</div>\n  <div class=\"link_preview_description\">Why is Rust being used to replace parts of the JavaScript web ecosystem like minification (Terser), transpilation (Babel), formatting (Prettier), bundling (webpack), linting (ESLint), and more?</div>\n</a>",
+          "content": "<a href=\"http://leerob.com/rust\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"leerob.com/rust\">leerob.com/rust</a><a class=\"tgme_widget_message_link_preview\" href=\"https://leerob.com/rust\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Why is Rust being used to replace parts of the JavaScript web ecosystem like minification (Terser), transpilation (Babel), formatting (Prettier), bundling (webpack), linting (ESLint), and more?\">\n  \n  <div class=\"link_preview_site_name accent_color\">Leerob</div>\n  <img class=\"link_preview_image\" alt=\"Rust Is Eating JavaScript | Lee Robinson\" src=\"/media/0e816310c2447e9023a169454e65c919.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Rust Is Eating JavaScript | Lee Robinson</div>\n  <div class=\"link_preview_description\">Why is Rust being used to replace parts of the JavaScript web ecosystem like minification (Terser), transpilation (Babel), formatting (Prettier), bundling (webpack), linting (ESLint), and more?</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -559,26 +581,31 @@
           "type": "text",
           "datetime": "2026-07-29T18:08:30+00:00",
           "edited": true,
-          "views": "50",
+          "views": "51",
           "comments": "",
           "tags": [],
           "text": "t been a while since i read a comic-book, but I found a banger this time. full color, published by Dark Horse Comics. Described as \"a Buddhist version of Conan the Barbarian.\" Raw, gorgeous art. Very different from the family-friendly versions, has 2 volumes. Am halfway through vol1.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/d3aadc93fa543748d643f660b058ccbd.jpg\" alt=\"t been a while since i read a comic-book, but I found a banger this time. full color, published by Dark Horse Comics. Described as &quot;a Buddhist version of Conan the Barbarian.&quot; Raw, gorgeous art. Very different from the family-friendly versions, has 2 volumes. Am halfway through vol1.\" loading=\"lazy\"></div>t been a while since i read a comic-book, but I found a banger this time. full color, published by Dark Horse Comics. Described as \"a Buddhist version of Conan the Barbarian.\" Raw, gorgeous art. Very different from the family-friendly versions, has 2 volumes. Am halfway through vol1.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/ef341177c3ad03f429f05857073fcb5d.jpg\" alt=\"t been a while since i read a comic-book, but I found a banger this time. full color, published by Dark Horse Comics. Described as &quot;a Buddhist version of Conan the Barbarian.&quot; Raw, gorgeous art. Very different from the family-friendly versions, has 2 volumes. Am halfway through vol1.\" loading=\"lazy\"></div>t been a while since i read a comic-book, but I found a banger this time. full color, published by Dark Horse Comics. Described as \"a Buddhist version of Conan the Barbarian.\" Raw, gorgeous art. Very different from the family-friendly versions, has 2 volumes. Am halfway through vol1.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "136, 168, 152"
-        },
+        }
+      ]
+    },
+    {
+      "cursor": "91",
+      "posts": [
         {
           "id": "89",
           "title": "TikWikiA TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.Features    - TikTok-Style Swipe Feed    - Interactive Mind Map    - Gemini AI Assistant    - Immersive Article Reader    - Offline Reading    - Deep Linking    - Recommendation Scoring Engine    - Category Spacing & Attenuation    - Activity & Sync    - Guest Mode ProtectionDownload from PlayStoreGive it a Star 🌟 on Github",
           "type": "text",
           "datetime": "2026-07-29T08:59:19+00:00",
           "edited": false,
-          "views": "54",
+          "views": "55",
           "comments": "",
           "tags": [],
           "text": "TikWikiA TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.Features    - TikTok-Style Swipe Feed    - Interactive Mind Map    - Gemini AI Assistant    - Immersive Article Reader    - Offline Reading    - Deep Linking    - Recommendation Scoring Engine    - Category Spacing & Attenuation    - Activity & Sync    - Guest Mode ProtectionDownload from PlayStoreGive it a Star 🌟 on Github",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/1b6733e69240a4c5b77bb5051f356396.jpg\" alt=\"TikWikiA TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.Features    - TikTok-Style Swipe Feed    - Interactive Mind Map    - Gemini AI Assistant    - Immersive Article Reader    - Offline Reading    - Deep Linking    - Recommendation Scoring Engine    - Category Spacing &amp; Attenuation    - Activity &amp; Sync    - Guest Mode ProtectionDownload from PlayStoreGive it a Star 🌟 on Github\" loading=\"lazy\"></div><a href=\"https://play.google.com/store/apps/details?id=dev.ragoose.tikwiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"TikWiki\">TikWiki</a><br>A TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.<br><br>Features<br>    - TikTok-Style Swipe Feed<br>    - Interactive Mind Map<br>    - Gemini AI Assistant<br>    - Immersive Article Reader<br>    - Offline Reading<br>    - Deep Linking<br>    - Recommendation Scoring Engine<br>    - Category Spacing &amp; Attenuation<br>    - Activity &amp; Sync<br>    - Guest Mode Protection<br><br><a href=\"https://github.com/daveragos/tik_wiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Download from\">Download from</a> <a href=\"https://play.google.com/store/apps/details?id=dev.ragoose.tikwiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"PlayStore\">PlayStore</a><br><a href=\"https://github.com/daveragos/tik_wiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Give it a Star 🌟 on Github\">Give it a Star <i class=\"emoji\"><b>🌟</b></i> on Github</a>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/342404fddca683a14f8c495bee71776d.jpg\" alt=\"TikWikiA TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.Features    - TikTok-Style Swipe Feed    - Interactive Mind Map    - Gemini AI Assistant    - Immersive Article Reader    - Offline Reading    - Deep Linking    - Recommendation Scoring Engine    - Category Spacing &amp; Attenuation    - Activity &amp; Sync    - Guest Mode ProtectionDownload from PlayStoreGive it a Star 🌟 on Github\" loading=\"lazy\"></div><a href=\"https://play.google.com/store/apps/details?id=dev.ragoose.tikwiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"TikWiki\">TikWiki</a><br>A TikTok style, short-form of wikis. TikWiki translates the hyper-engaging, vertical-scrolling UI/UX design paradigms of TikTok into an educational ecosystem powered by the Wikipedia.<br><br>Features<br>    - TikTok-Style Swipe Feed<br>    - Interactive Mind Map<br>    - Gemini AI Assistant<br>    - Immersive Article Reader<br>    - Offline Reading<br>    - Deep Linking<br>    - Recommendation Scoring Engine<br>    - Category Spacing &amp; Attenuation<br>    - Activity &amp; Sync<br>    - Guest Mode Protection<br><br><a href=\"https://github.com/daveragos/tik_wiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Download from\">Download from</a> <a href=\"https://play.google.com/store/apps/details?id=dev.ragoose.tikwiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"PlayStore\">PlayStore</a><br><a href=\"https://github.com/daveragos/tik_wiki\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Give it a Star 🌟 on Github\">Give it a Star <i class=\"emoji\"><b>🌟</b></i> on Github</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 24"
@@ -589,26 +616,21 @@
           "type": "text",
           "datetime": "2026-07-29T08:59:18+00:00",
           "edited": false,
-          "views": "43",
+          "views": "44",
           "comments": "",
           "tags": [],
           "text": "Honestly this an app done right👌",
           "content": "Honestly this an app done right<i class=\"emoji\"><b>👌</b></i>",
           "reactions": [],
           "isLongForm": false
-        }
-      ]
-    },
-    {
-      "cursor": "88",
-      "posts": [
+        },
         {
           "id": "87",
           "title": "",
           "type": "text",
           "datetime": "2026-07-28T12:15:37+00:00",
           "edited": false,
-          "views": "48",
+          "views": "49",
           "comments": "",
           "tags": [],
           "text": "https://youtu.be/VEiOV6JL2bg?si=_gsTLBOvcp1oQUqz",
@@ -622,11 +644,11 @@
           "type": "text",
           "datetime": "2026-07-26T16:23:28+00:00",
           "edited": false,
-          "views": "62",
+          "views": "63",
           "comments": "",
           "tags": [],
           "text": "Wish loopholes",
-          "content": "<video src=\"/media/a75d05a0a6827fa54e40d6703d4dc0fd.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"auto\" playsinline=\"true\"></video>Wish loopholes",
+          "content": "<video src=\"/media/57f94a60b38ae9c100bd88f380e824ea.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"auto\" playsinline=\"true\"></video>Wish loopholes",
           "reactions": [
             {
               "emoji": "😁",
@@ -644,11 +666,11 @@
           "type": "text",
           "datetime": "2026-07-22T13:34:17+00:00",
           "edited": false,
-          "views": "74",
+          "views": "75",
           "comments": "",
           "tags": [],
           "text": "not even mad",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/4288e9eb591f5ae880fb101543b42aef.jpg\" alt=\"not even mad\" loading=\"lazy\"></div>not even mad",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/227f1bed2c6eea52d5d7b33caa236ecb.jpg\" alt=\"not even mad\" loading=\"lazy\"></div>not even mad",
           "reactions": [
             {
               "emoji": "❤️",
@@ -667,7 +689,7 @@
           "type": "text",
           "datetime": "2026-07-22T08:16:23+00:00",
           "edited": false,
-          "views": "63",
+          "views": "65",
           "comments": "",
           "tags": [],
           "text": "Making Things Hard on Yourself, But in a Good Way: Creating Desirable Difficulties to Enhance Learningan interesting research.",
@@ -681,7 +703,7 @@
           "type": "text",
           "datetime": "2026-07-17T14:56:43+00:00",
           "edited": false,
-          "views": "72",
+          "views": "74",
           "comments": "",
           "tags": [],
           "text": "https://www.pnas.org/doi/10.1073/pnas.2422633122",
@@ -695,11 +717,11 @@
           "type": "text",
           "datetime": "2026-07-17T06:02:58+00:00",
           "edited": false,
-          "views": "66",
+          "views": "67",
           "comments": "",
           "tags": [],
           "text": "https://www.mixfont.com/ghost-fonthandy for the robot uprising",
-          "content": "<a href=\"https://www.mixfont.com/ghost-font\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.mixfont.com/ghost-font\">https://www.mixfont.com/ghost-font</a><br>handy for the robot uprising<a class=\"tgme_widget_message_link_preview\" href=\"https://mixfont.com/ghost-font\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"An anti-AI font that can be read by humans but not leading AI models. Type your text below, then download and share the video clip containing your message.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Mixfont</div>\n  <img class=\"link_preview_image\" alt=\"Ghost Font: The Anti-AI Font Only Humans Can Read\" src=\"/media/ea515986c234d3fc530b4f5565cb712f.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Ghost Font: The Anti-AI Font Only Humans Can Read</div>\n  <div class=\"link_preview_description\">An anti-AI font that can be read by humans but not leading AI models. Type your text below, then download and share the video clip containing your message.</div>\n</a>",
+          "content": "<a href=\"https://www.mixfont.com/ghost-font\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.mixfont.com/ghost-font\">https://www.mixfont.com/ghost-font</a><br>handy for the robot uprising<a class=\"tgme_widget_message_link_preview\" href=\"https://mixfont.com/ghost-font\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"An anti-AI font that can be read by humans but not leading AI models. Type your text below, then download and share the video clip containing your message.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Mixfont</div>\n  <img class=\"link_preview_image\" alt=\"Ghost Font: The Anti-AI Font Only Humans Can Read\" src=\"/media/20d91507f01d2c623278d61bfd3123aa.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Ghost Font: The Anti-AI Font Only Humans Can Read</div>\n  <div class=\"link_preview_description\">An anti-AI font that can be read by humans but not leading AI models. Type your text below, then download and share the video clip containing your message.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "232, 232, 232"
@@ -710,11 +732,11 @@
           "type": "text",
           "datetime": "2026-07-17T05:58:00+00:00",
           "edited": false,
-          "views": "54",
+          "views": "56",
           "comments": "",
           "tags": [],
           "text": "https://waratlas.org",
-          "content": "<a href=\"https://waratlas.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://waratlas.org\">https://waratlas.org</a><a class=\"tgme_widget_message_link_preview\" href=\"https://waratlas.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Explore 10,584 wars and 427 empires across 5,000 years on an interactive world map.\">\n  \n  <div class=\"link_preview_site_name accent_color\">War Atlas</div>\n  <img class=\"link_preview_image\" alt=\"War Atlas — Every Named War in Human History\" src=\"/media/6018cb4ed1eb6f561ce78e092ff20cd3.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">War Atlas — Every Named War in Human History</div>\n  <div class=\"link_preview_description\">Explore 10,584 wars and 427 empires across 5,000 years on an interactive world map.</div>\n</a>",
+          "content": "<a href=\"https://waratlas.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://waratlas.org\">https://waratlas.org</a><a class=\"tgme_widget_message_link_preview\" href=\"https://waratlas.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Explore 10,886 wars and 442 empires across 5,000 years on an interactive world map.\">\n  \n  <div class=\"link_preview_site_name accent_color\">War Atlas</div>\n  <img class=\"link_preview_image\" alt=\"War Atlas — Every Named War in Human History\" src=\"/media/0d347cd02bd8c4869082b9eb1b2059d3.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">War Atlas — Every Named War in Human History</div>\n  <div class=\"link_preview_description\">Explore 10,886 wars and 442 empires across 5,000 years on an interactive world map.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 24"
@@ -725,11 +747,11 @@
           "type": "text",
           "datetime": "2026-07-16T09:47:28+00:00",
           "edited": false,
-          "views": "53",
+          "views": "55",
           "comments": "",
           "tags": [],
           "text": "https://casp.ac/reports/ai-enabled-terrorism",
-          "content": "<a href=\"https://casp.ac/reports/ai-enabled-terrorism\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://casp.ac/reports/ai-enabled-terrorism\">https://casp.ac/reports/ai-enabled-terrorism</a><a class=\"tgme_widget_message_link_preview\" href=\"https://casp.ac/reports/ai-enabled-terrorism\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"How are terrorists using AI? Semi-structured interviews with 27 former Boko Haram members conducted in northeast Nigeria in 2025 and 2026 reveal unprecedented detail about AI-assisted terrorist activity primarily through 2024. This report finds that both…\">\n  \n  <div class=\"link_preview_site_name accent_color\">Cambridge Programme on AI Science &amp; Policy</div>\n  <img class=\"link_preview_image\" alt=\"“God has helped us, and so will AI”: How the Terrorist Group Boko Haram Uses Frontier AI — CASP\" src=\"/media/71ec13b4ad27f76d26ee8809e5ef46f7.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">“God has helped us, and so will AI”: How the Terrorist Group Boko Haram Uses Frontier AI — CASP</div>\n  <div class=\"link_preview_description\">How are terrorists using AI? Semi-structured interviews with 27 former Boko Haram members conducted in northeast Nigeria in 2025 and 2026 reveal unprecedented detail about AI-assisted terrorist activity primarily through 2024. This report finds that both…</div>\n</a>",
+          "content": "<a href=\"https://casp.ac/reports/ai-enabled-terrorism\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://casp.ac/reports/ai-enabled-terrorism\">https://casp.ac/reports/ai-enabled-terrorism</a><a class=\"tgme_widget_message_link_preview\" href=\"https://casp.ac/reports/ai-enabled-terrorism\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"How are terrorists using AI? Semi-structured interviews with 27 former Boko Haram members conducted in northeast Nigeria in 2025 and 2026 reveal unprecedented detail about AI-assisted terrorist activity primarily through 2024. This report finds that both…\">\n  \n  <div class=\"link_preview_site_name accent_color\">Cambridge Programme on AI Science &amp; Policy</div>\n  <img class=\"link_preview_image\" alt=\"“God has helped us, and so will AI”: How the Terrorist Group Boko Haram Uses Frontier AI — CASP\" src=\"/media/0a57e09e34c95049261d494ed78649b8.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">“God has helped us, and so will AI”: How the Terrorist Group Boko Haram Uses Frontier AI — CASP</div>\n  <div class=\"link_preview_description\">How are terrorists using AI? Semi-structured interviews with 27 former Boko Haram members conducted in northeast Nigeria in 2025 and 2026 reveal unprecedented detail about AI-assisted terrorist activity primarily through 2024. This report finds that both…</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -758,7 +780,7 @@
           "comments": "",
           "tags": [],
           "text": "LLM wiki (popularized by non other than Karpathy) is a very interesting way of building knowledge graph from your day to day talks with AI...could be seen on obsidian. Here I'm talking about game theory applied in the dating scene.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/168ad4fc41c00e7ec29442ac499d291b.jpg\" alt=\"LLM wiki (popularized by non other than Karpathy) is a very interesting way of building knowledge graph from your day to day talks with AI...could be seen on obsidian. Here I'm talking about game theory applied in the dating scene.\" loading=\"lazy\"></div><a href=\"https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"LLM wiki \">LLM wiki </a>(popularized by non other than Karpathy) is a very interesting way of building knowledge graph from your day to day talks with AI...could be seen on obsidian. Here I'm talking about game theory applied in the dating scene.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/81d5a816c897b675562b1c9d175e2858.jpg\" alt=\"LLM wiki (popularized by non other than Karpathy) is a very interesting way of building knowledge graph from your day to day talks with AI...could be seen on obsidian. Here I'm talking about game theory applied in the dating scene.\" loading=\"lazy\"></div><a href=\"https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"LLM wiki \">LLM wiki </a>(popularized by non other than Karpathy) is a very interesting way of building knowledge graph from your day to day talks with AI...could be seen on obsidian. Here I'm talking about game theory applied in the dating scene.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 24"
@@ -769,11 +791,11 @@
           "type": "text",
           "datetime": "2026-07-12T15:39:42+00:00",
           "edited": false,
-          "views": "622",
+          "views": "625",
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<video src=\"/media/9122aa403ba12b9b573df23330a86d32.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"metadata\" playsinline=\"true\"></video>",
+          "content": "<video src=\"/media/8d950d7a282ae43d76a50d3b002b9d21.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"metadata\" playsinline=\"true\"></video>",
           "reactions": [],
           "isLongForm": false
         },
@@ -783,11 +805,11 @@
           "type": "text",
           "datetime": "2026-07-12T12:09:57+00:00",
           "edited": false,
-          "views": "64",
+          "views": "65",
           "comments": "",
           "tags": [],
           "text": "I’m learning Japanese on Duolingo! It’s free, fun, and effective.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/eeeccc2ad7693c1729e35abe9ebfcc9e.jpg\" alt=\"I’m learning Japanese on Duolingo! It’s free, fun, and effective.\" loading=\"lazy\"></div>I’m learning Japanese on Duolingo! It’s free, fun, and effective.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/06017a8422851030fcf67afd454d1e63.jpg\" alt=\"I’m learning Japanese on Duolingo! It’s free, fun, and effective.\" loading=\"lazy\"></div>I’m learning Japanese on Duolingo! It’s free, fun, and effective.",
           "reactions": [
             {
               "emoji": "❤️",
@@ -810,7 +832,7 @@
           "comments": "",
           "tags": [],
           "text": "There is a new terminal multiplexer in-town and its called herder. Am loving  its agent capabilities and it being mouse friendly is what sold me. Give it a try. https://herdr.dev",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/6529b386c825812c1f86bffe37793f13.jpg\" alt=\"There is a new terminal multiplexer in-town and its called herder. Am loving  its agent capabilities and it being mouse friendly is what sold me. Give it a try. \" loading=\"lazy\"></div>There is a new terminal multiplexer in-town and its called herder. Am loving  its agent capabilities and it being mouse friendly is what sold me. Give it a try. <br><a href=\"https://herdr.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://herdr.dev\">https://herdr.dev</a>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/a6f12bcea28551a4c7623f16ab4c1b34.jpg\" alt=\"There is a new terminal multiplexer in-town and its called herder. Am loving  its agent capabilities and it being mouse friendly is what sold me. Give it a try. \" loading=\"lazy\"></div>There is a new terminal multiplexer in-town and its called herder. Am loving  its agent capabilities and it being mouse friendly is what sold me. Give it a try. <br><a href=\"https://herdr.dev/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://herdr.dev\">https://herdr.dev</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -825,7 +847,7 @@
           "comments": "",
           "tags": [],
           "text": "https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device",
-          "content": "<a href=\"https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\">https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device</a><a class=\"tgme_widget_message_link_preview\" href=\"https://pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"The FBI used a Microsoft device identifier, dubbed GDID, to link a teenager to a hack attributed to Scattered Spider, raising privacy red flags about Windows' surveillance capabilities.\">\n  \n  <div class=\"link_preview_site_name accent_color\">PCMAG</div>\n  <img class=\"link_preview_image\" alt=\"A Hacker's Arrest Reveals Microsoft Can Track Users Via a Windows Device ID\" src=\"/media/56aa23e87267af13f672f06079b61112.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">A Hacker's Arrest Reveals Microsoft Can Track Users Via a Windows Device ID</div>\n  <div class=\"link_preview_description\">The FBI used a Microsoft device identifier, dubbed GDID, to link a teenager to a hack attributed to Scattered Spider, raising privacy red flags about Windows' surveillance capabilities.</div>\n</a>",
+          "content": "<a href=\"https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\">https://www.pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device</a><a class=\"tgme_widget_message_link_preview\" href=\"https://pcmag.com/news/a-hackers-arrest-reveals-microsoft-can-track-users-via-a-windows-device\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"The FBI used a Microsoft device identifier, dubbed GDID, to link a teenager to a hack attributed to Scattered Spider, raising privacy red flags about Windows' surveillance capabilities.\">\n  \n  <div class=\"link_preview_site_name accent_color\">PCMAG</div>\n  <img class=\"link_preview_image\" alt=\"A Hacker's Arrest Reveals Microsoft Can Track Users Via a Windows Device ID\" src=\"/media/f7fecb6e3693f2842c5399d4e0b41a00.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">A Hacker's Arrest Reveals Microsoft Can Track Users Via a Windows Device ID</div>\n  <div class=\"link_preview_description\">The FBI used a Microsoft device identifier, dubbed GDID, to link a teenager to a hack attributed to Scattered Spider, raising privacy red flags about Windows' surveillance capabilities.</div>\n</a>",
           "reactions": [
             {
               "emoji": "❤️",
@@ -848,7 +870,7 @@
           "comments": "",
           "tags": [],
           "text": "well what do you know my favorite position.https://gitfut.com/EyuReaper",
-          "content": "well what do you know my favorite position.<br><a href=\"https://gitfut.com/EyuReaper\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://gitfut.com/EyuReaper\">https://gitfut.com/EyuReaper</a><a class=\"tgme_widget_message_link_preview\" href=\"https://gitfut.com/EyuReaper\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Rate any GitHub profile out of 99 as a FIFA-Ultimate-Team-style player card, scored from real commits, stars and contributions. Get scouted and share your card.\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitFut</div>\n  <img class=\"link_preview_image\" alt=\"GitFut — your GitHub, rated out of 99\" src=\"/media/4caa15732557e625f604cd0a7f9f7bb4.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitFut — your GitHub, rated out of 99</div>\n  <div class=\"link_preview_description\">Rate any GitHub profile out of 99 as a FIFA-Ultimate-Team-style player card, scored from real commits, stars and contributions. Get scouted and share your card.</div>\n</a>",
+          "content": "well what do you know my favorite position.<br><a href=\"https://gitfut.com/EyuReaper\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://gitfut.com/EyuReaper\">https://gitfut.com/EyuReaper</a><a class=\"tgme_widget_message_link_preview\" href=\"https://gitfut.com/EyuReaper\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Rate any GitHub profile out of 99 as a FIFA-Ultimate-Team-style player card, scored from real commits, stars and contributions. Get scouted and share your card.\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitFut</div>\n  <img class=\"link_preview_image\" alt=\"GitFut — your GitHub, rated out of 99\" src=\"/media/4b9fdd69c811f08c77043ac4d8c2ecc8.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitFut — your GitHub, rated out of 99</div>\n  <div class=\"link_preview_description\">Rate any GitHub profile out of 99 as a FIFA-Ultimate-Team-style player card, scored from real commits, stars and contributions. Get scouted and share your card.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 24"
@@ -863,7 +885,7 @@
           "comments": "",
           "tags": [],
           "text": "I just learn this today that this master piece was played by an Ethiopian nun. The media have distorted how people perceive this song.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/dfae4a5a5354728790bd7637a69d288f.jpg\" alt=\"I just learn this today that this master piece was played by an Ethiopian nun. The media have distorted how people perceive this song.\" loading=\"lazy\"></div>I just learn this today that this master piece was played by an Ethiopian nun. The media have distorted how people perceive this song.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/eaff1a62ed949b1cc46247a050e69c71.jpg\" alt=\"I just learn this today that this master piece was played by an Ethiopian nun. The media have distorted how people perceive this song.\" loading=\"lazy\"></div>I just learn this today that this master piece was played by an Ethiopian nun. The media have distorted how people perceive this song.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -874,7 +896,7 @@
           "type": "text",
           "datetime": "2026-07-02T10:04:16+00:00",
           "edited": false,
-          "views": "59",
+          "views": "60",
           "comments": "",
           "tags": [],
           "text": "mean while in the far east:https://youtu.be/mRlbqt5tkh4",
@@ -895,7 +917,12 @@
           "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/69\"><blockquote><small>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_text js-message_reply_text\">https://llmstxt.org</div>\n</small></blockquote></a>this is a proposal but not yet a standard to use it in any website. It encourages developers to make their website llm or agent friendly. more like a README for AI. But my question is wouldn't this make the dead internet theory more realistic and inevitable?",
           "reactions": [],
           "isLongForm": false
-        },
+        }
+      ]
+    },
+    {
+      "cursor": "70",
+      "posts": [
         {
           "id": "69",
           "title": "",
@@ -906,7 +933,7 @@
           "comments": "",
           "tags": [],
           "text": "https://llmstxt.org",
-          "content": "<a href=\"https://llmstxt.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://llmstxt.org\">https://llmstxt.org</a><a class=\"tgme_widget_message_link_preview\" href=\"https://llmstxt.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A proposal to standardise on using an /llms.txt file to provide information to help agents use a website.\">\n  \n  <div class=\"link_preview_site_name accent_color\">llms-txt</div>\n  <img class=\"link_preview_image\" alt=\"The /llms.txt file, v2 – llms-txt\" src=\"/media/7af1c865b37e6b1f0cbf8227309c1182.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">The /llms.txt file, v2 – llms-txt</div>\n  <div class=\"link_preview_description\">A proposal to standardise on using an /llms.txt file to provide information to help agents use a website.</div>\n</a>",
+          "content": "<a href=\"https://llmstxt.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://llmstxt.org\">https://llmstxt.org</a><a class=\"tgme_widget_message_link_preview\" href=\"https://llmstxt.org/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A proposal to standardise on using an /llms.txt file to provide information to help agents use a website.\">\n  \n  <div class=\"link_preview_site_name accent_color\">llms-txt</div>\n  <img class=\"link_preview_image\" alt=\"The /llms.txt file, v2 – llms-txt\" src=\"/media/83da69cf90238ddf5e8c91e0dbd088bd.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">The /llms.txt file, v2 – llms-txt</div>\n  <div class=\"link_preview_description\">A proposal to standardise on using an /llms.txt file to provide information to help agents use a website.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -921,16 +948,11 @@
           "comments": "",
           "tags": [],
           "text": "https://glyphcss.com",
-          "content": "<a href=\"https://glyphcss.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://glyphcss.com\">https://glyphcss.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://glyphcss.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Render 3D models (OBJ, glTF, GLB, STL, .vox) as ASCII art — in the browser, in React or Vue, or straight in your terminal. A three.js-style API with no WebGL and no canvas: just text in a single <pre>.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Glyphcss</div>\n  <img class=\"link_preview_image\" alt=\"glyphcss — turn 3D models into ASCII art (browser, React/Vue &amp; terminal)\" src=\"/media/5d1109a53c7c247f0a363cf1aac6857c.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">glyphcss — turn 3D models into ASCII art (browser, React/Vue &amp; terminal)</div>\n  <div class=\"link_preview_description\">Render 3D models (OBJ, glTF, GLB, STL, .vox) as ASCII art — in the browser, in React or Vue, or straight in your terminal. A three.js-style API with no WebGL and no canvas: just text in a single &lt;pre&gt;.</div>\n</a>",
+          "content": "<a href=\"https://glyphcss.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://glyphcss.com\">https://glyphcss.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://glyphcss.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Render 3D models (OBJ, glTF, GLB, STL, .vox) as ASCII art — in the browser, in React or Vue, or straight in your terminal. A three.js-style API with no WebGL and no canvas: just text in a single <pre>.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Glyphcss</div>\n  <img class=\"link_preview_image\" alt=\"glyphcss — turn 3D models into ASCII art (browser, React/Vue &amp; terminal)\" src=\"/media/08ac61261e9d1431c9a71a304b22a6f5.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">glyphcss — turn 3D models into ASCII art (browser, React/Vue &amp; terminal)</div>\n  <div class=\"link_preview_description\">Render 3D models (OBJ, glTF, GLB, STL, .vox) as ASCII art — in the browser, in React or Vue, or straight in your terminal. A three.js-style API with no WebGL and no canvas: just text in a single &lt;pre&gt;.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
-        }
-      ]
-    },
-    {
-      "cursor": "68",
-      "posts": [
+        },
         {
           "id": "67",
           "title": "",
@@ -969,7 +991,7 @@
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<video src=\"/media/69871fa47fe944de69bda02c64d5856b.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"auto\" playsinline=\"true\"></video>",
+          "content": "<video src=\"/media/1464db9e7adc91514b6b413432ac248d.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" controls=\"true\" preload=\"metadata\" playsinline=\"true\"></video>",
           "reactions": [
             {
               "emoji": "👍",
@@ -998,7 +1020,7 @@
             "DevTools"
           ],
           "text": "Turn Obsidian Into a Self-Hosted Web App! I love Obsidian but hate that my notes are locked to a single desktop.Usually, Obsidian is desktop-only because it’s built on Electron. But this new open-source repository, Ignis, completely breaks that barrier:🔗 GitHub: https://github.com/Nystik-gh/ignisWhy this is a game-changer:• Not VNC, Not Remote Desktop: This isn’t a laggy video stream of a remote computer. It is a true, native web app experience running directly in your browser. •  The \"Electron Trick\": Ignis cleverly tricks Obsidian into believing it is still running inside its native Electron shell, while serving it seamlessly over the web. • Access Anywhere: Spin it up on a cheap VPS and securely access your entire second brain, complete with your plugins and configurations, from any device.If you've been looking for a secure, self-hosted way to free your Obsidian vault from local disk , this is the project to star.#SelfHosted #Obsidian #Productivity #Privacy #OpenSource #DevTools",
-          "content": "<b>Turn Obsidian Into a Self-Hosted Web App!</b> <br>I love Obsidian but hate that my notes are locked to a single desktop.<br>Usually, Obsidian is desktop-only because it’s built on Electron. But this new open-source repository, <b>Ignis</b>, completely breaks that barrier:<br><i class=\"emoji\"><b>🔗</b></i> <b>GitHub:</b> <a href=\"https://github.com/Nystik-gh/ignis\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/Nystik-gh/ignis\">https://github.com/Nystik-gh/ignis</a><br>Why this is a game-changer:<br>• <b>Not VNC, Not Remote Desktop:</b> This isn’t a laggy video stream of a remote computer. It is a true, native web app experience running directly in your browser. •  <b>The \"Electron Trick\":</b> Ignis cleverly tricks Obsidian into believing it is still running inside its native Electron shell, while serving it seamlessly over the web. • <b>Access Anywhere:</b> Spin it up on a cheap VPS and securely access your entire second brain, complete with your plugins and configurations, from any device.<br>If you've been looking for a secure, self-hosted way to free your Obsidian vault from local disk , this is the project to star.<br><a href=\"/search?q=%23SelfHosted\" title=\"#SelfHosted\">#SelfHosted</a> <a href=\"/search?q=%23Obsidian\" title=\"#Obsidian\">#Obsidian</a> <a href=\"/search?q=%23Productivity\" title=\"#Productivity\">#Productivity</a> <a href=\"/search?q=%23Privacy\" title=\"#Privacy\">#Privacy</a> <a href=\"/search?q=%23OpenSource\" title=\"#OpenSource\">#OpenSource</a> <a href=\"/search?q=%23DevTools\" title=\"#DevTools\">#DevTools</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/Nystik-gh/ignis\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app. - Nystik-gh/ignis\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - Nystik-gh/ignis: Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app.\" src=\"/media/81d5d4160a09625088aca28423c1bb84.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - Nystik-gh/ignis: Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app.</div>\n  <div class=\"link_preview_description\">Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app. - Nystik-gh/ignis</div>\n</a>",
+          "content": "<b>Turn Obsidian Into a Self-Hosted Web App!</b> <br>I love Obsidian but hate that my notes are locked to a single desktop.<br>Usually, Obsidian is desktop-only because it’s built on Electron. But this new open-source repository, <b>Ignis</b>, completely breaks that barrier:<br><i class=\"emoji\"><b>🔗</b></i> <b>GitHub:</b> <a href=\"https://github.com/Nystik-gh/ignis\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/Nystik-gh/ignis\">https://github.com/Nystik-gh/ignis</a><br>Why this is a game-changer:<br>• <b>Not VNC, Not Remote Desktop:</b> This isn’t a laggy video stream of a remote computer. It is a true, native web app experience running directly in your browser. •  <b>The \"Electron Trick\":</b> Ignis cleverly tricks Obsidian into believing it is still running inside its native Electron shell, while serving it seamlessly over the web. • <b>Access Anywhere:</b> Spin it up on a cheap VPS and securely access your entire second brain, complete with your plugins and configurations, from any device.<br>If you've been looking for a secure, self-hosted way to free your Obsidian vault from local disk , this is the project to star.<br><a href=\"/search?q=%23SelfHosted\" title=\"#SelfHosted\">#SelfHosted</a> <a href=\"/search?q=%23Obsidian\" title=\"#Obsidian\">#Obsidian</a> <a href=\"/search?q=%23Productivity\" title=\"#Productivity\">#Productivity</a> <a href=\"/search?q=%23Privacy\" title=\"#Privacy\">#Privacy</a> <a href=\"/search?q=%23OpenSource\" title=\"#OpenSource\">#OpenSource</a> <a href=\"/search?q=%23DevTools\" title=\"#DevTools\">#DevTools</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/Nystik-gh/ignis\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app. - Nystik-gh/ignis\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - Nystik-gh/ignis: Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app.\" src=\"/media/90c8b5a16fd6ebaa524bbe879cd10216.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - Nystik-gh/ignis: Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app.</div>\n  <div class=\"link_preview_description\">Run Obsidian as a self-hosted web app. Not remote desktop, an actual web app. - Nystik-gh/ignis</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -1018,7 +1040,7 @@
             "LifeHacks"
           ],
           "text": "Free 4K Background Remover — No Signup, No Limits! I found this tool for removing background which requires no signup  and no limits.Fal Background Remover is the new gold standard for quick edits:• True 4K Resolution: Download full-size, crystal-clear cutouts with zero downscaling. • 100% Free: No subscriptions, no hidden fees, and absolutely no watermarks. • Instant AI Precision: Erases backgrounds in sub-seconds—handling complex details like hair, fur, and fine edges flawlessly. • Zero Friction: No account or login required. Drag, drop, and download.Stop paying for basic cutouts. Keep this bookmarked!🔗 Try it here: https://fal.ai/tools/background-remover#Design #AITools #CreativeResources #LifeHacks",
-          "content": "<b>Free 4K Background Remover — No Signup, No Limits!</b> <br>I found this tool for removing background which requires no signup  and no limits.<br><b>Fal Background Remover</b> is the new gold standard for quick edits:<br>• <b>True 4K Resolution:</b> Download full-size, crystal-clear cutouts with zero downscaling. • <b>100% Free:</b> No subscriptions, no hidden fees, and absolutely no watermarks. • <b>Instant AI Precision:</b> Erases backgrounds in sub-seconds—handling complex details like hair, fur, and fine edges flawlessly. • <b>Zero Friction:</b> No account or login required. Drag, drop, and download.<br>Stop paying for basic cutouts. Keep this bookmarked!<br><i class=\"emoji\"><b>🔗</b></i> <b>Try it here:</b> <a href=\"https://fal.ai/tools/background-remover\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://fal.ai/tools/background-remover\">https://fal.ai/tools/background-remover</a><br><a href=\"/search?q=%23Design\" title=\"#Design\">#Design</a> <a href=\"/search?q=%23AITools\" title=\"#AITools\">#AITools</a> <a href=\"/search?q=%23CreativeResources\" title=\"#CreativeResources\">#CreativeResources</a> <a href=\"/search?q=%23LifeHacks\" title=\"#LifeHacks\">#LifeHacks</a><a class=\"tgme_widget_message_link_preview\" href=\"https://fal.ai/tools/background-remover\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Remove image backgrounds instantly with AI. 4K quality for free, no signup needed. Get clean, precise cutouts in seconds. Try fal.ai's background remover now.\">\n  \n  <div class=\"link_preview_site_name accent_color\">fal.ai</div>\n  <img class=\"link_preview_image\" alt=\"Free 4K Background Remover Online | AI-Powered, No Signup\" src=\"/media/a4f401a61a62342a9fc2382cda88dcd7.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Free 4K Background Remover Online | AI-Powered, No Signup</div>\n  <div class=\"link_preview_description\">Remove image backgrounds instantly with AI. 4K quality for free, no signup needed. Get clean, precise cutouts in seconds. Try fal.ai's background remover now.</div>\n</a>",
+          "content": "<b>Free 4K Background Remover — No Signup, No Limits!</b> <br>I found this tool for removing background which requires no signup  and no limits.<br><b>Fal Background Remover</b> is the new gold standard for quick edits:<br>• <b>True 4K Resolution:</b> Download full-size, crystal-clear cutouts with zero downscaling. • <b>100% Free:</b> No subscriptions, no hidden fees, and absolutely no watermarks. • <b>Instant AI Precision:</b> Erases backgrounds in sub-seconds—handling complex details like hair, fur, and fine edges flawlessly. • <b>Zero Friction:</b> No account or login required. Drag, drop, and download.<br>Stop paying for basic cutouts. Keep this bookmarked!<br><i class=\"emoji\"><b>🔗</b></i> <b>Try it here:</b> <a href=\"https://fal.ai/tools/background-remover\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://fal.ai/tools/background-remover\">https://fal.ai/tools/background-remover</a><br><a href=\"/search?q=%23Design\" title=\"#Design\">#Design</a> <a href=\"/search?q=%23AITools\" title=\"#AITools\">#AITools</a> <a href=\"/search?q=%23CreativeResources\" title=\"#CreativeResources\">#CreativeResources</a> <a href=\"/search?q=%23LifeHacks\" title=\"#LifeHacks\">#LifeHacks</a><a class=\"tgme_widget_message_link_preview\" href=\"https://fal.ai/tools/background-remover\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Remove image backgrounds instantly with AI. 4K quality for free, no signup needed. Get clean, precise cutouts in seconds. Try fal.ai's background remover now.\">\n  \n  <div class=\"link_preview_site_name accent_color\">fal.ai</div>\n  <img class=\"link_preview_image\" alt=\"Free 4K Background Remover Online | AI-Powered, No Signup\" src=\"/media/2bcfa237e0a24e9f90f45a9f68af2f2c.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Free 4K Background Remover Online | AI-Powered, No Signup</div>\n  <div class=\"link_preview_description\">Remove image backgrounds instantly with AI. 4K quality for free, no signup needed. Get clean, precise cutouts in seconds. Try fal.ai's background remover now.</div>\n</a>",
           "reactions": [
             {
               "emoji": "👏",
@@ -1046,7 +1068,7 @@
             "CuriousMinds"
           ],
           "text": "Storied Colors — a brilliant catalog of color history.It maps out 250+ historical pigments, tracking their origin, chemistry, and human cost:🔗 Explore the palette: https://storiedcolors.com#ArtHistory #CreativeTools #Design #CuriousMinds",
-          "content": "<b>Storied Colors</b> — a brilliant catalog of color history.<br>It maps out 250+ historical pigments, tracking their origin, chemistry, and human cost:<br><i class=\"emoji\"><b>🔗</b></i> <b>Explore the palette:</b> <a href=\"https://storiedcolors.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://storiedcolors.com\">https://storiedcolors.com</a><br><a href=\"/search?q=%23ArtHistory\" title=\"#ArtHistory\">#ArtHistory</a> <a href=\"/search?q=%23CreativeTools\" title=\"#CreativeTools\">#CreativeTools</a> <a href=\"/search?q=%23Design\" title=\"#Design\">#Design</a> <a href=\"/search?q=%23CuriousMinds\" title=\"#CuriousMinds\">#CuriousMinds</a><a class=\"tgme_widget_message_link_preview\" href=\"https://storiedcolors.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Storied Colors: named colors with documented histories.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Storied Colors</div>\n  <img class=\"link_preview_image\" alt=\"Storied Colors\" src=\"/media/54f9a0cffa75f065de5adb872c20bfa0.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">Storied Colors: named colors with documented histories.</div>\n</a>",
+          "content": "<b>Storied Colors</b> — a brilliant catalog of color history.<br>It maps out 250+ historical pigments, tracking their origin, chemistry, and human cost:<br><i class=\"emoji\"><b>🔗</b></i> <b>Explore the palette:</b> <a href=\"https://storiedcolors.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://storiedcolors.com\">https://storiedcolors.com</a><br><a href=\"/search?q=%23ArtHistory\" title=\"#ArtHistory\">#ArtHistory</a> <a href=\"/search?q=%23CreativeTools\" title=\"#CreativeTools\">#CreativeTools</a> <a href=\"/search?q=%23Design\" title=\"#Design\">#Design</a> <a href=\"/search?q=%23CuriousMinds\" title=\"#CuriousMinds\">#CuriousMinds</a><a class=\"tgme_widget_message_link_preview\" href=\"https://storiedcolors.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Storied Colors: named colors with documented histories.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Storied Colors</div>\n  <img class=\"link_preview_image\" alt=\"Storied Colors\" src=\"/media/6145210fea522f3436b82b6886be476f.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">Storied Colors: named colors with documented histories.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -1066,7 +1088,7 @@
             "Security"
           ],
           "text": "10 Minute Mail is a 10-minute digital shield: • Auto-Deletes: Generates a temporary address that destroys itself in 10 minutes (extendable). • Live Inbox: Receive verification codes and links directly on the page.Stop letting random websites compromise your digital privacy. Keep your primary inbox reserved for the emails that actually matter!🔗 Link: https://10minutemail.com#Privacy #LifeHacks #WebTips #Security",
-          "content": "<b>10 Minute Mail</b> is a 10-minute digital shield: • <b>Auto-Deletes:</b> Generates a temporary address that destroys itself in 10 minutes (extendable). • <b>Live Inbox:</b> Receive verification codes and links directly on the page.<br>Stop letting random websites compromise your digital privacy. Keep your primary inbox reserved for the emails that actually matter!<br><i class=\"emoji\"><b>🔗</b></i> <b>Link:</b> <a href=\"https://10minutemail.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://10minutemail.com\">https://10minutemail.com</a><br><a href=\"/search?q=%23Privacy\" title=\"#Privacy\">#Privacy</a> <a href=\"/search?q=%23LifeHacks\" title=\"#LifeHacks\">#LifeHacks</a> <a href=\"/search?q=%23WebTips\" title=\"#WebTips\">#WebTips</a> <a href=\"/search?q=%23Security\" title=\"#Security\">#Security</a><a class=\"tgme_widget_message_link_preview\" href=\"https://10minutemail.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Free temp mail that self-destructs in 10 minutes. The original temp email and disposable email service since 2006. No signup needed.\">\n  \n  <div class=\"link_preview_site_name accent_color\">10 Minute Mail</div>\n  <img class=\"link_preview_image\" alt=\"10 Minute Mail - Free Anonymous Temporary email\" src=\"/media/f1666bc14ecdf6a95c0c8daf007d56d8.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">10 Minute Mail - Free Anonymous Temporary email</div>\n  <div class=\"link_preview_description\">Free temp mail that self-destructs in 10 minutes. The original temp email and disposable email service since 2006. No signup needed.</div>\n</a>",
+          "content": "<b>10 Minute Mail</b> is a 10-minute digital shield: • <b>Auto-Deletes:</b> Generates a temporary address that destroys itself in 10 minutes (extendable). • <b>Live Inbox:</b> Receive verification codes and links directly on the page.<br>Stop letting random websites compromise your digital privacy. Keep your primary inbox reserved for the emails that actually matter!<br><i class=\"emoji\"><b>🔗</b></i> <b>Link:</b> <a href=\"https://10minutemail.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://10minutemail.com\">https://10minutemail.com</a><br><a href=\"/search?q=%23Privacy\" title=\"#Privacy\">#Privacy</a> <a href=\"/search?q=%23LifeHacks\" title=\"#LifeHacks\">#LifeHacks</a> <a href=\"/search?q=%23WebTips\" title=\"#WebTips\">#WebTips</a> <a href=\"/search?q=%23Security\" title=\"#Security\">#Security</a><a class=\"tgme_widget_message_link_preview\" href=\"https://10minutemail.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Free temp mail that self-destructs in 10 minutes. The original temp email and disposable email service since 2006. No signup needed.\">\n  \n  <div class=\"link_preview_site_name accent_color\">10 Minute Mail</div>\n  <img class=\"link_preview_image\" alt=\"10 Minute Mail - Free Anonymous Temporary email\" src=\"/media/1a25761ee7ca4c3ae60ca7ea921bdb8e.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">10 Minute Mail - Free Anonymous Temporary email</div>\n  <div class=\"link_preview_description\">Free temp mail that self-destructs in 10 minutes. The original temp email and disposable email service since 2006. No signup needed.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 40, 56"
@@ -1081,7 +1103,7 @@
           "comments": "",
           "tags": [],
           "text": "KeyBegin is a free interactive tool that shows you the function and purpose of every key on a standard 108-key keyboard. Just click any key and instantly learn what it does, how to use it, and helpful shortcuts.Perfect for beginners or anyone who's been ignoring the Scroll Lock key for 10 years.https://keybegin.toolooz.com",
-          "content": "KeyBegin is a free interactive tool that shows you the function and purpose of every key on a standard 108-key keyboard. Just click any key and instantly learn what it does, how to use it, and helpful shortcuts.<br>Perfect for beginners or anyone who's been ignoring the Scroll Lock key for 10 years.<br><a href=\"https://keybegin.toolooz.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://keybegin.toolooz.com\">https://keybegin.toolooz.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://keybegin.toolooz.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Click any key to learn about its function and usage. Supports 108-key standard keyboard, improve your keyboard efficiency.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Toolooz</div>\n  <img class=\"link_preview_image\" alt=\"KeyBegin - Interactive 108-key Standard Keyboard Learning Tool\" src=\"/media/ae48b74ab1d4560345720106cf3ad5fd.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">KeyBegin - Interactive 108-key Standard Keyboard Learning Tool</div>\n  <div class=\"link_preview_description\">Click any key to learn about its function and usage. Supports 108-key standard keyboard, improve your keyboard efficiency.</div>\n</a>",
+          "content": "KeyBegin is a free interactive tool that shows you the function and purpose of every key on a standard 108-key keyboard. Just click any key and instantly learn what it does, how to use it, and helpful shortcuts.<br>Perfect for beginners or anyone who's been ignoring the Scroll Lock key for 10 years.<br><a href=\"https://keybegin.toolooz.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://keybegin.toolooz.com\">https://keybegin.toolooz.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://keybegin.toolooz.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Click any key to learn about its function and usage. Supports 108-key standard keyboard, improve your keyboard efficiency.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Toolooz</div>\n  <img class=\"link_preview_image\" alt=\"KeyBegin - Interactive 108-key Standard Keyboard Learning Tool\" src=\"/media/ef7fa8319479540f341c45139b0c2461.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">KeyBegin - Interactive 108-key Standard Keyboard Learning Tool</div>\n  <div class=\"link_preview_description\">Click any key to learn about its function and usage. Supports 108-key standard keyboard, improve your keyboard efficiency.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "120, 88, 168"
@@ -1110,7 +1132,7 @@
           "comments": "",
           "tags": [],
           "text": "https://github.com/iliashad/edit-mind",
-          "content": "<a href=\"https://github.com/iliashad/edit-mind\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/iliashad/edit-mind\">https://github.com/iliashad/edit-mind</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/iliashad/edit-mind\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace, Whisper), search semantically via natural language, Docker-ready. - IliasHad/edit-mind\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - IliasHad/edit-mind: Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace…\" src=\"/media/746dba8d028dd2c3cd75ba7a809c7280.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - IliasHad/edit-mind: Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace…</div>\n  <div class=\"link_preview_description\">Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace, Whisper), search semantically via natural language, Docker-ready. - IliasHad/edit-mind</div>\n</a>",
+          "content": "<a href=\"https://github.com/iliashad/edit-mind\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://github.com/iliashad/edit-mind\">https://github.com/iliashad/edit-mind</a><a class=\"tgme_widget_message_link_preview\" href=\"https://github.com/iliashad/edit-mind\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace, Whisper), search semantically via natural language, Docker-ready. - IliasHad/edit-mind\">\n  \n  <div class=\"link_preview_site_name accent_color\">GitHub</div>\n  <img class=\"link_preview_image\" alt=\"GitHub - IliasHad/edit-mind: Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace…\" src=\"/media/bc48e3a91e1753e3c116ad0abfed1fbf.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">GitHub - IliasHad/edit-mind: Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace…</div>\n  <div class=\"link_preview_description\">Local-first Video Knowledge Base. Index your video library with multi-modal analysis (YOLO, DeepFace, Whisper), search semantically via natural language, Docker-ready. - IliasHad/edit-mind</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -1153,7 +1175,7 @@
           "comments": "",
           "tags": [],
           "text": "Learn a language with me for free! Duolingo is fun, and proven to work. Here’s my invite link: https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/88187a0d2d084537f1152d55ad29ce60.jpg\" alt=\"Learn a language with me for free! Duolingo is fun, and proven to work. Here’s my invite link: \" loading=\"lazy\"></div>Learn a language with me for free! Duolingo is fun, and proven to work. Here’s my invite link: <a href=\"https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm\">https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm</a>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/7375665c4d5e7c4c7c4a67ed86600757.jpg\" alt=\"Learn a language with me for free! Duolingo is fun, and proven to work. Here’s my invite link: \" loading=\"lazy\"></div>Learn a language with me for free! Duolingo is fun, and proven to work. Here’s my invite link: <a href=\"https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm\">https://invite.duolingo.com/BDHTZTB5CWWKTXP4O7B7CQ7W5Y?v=sm</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 152, 8"
@@ -1168,7 +1190,7 @@
           "comments": "",
           "tags": [],
           "text": "https://www.cypherpunkbooks.com",
-          "content": "<a href=\"https://www.cypherpunkbooks.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.cypherpunkbooks.com\">https://www.cypherpunkbooks.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://cypherpunkbooks.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A personal collection of good public-domain reads. Free to read, free to keep.\">\n  \n  <div class=\"link_preview_site_name accent_color\">The Cypherpunk Library</div>\n  <img class=\"link_preview_image\" alt=\"The Cypherpunk Library\" src=\"/media/3bacb655d803da4822bbbf576a316b7e.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">A personal collection of good public-domain reads. Free to read, free to keep.</div>\n</a>",
+          "content": "<a href=\"https://www.cypherpunkbooks.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.cypherpunkbooks.com\">https://www.cypherpunkbooks.com</a><a class=\"tgme_widget_message_link_preview\" href=\"https://cypherpunkbooks.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A personal collection of good public-domain reads. Free to read, free to keep.\">\n  \n  <div class=\"link_preview_site_name accent_color\">The Cypherpunk Library</div>\n  <img class=\"link_preview_image\" alt=\"The Cypherpunk Library\" src=\"/media/d32fa54504d4813280bc271f2e3d5fdb.jpg\" loading=\"lazy\">\n  \n  <div class=\"link_preview_description\">A personal collection of good public-domain reads. Free to read, free to keep.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 8, 8"
@@ -1197,7 +1219,7 @@
           "comments": "",
           "tags": [],
           "text": "🔥 AI just found 21 zero-days in FFmpeg.That’s the video library bundled inside many apps, tools, containers, and devices. Some bugs sat untouched for 15–20 years.Google Chrome also dropped PATCHES for a record 429 vulnerabilities this week.Read: https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/3c1bf22bf032b7a6c58b95ead295d21c.jpg\" alt=\"🔥 AI just found 21 zero-days in FFmpeg.That’s the video library bundled inside many apps, tools, containers, and devices. Some bugs sat untouched for 15–20 years.Google Chrome also dropped PATCHES for a record 429 vulnerabilities this week.Read: \" loading=\"lazy\"></div><i class=\"emoji\"><b>🔥</b></i> AI just found 21 zero-days in FFmpeg.<br><br>That’s the video library bundled inside many apps, tools, containers, and devices. Some bugs sat untouched for 15–20 years.<br><br>Google Chrome also dropped PATCHES for a record 429 vulnerabilities this week.<br><br>Read: <a href=\"https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html\">https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html</a>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/0f413d53f8f9ff898e8d8856052aa75b.jpg\" alt=\"🔥 AI just found 21 zero-days in FFmpeg.That’s the video library bundled inside many apps, tools, containers, and devices. Some bugs sat untouched for 15–20 years.Google Chrome also dropped PATCHES for a record 429 vulnerabilities this week.Read: \" loading=\"lazy\"></div><i class=\"emoji\"><b>🔥</b></i> AI just found 21 zero-days in FFmpeg.<br><br>That’s the video library bundled inside many apps, tools, containers, and devices. Some bugs sat untouched for 15–20 years.<br><br>Google Chrome also dropped PATCHES for a record 429 vulnerabilities this week.<br><br>Read: <a href=\"https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html\">https://thehackernews.com/2026/06/ai-agent-uncovers-21-zero-days-in.html</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 40"
@@ -1226,11 +1248,16 @@
           "comments": "",
           "tags": [],
           "text": "https://devops-daily.com/games/git-concepts-simulator",
-          "content": "<a href=\"https://devops-daily.com/games/git-concepts-simulator\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://devops-daily.com/games/git-concepts-simulator\">https://devops-daily.com/games/git-concepts-simulator</a><a class=\"tgme_widget_message_link_preview\" href=\"https://devops-daily.com/games/git-concepts-simulator\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Practice Git in an interactive browser terminal with a visual repository model. Learn the working directory, staging area, local commits, branch pointers...\">\n  \n  <div class=\"link_preview_site_name accent_color\">Devops-Daily</div>\n  <img class=\"link_preview_image\" alt=\"Git Concepts Simulator: Learn Branches, Commits, Staging and Remotes - DevOps Daily\" src=\"/media/ecaf932e36f7e6ee58919d87e15d8070.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Git Concepts Simulator: Learn Branches, Commits, Staging and Remotes - DevOps Daily</div>\n  <div class=\"link_preview_description\">Practice Git in an interactive browser terminal with a visual repository model. Learn the working directory, staging area, local commits, branch pointers...</div>\n</a>",
+          "content": "<a href=\"https://devops-daily.com/games/git-concepts-simulator\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://devops-daily.com/games/git-concepts-simulator\">https://devops-daily.com/games/git-concepts-simulator</a><a class=\"tgme_widget_message_link_preview\" href=\"https://devops-daily.com/games/git-concepts-simulator\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Practice Git in an interactive browser terminal with a visual repository model. Learn the working directory, staging area, local commits, branch pointers...\">\n  \n  <div class=\"link_preview_site_name accent_color\">Devops-Daily</div>\n  <img class=\"link_preview_image\" alt=\"Git Concepts Simulator: Learn Branches, Commits, Staging and Remotes - DevOps Daily\" src=\"/media/c64d737c6db84e397f4566eef3acb621.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Git Concepts Simulator: Learn Branches, Commits, Staging and Remotes - DevOps Daily</div>\n  <div class=\"link_preview_description\">Practice Git in an interactive browser terminal with a visual repository model. Learn the working directory, staging area, local commits, branch pointers...</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 40"
-        },
+        }
+      ]
+    },
+    {
+      "cursor": "50",
+      "posts": [
         {
           "id": "48",
           "title": "I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.",
@@ -1241,16 +1268,11 @@
           "comments": "",
           "tags": [],
           "text": "I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"2\" data-album-id=\"48\">\n      <img class=\"zoomable\" src=\"/media/e3f1a3d98ee56c59c028bd86cdc34e8f.jpg\" alt=\"I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.\" loading=\"lazy\" data-ratio=\"0.43875\" data-album-id=\"48\" data-media-index=\"0\" data-total=\"2\">\n      <img class=\"zoomable\" src=\"/media/4f1ca8035321af1ab2acbc1700897031.jpg\" alt=\"I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.\" loading=\"lazy\" data-ratio=\"0.43875\" data-album-id=\"48\" data-media-index=\"1\" data-total=\"2\"></div><div class=\"tgme_widget_message_text js-message_text\">I finished reading:<br><br>Stories of the Sahara - Sanmao, 99.6%<br>Reading Hours: 16.29<br>Reading Speed (w/m): 126<br><br>Started march 30<br>Finished june 4<br>Recommended by <a href=\"https://t.me/netale_himself\" target=\"_blank\" title=\"@netale_himself\" rel=\"noopener noreferrer\">@netale_himself</a> <br><br>Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.</div>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"2\" data-album-id=\"48\">\n      <img class=\"zoomable\" src=\"/media/6092d70f4b955695e9fb0fb4076ed355.jpg\" alt=\"I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.\" loading=\"lazy\" data-ratio=\"0.43875\" data-album-id=\"48\" data-media-index=\"0\" data-total=\"2\">\n      <img class=\"zoomable\" src=\"/media/f63206899d1d5398ea3da68ab1e5a727.jpg\" alt=\"I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.I finished reading:Stories of the Sahara - Sanmao, 99.6%Reading Hours: 16.29Reading Speed (w/m): 126Started march 30Finished june 4Recommended by @netale_himself Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.\" loading=\"lazy\" data-ratio=\"0.43875\" data-album-id=\"48\" data-media-index=\"1\" data-total=\"2\"></div><div class=\"tgme_widget_message_text js-message_text\">I finished reading:<br><br>Stories of the Sahara - Sanmao, 99.6%<br>Reading Hours: 16.29<br>Reading Speed (w/m): 126<br><br>Started march 30<br>Finished june 4<br>Recommended by <a href=\"https://t.me/netale_himself\" target=\"_blank\" title=\"@netale_himself\" rel=\"noopener noreferrer\">@netale_himself</a> <br><br>Impressive piece of literary memoir of life and adventure of sanmao , worth reading every page.</div>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 24"
-        }
-      ]
-    },
-    {
-      "cursor": "48",
-      "posts": [
+        },
         {
           "id": "47",
           "title": "Yomuan all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me 👀), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: \"To read, anytime\".since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's coverso i present to you: YOMUFeatures    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.    Progress Monitoring: Track exactly how many pages and minutes you've read.    Goal Setting: Set weekly reading goals (by pages) to stay consistent.    Ranks & Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.    Activity Visualizations: Beautiful charts and insights into your reading habits.Download it from PlaystoreStar the repo on Github",
@@ -1261,7 +1283,7 @@
           "comments": "",
           "tags": [],
           "text": "Yomuan all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me 👀), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: \"To read, anytime\".since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's coverso i present to you: YOMUFeatures    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.    Progress Monitoring: Track exactly how many pages and minutes you've read.    Goal Setting: Set weekly reading goals (by pages) to stay consistent.    Ranks & Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.    Activity Visualizations: Beautiful charts and insights into your reading habits.Download it from PlaystoreStar the repo on Github",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/3b6305a59573c0cb15aaf2da3098a8b0.jpg\" alt=\"Yomuan all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me 👀), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: &quot;To read, anytime&quot;.since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's coverso i present to you: YOMUFeatures    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.    Progress Monitoring: Track exactly how many pages and minutes you've read.    Goal Setting: Set weekly reading goals (by pages) to stay consistent.    Ranks &amp; Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.    Activity Visualizations: Beautiful charts and insights into your reading habits.Download it from PlaystoreStar the repo on Github\" loading=\"lazy\"></div><a href=\"https://play.google.com/store/apps/details?id=com.ragoose.yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Yomu\">Yomu</a><br>an all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. <br><br>so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me <i class=\"emoji\"><b>👀</b></i>), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.<br>but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. <br><br>so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created<br><br>'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: \"To read, anytime\".<br><br>since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's cover<br><br>so i present to you: YOMU<br><br>Features<br>    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.<br>    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.<br>    Progress Monitoring: Track exactly how many pages and minutes you've read.<br>    Goal Setting: Set weekly reading goals (by pages) to stay consistent.<br>    Ranks &amp; Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.<br>    Activity Visualizations: Beautiful charts and insights into your reading habits.<br><br>Download it from <a href=\"https://play.google.com/store/apps/details?id=com.ragoose.yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Playstore\">Playstore</a><br>Star the repo on <a href=\"https://github.com/daveragos/yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Github\">Github</a>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/6740379315061d25d67879395e442efc.jpg\" alt=\"Yomuan all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me 👀), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: &quot;To read, anytime&quot;.since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's coverso i present to you: YOMUFeatures    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.    Progress Monitoring: Track exactly how many pages and minutes you've read.    Goal Setting: Set weekly reading goals (by pages) to stay consistent.    Ranks &amp; Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.    Activity Visualizations: Beautiful charts and insights into your reading habits.Download it from PlaystoreStar the repo on Github\" loading=\"lazy\"></div><a href=\"https://play.google.com/store/apps/details?id=com.ragoose.yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Yomu\">Yomu</a><br>an all-in-one reading companion designed for book lovers and audiobook enthusiasts. Whether you're diving into an EPUB, studying a PDF, or listening on the go, Yomu tracks your progress and gamifies your reading journey to help you reach your goals. <br><br>so one day i decided to get back to reading books(as any normal person does), and started reading, then since its been awhile i read heavy stuff(normal book actually, just heavy for me <i class=\"emoji\"><b>👀</b></i>), the process got boring, so i tried audiobooks, and now my ADHD kicks in and started taking me places while listening, when i got back am up to 2,3 chapter and the main character had died or sth, so i started reading while listening to the audiobook at the same time, that really improved my experience.<br>but now i face another problem, 1 am using two different apps, 2 i was using samsung music for my audiobooks so everytime i open another audio to listen to music i've lost the track of my timestamp, now everytime i get back to reading i have to find the exact place where i left of and continue from there, trust me do this once or twice a day, you're better of not reading at all. <br><br>so why not build an app for it that got both feature i need reading while listening and rememebers where i left off and all. thats why Yomu is created<br><br>'Yomu' means 'to read' in japanase and 'anytime' in afan oromo, so two languages, one mission: \"To read, anytime\".<br><br>since i used to use moonreader(the best reader ever), i tried to apply their best features here, including the little ones like, searching from web for hte book's cover<br><br>so i present to you: YOMU<br><br>Features<br>    Multi-Format Support: Seamlessly read EPUB and PDF files with a smooth, optimized interface.<br>    Audiobook Integration: Enjoy your favorite audiobooks with built-in playback controls.<br>    Progress Monitoring: Track exactly how many pages and minutes you've read.<br>    Goal Setting: Set weekly reading goals (by pages) to stay consistent.<br>    Ranks &amp; Levels: Progress from Kohai to Tatsujin based on both your Level (XP) and Achievements.<br>    Activity Visualizations: Beautiful charts and insights into your reading habits.<br><br>Download it from <a href=\"https://play.google.com/store/apps/details?id=com.ragoose.yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Playstore\">Playstore</a><br>Star the repo on <a href=\"https://github.com/daveragos/yomu\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Github\">Github</a>",
           "reactions": [
             {
               "emoji": "🤯",
@@ -1326,7 +1348,7 @@
           "comments": "",
           "tags": [],
           "text": "I have been tinkering with jellyfin. Is a self-hosted media server which lets you host your media in an organized Netflix-like interface  so you can watch them over other devices. Now i can watch my media from any other devices.",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/a57be732c569d6cd5d8455d7c05608be.jpg\" alt=\"I have been tinkering with jellyfin. Is a self-hosted media server which lets you host your media in an organized Netflix-like interface  so you can watch them over other devices. Now i can watch my media from any other devices.\" loading=\"lazy\"></div>I have been tinkering with jellyfin. Is a self-hosted media server which lets you host your media in an organized Netflix-like interface  so you can watch them over other devices. Now i can watch my media from any other devices.",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/0e5a19ba93d8bd23ddc0be249458d890.jpg\" alt=\"I have been tinkering with jellyfin. Is a self-hosted media server which lets you host your media in an organized Netflix-like interface  so you can watch them over other devices. Now i can watch my media from any other devices.\" loading=\"lazy\"></div>I have been tinkering with jellyfin. Is a self-hosted media server which lets you host your media in an organized Netflix-like interface  so you can watch them over other devices. Now i can watch my media from any other devices.",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -1357,7 +1379,7 @@
             "learning"
           ],
           "text": "what a breeze no semi-colons to worry about #learning-go",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/f61fc33e332664eff6aaeba69f6c2e4d.jpg\" alt=\"what a breeze no semi-colons to worry about #learning-go\" loading=\"lazy\"></div>what a breeze no semi-colons to worry about <a href=\"/search?q=%23learning\" title=\"#learning\">#learning</a>-go",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/137e82e07e91d7945f794afd51cd2f85.jpg\" alt=\"what a breeze no semi-colons to worry about #learning-go\" loading=\"lazy\"></div>what a breeze no semi-colons to worry about <a href=\"/search?q=%23learning\" title=\"#learning\">#learning</a>-go",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -1400,7 +1422,7 @@
           "comments": "",
           "tags": [],
           "text": "https://electionwatch.et/",
-          "content": "<a href=\"https://electionwatch.et/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://electionwatch.et/\">https://electionwatch.et/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://electionwatch.et/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open datasets on Ethiopia's 7th General Election: candidates, polling stations, party debates, and positions. Every record links to its source.\">\n  \n  <div class=\"link_preview_site_name accent_color\">electionwatch.et</div>\n  <img class=\"link_preview_image\" alt=\"Open data for Ethiopia's 7th General Election\" src=\"/media/e49bd5b33e16d824d1505df57b15f813.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Open data for Ethiopia's 7th General Election</div>\n  <div class=\"link_preview_description\">Open datasets on Ethiopia's 7th General Election: candidates, polling stations, party debates, and positions. Every record links to its source.</div>\n</a>",
+          "content": "<a href=\"https://electionwatch.et/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://electionwatch.et/\">https://electionwatch.et/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://electionwatch.et/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open datasets on Ethiopia's 7th General Election: candidates, polling stations, party debates, and positions. Every record links to its source.\">\n  \n  <div class=\"link_preview_site_name accent_color\">electionwatch.et</div>\n  <img class=\"link_preview_image\" alt=\"Open data for Ethiopia's 7th General Election\" src=\"/media/8c2eca403a431d48f81bb2bce1119472.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Open data for Ethiopia's 7th General Election</div>\n  <div class=\"link_preview_description\">Open datasets on Ethiopia's 7th General Election: candidates, polling stations, party debates, and positions. Every record links to its source.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "24, 24, 56"
@@ -1415,7 +1437,7 @@
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/36\"><blockquote><small><i class=\"tgme_widget_message_reply_thumb\"></i>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_metatext js-message_reply_text\">Photo</div>\n</small></blockquote></a><div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/d591cf4c2950c78813de8b58794d5e94.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
+          "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/36\"><blockquote><small><i class=\"tgme_widget_message_reply_thumb\"></i>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_metatext js-message_reply_text\">Photo</div>\n</small></blockquote></a><div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/30f70488a4b7a0b8fa45ec3e87930c55.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "104, 72, 40"
@@ -1430,7 +1452,7 @@
           "comments": "",
           "tags": [],
           "text": "",
-          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/c4dd765af05076bfde2995bb357fb4d1.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
+          "content": "<div class=\"image-list-container\" data-image-count=\"1\">\n      <img class=\"zoomable\" src=\"/media/7304c51ab03fa944d3ccf97f4642fa66.jpg\" alt=\"Post image\" loading=\"lazy\"></div>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "8, 8, 8"
@@ -1459,7 +1481,7 @@
           "comments": "",
           "tags": [],
           "text": "https://deepmind.google/models/gemini-omni/",
-          "content": "<a href=\"https://deepmind.google/models/gemini-omni/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://deepmind.google/models/gemini-omni/\">https://deepmind.google/models/gemini-omni/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://deepmind.google/models/gemini-omni\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Create anything from anything from any input – starting with video\">\n  \n  <div class=\"link_preview_site_name accent_color\">Google DeepMind</div>\n  <img class=\"link_preview_image\" alt=\"Gemini Omni\" src=\"/media/17efc6175083ff7da531367e93d17032.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gemini Omni</div>\n  <div class=\"link_preview_description\">Create anything from anything from any input – starting with video</div>\n</a>",
+          "content": "<a href=\"https://deepmind.google/models/gemini-omni/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://deepmind.google/models/gemini-omni/\">https://deepmind.google/models/gemini-omni/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://deepmind.google/models/gemini-omni\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Create anything from anything from any input – starting with video\">\n  \n  <div class=\"link_preview_site_name accent_color\">Google DeepMind</div>\n  <img class=\"link_preview_image\" alt=\"Gemini Omni\" src=\"/media/4796b8fcd749014327f78e69f4bc534d.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gemini Omni</div>\n  <div class=\"link_preview_description\">Create anything from anything from any input – starting with video</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -1474,7 +1496,7 @@
           "comments": "",
           "tags": [],
           "text": "https://developer.chrome.com/blog/gap-decorations-stable",
-          "content": "<a href=\"https://developer.chrome.com/blog/gap-decorations-stable\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://developer.chrome.com/blog/gap-decorations-stable\">https://developer.chrome.com/blog/gap-decorations-stable</a><a class=\"tgme_widget_message_link_preview\" href=\"https://developer.chrome.com/blog/gap-decorations-stable\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A new way to style gaps in CSS from Chrome and Edge 149.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Chrome for Developers</div>\n  <img class=\"link_preview_image\" alt=\"Gap decorations: Now available in Chromium &nbsp;|&nbsp; Blog &nbsp;|&nbsp; Chrome for Developers\" src=\"/media/eb620dca0c7094bfbf2ea6939c348d40.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gap decorations: Now available in Chromium &nbsp;|&nbsp; Blog &nbsp;|&nbsp; Chrome for Developers</div>\n  <div class=\"link_preview_description\">A new way to style gaps in CSS from Chrome and Edge 149.</div>\n</a>",
+          "content": "<a href=\"https://developer.chrome.com/blog/gap-decorations-stable\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://developer.chrome.com/blog/gap-decorations-stable\">https://developer.chrome.com/blog/gap-decorations-stable</a><a class=\"tgme_widget_message_link_preview\" href=\"https://developer.chrome.com/blog/gap-decorations-stable\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"A new way to style gaps in CSS from Chrome and Edge 149.\">\n  \n  <div class=\"link_preview_site_name accent_color\">Chrome for Developers</div>\n  <img class=\"link_preview_image\" alt=\"Gap decorations: Now available in Chromium &nbsp;|&nbsp; Blog &nbsp;|&nbsp; Chrome for Developers\" src=\"/media/061016184b0ab7a61f7fedea11279cbe.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Gap decorations: Now available in Chromium &nbsp;|&nbsp; Blog &nbsp;|&nbsp; Chrome for Developers</div>\n  <div class=\"link_preview_description\">A new way to style gaps in CSS from Chrome and Edge 149.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
@@ -1491,7 +1513,7 @@
             "TodaysDiscovery"
           ],
           "text": "This is RainDrop.io an all in one bookmark manager #TodaysDiscovery",
-          "content": "<video src=\"/media/807d314247f0751442bbb07ef69b69ba.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" preload=\"metadata\" muted=\"\" autoplay=\"\" loop=\"\" playsinline=\"true\" controls=\"true\"></video>This is <a href=\"https://raindrop.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"RainDrop.io \">RainDrop.io </a>an all in one bookmark manager <a href=\"/search?q=%23TodaysDiscovery\" title=\"#TodaysDiscovery\">#TodaysDiscovery</a>",
+          "content": "<video src=\"/media/bf638fb2cf0dce08f777cb7f95d6cb42.mp4\" class=\"tgme_widget_message_video js-message_video post-video\" width=\"100%\" height=\"100%\" preload=\"metadata\" muted=\"\" autoplay=\"\" loop=\"\" playsinline=\"true\" controls=\"true\"></video>This is <a href=\"https://raindrop.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"RainDrop.io \">RainDrop.io </a>an all in one bookmark manager <a href=\"/search?q=%23TodaysDiscovery\" title=\"#TodaysDiscovery\">#TodaysDiscovery</a>",
           "reactions": [],
           "isLongForm": false
         },
@@ -1501,11 +1523,11 @@
           "type": "text",
           "datetime": "2026-05-20T14:07:20+00:00",
           "edited": false,
-          "views": "691",
+          "views": "692",
           "comments": "",
           "tags": [],
           "text": "here is a list of CSS generators that i fancy:1.Neumorphism Soft UI Shadow Generator2. Glassmorphism - Create 'glass' cards3.Haikei - Generate unique SVG design assets4. SVG Filter Generator5.Gradient generator6.Cubic Beziers7.Trendy footers8.Backgrounds with gradientsThere are some of the CSS generators i know of. Share yours in the comments.",
-          "content": "here is a list of CSS generators that i fancy:<br>1.<a href=\"http://neumorphism.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Neumorphism Soft UI Shadow Generator\">Neumorphism Soft UI Shadow Generator</a><br>2. <a href=\"http://glassmorphism.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Glassmorphism - Create 'glass' cards\">Glassmorphism - Create 'glass' cards</a><br>3.<a href=\"http://haikei.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Haikei - Generate unique SVG design assets\">Haikei - Generate unique SVG design assets</a><br>4.&nbsp;<a href=\"https://yoksel.github.io/svg-filters/#/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"SVG Filter Generator\">SVG Filter Generator</a><br>5.<a href=\"https://learnui.design/tools/gradient-generator.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Gradient generator\">Gradient generator</a><br>6.<a href=\"https://cubic-bezier.com/#.17,.67,.83,.67\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Cubic Beziers\">Cubic Beziers</a><br>7.<a href=\"https://getwaves.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Trendy footers\">Trendy footers</a><br>8.<a href=\"https://www.gradientmagic.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Backgrounds with gradients\">Backgrounds with gradients</a><br>There are some of the CSS generators i know of. Share yours in the comments.<a class=\"tgme_widget_message_link_preview\" href=\"https://neumorphism.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"CSS code generator that will help with colors, gradients and shadows to adapt this new design trend or discover its posibilities.\">\n  \n  <div class=\"link_preview_site_name accent_color\">neumorphism.io</div>\n  <img class=\"link_preview_image\" alt=\"Neumorphism/Soft UI CSS shadow generator\" src=\"/media/27d85c131e1e6e23a6090d3caa695343.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Neumorphism/Soft UI CSS shadow generator</div>\n  <div class=\"link_preview_description\">CSS code generator that will help with colors, gradients and shadows to adapt this new design trend or discover its posibilities.</div>\n</a>",
+          "content": "here is a list of CSS generators that i fancy:<br>1.<a href=\"http://neumorphism.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Neumorphism Soft UI Shadow Generator\">Neumorphism Soft UI Shadow Generator</a><br>2. <a href=\"http://glassmorphism.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Glassmorphism - Create 'glass' cards\">Glassmorphism - Create 'glass' cards</a><br>3.<a href=\"http://haikei.app/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Haikei - Generate unique SVG design assets\">Haikei - Generate unique SVG design assets</a><br>4.&nbsp;<a href=\"https://yoksel.github.io/svg-filters/#/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"SVG Filter Generator\">SVG Filter Generator</a><br>5.<a href=\"https://learnui.design/tools/gradient-generator.html\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Gradient generator\">Gradient generator</a><br>6.<a href=\"https://cubic-bezier.com/#.17,.67,.83,.67\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Cubic Beziers\">Cubic Beziers</a><br>7.<a href=\"https://getwaves.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Trendy footers\">Trendy footers</a><br>8.<a href=\"https://www.gradientmagic.com/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Backgrounds with gradients\">Backgrounds with gradients</a><br>There are some of the CSS generators i know of. Share yours in the comments.<a class=\"tgme_widget_message_link_preview\" href=\"https://neumorphism.io/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"CSS code generator that will help with colors, gradients and shadows to adapt this new design trend or discover its posibilities.\">\n  \n  <div class=\"link_preview_site_name accent_color\">neumorphism.io</div>\n  <img class=\"link_preview_image\" alt=\"Neumorphism/Soft UI CSS shadow generator\" src=\"/media/22162d3af97d6e092f24e73fc90133d8.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">Neumorphism/Soft UI CSS shadow generator</div>\n  <div class=\"link_preview_description\">CSS code generator that will help with colors, gradients and shadows to adapt this new design trend or discover its posibilities.</div>\n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "88, 184, 248"
@@ -1520,38 +1542,10 @@
           "comments": "",
           "tags": [],
           "text": "https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/",
-          "content": "<a href=\"https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/\">https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://sitepoint.com/how-to-build-modern-ui-components-using-css-generators\" target=\"_blank\" rel=\"noopener noreferrer\">\n  \n  <div class=\"link_preview_site_name accent_color\">Sitepoint</div>\n  <img class=\"link_preview_image\" alt=\"How to Build Modern UI Components Using CSS Generators\" src=\"/media/bf077fa48c3fb0d18c5ae6b5fbee3ba6.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">How to Build Modern UI Components Using CSS Generators</div>\n  \n</a>",
+          "content": "<a href=\"https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/\">https://www.sitepoint.com/how-to-build-modern-ui-components-using-css-generators/</a><a class=\"tgme_widget_message_link_preview\" href=\"https://sitepoint.com/how-to-build-modern-ui-components-using-css-generators\" target=\"_blank\" rel=\"noopener noreferrer\">\n  \n  <div class=\"link_preview_site_name accent_color\">Sitepoint</div>\n  <img class=\"link_preview_image\" alt=\"How to Build Modern UI Components Using CSS Generators\" src=\"/media/b5ee7246fd89774bf05f00a10f4d96af.jpg\" loading=\"lazy\">\n  <div class=\"link_preview_title\">How to Build Modern UI Components Using CSS Generators</div>\n  \n</a>",
           "reactions": [],
           "isLongForm": false,
           "accentColor": "248, 248, 248"
-        },
-        {
-          "id": "29",
-          "title": "The fact that they are saying this infront of a new graduates is insulting... Well deserved boo's.",
-          "type": "text",
-          "datetime": "2026-05-19T15:11:56+00:00",
-          "edited": false,
-          "views": "34",
-          "comments": "",
-          "tags": [],
-          "text": "The fact that they are saying this infront of a new graduates is insulting... Well deserved boo's.",
-          "content": "<a class=\"tgme_widget_message_reply user-color-default\" href=\"/posts/28\"><blockquote><small>\n<div class=\"tgme_widget_message_author accent_color\">\n  <span class=\"tgme_widget_message_author_name\">Tech Ops/Re</span>\n</div>\n<div class=\"tgme_widget_message_text js-message_reply_text\">https://youtu.be/xwWaoyIy5e8?si=YTy9aOlEAL1PG0Rd</div>\n</small></blockquote></a>The fact that they are saying this infront of a new graduates is insulting... Well deserved boo's.",
-          "reactions": [],
-          "isLongForm": false
-        },
-        {
-          "id": "28",
-          "title": "",
-          "type": "text",
-          "datetime": "2026-05-19T15:10:30+00:00",
-          "edited": false,
-          "views": "36",
-          "comments": "",
-          "tags": [],
-          "text": "https://youtu.be/xwWaoyIy5e8?si=YTy9aOlEAL1PG0Rd",
-          "content": "<a href=\"https://youtu.be/xwWaoyIy5e8?si=YTy9aOlEAL1PG0Rd\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"https://youtu.be/xwWaoyIy5e8?si=YTy9aOlEAL1PG0Rd\">https://youtu.be/xwWaoyIy5e8?si=YTy9aOlEAL1PG0Rd</a><a class=\"tgme_widget_message_link_preview\" href=\"https://youtu.be/xwWaoyIy5e8\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Former Google CEO Eric Schmidt was booed multiple times Sunday while discussing artificial intelligence during a commencement speech at the University of Arizona. Other commencement speakers faced similar backlash for their AI comments, as new graduates face…\">\n  <i class=\"link_preview_right_image\"></i>\n  <div class=\"link_preview_site_name accent_color\">YouTube</div>\n  \n  <div class=\"link_preview_title\">Multiple commencement speakers booed for AI comments during graduation speeches</div>\n  <div class=\"link_preview_description\">Former Google CEO Eric Schmidt was booed multiple times Sunday while discussing artificial intelligence during a commencement speech at the University of Arizona. Other commencement speakers faced similar backlash for their AI comments, as new graduates face…</div>\n</a>",
-          "reactions": [],
-          "isLongForm": false
         }
       ]
     }

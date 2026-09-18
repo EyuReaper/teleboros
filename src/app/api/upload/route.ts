@@ -6,6 +6,23 @@ import { getPrimaryStorageName, uploadMedia } from '@/lib/storage'
 
 export const dynamic = 'force-dynamic'
 
+export async function GET(): Promise<NextResponse> {
+  const { getStorageAdapter } = await import('@/lib/storage')
+  const adapter = getStorageAdapter()
+  return NextResponse.json({
+    status: 'ok',
+    primaryStorage: adapter.name,
+    isConfigured: adapter.isConfigured(),
+    env: {
+      hasSupabaseUrl: Boolean(process.env.SUPABASE_URL?.trim()),
+      hasSupabaseKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || process.env.SUPABASE_KEY?.trim()),
+      hasBucket: Boolean(process.env.SUPABASE_BUCKET_NAME?.trim()),
+      hasBlobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim()),
+      hasR2: Boolean(process.env.R2_ACCOUNT_ID?.trim()),
+    },
+  })
+}
+
 export async function POST(request: Request): Promise<NextResponse> {
   const contentType = request.headers.get('content-type') || ''
 
