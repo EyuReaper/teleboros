@@ -9,6 +9,9 @@
 
 > A self-hosted, statically-generated microblog that mirrors your Telegram channel into a fast, searchable, and beautifully designed website built with Next.js, React, shadcn/ui, and Tailwind CSS.
 
+> [!TIP]
+> Prefer a hosted, no-ops solution? **Teleboros Cloud** mirrors your Telegram channel into a managed web publication with a Compose Studio, custom domains, and no infrastructure to run — see <https://teleboros.app>.
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FEyuReaper%2Fteleboros&env=TELEGRAM_CHANNEL,NEXT_PUBLIC_SITE_URL,ADMIN_TOKEN,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,GEMINI_API_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY,SUPABASE_BUCKET_NAME&envDescription=Configure%20your%20Telegram%20channel%2C%20bot%2C%20and%20free%20Supabase%20storage&project-name=teleboros)
 
 [አማርኛ](./readme-am.md)

@@ -17,16 +17,36 @@ export async function POST(req: Request) {
     console.info('Received Telegram webhook update:', update?.update_id)
 
     // 2. Detect if update contains a new or edited message / channel post
+    const msg = update?.message || update?.edited_message
     const hasMessage = Boolean(
-      update?.message
+      msg
       || update?.channel_post
-      || update?.edited_message
       || update?.edited_channel_post,
     )
 
     if (!hasMessage) {
       console.info('Telegram update contains no new message/post, skipping deploy:', update?.update_id)
       return NextResponse.json({ success: true, message: 'No new message detected' })
+    }
+
+    // Capture forwarded thread root message in discussion supergroup for active SMA session
+    if (msg?.forward_from_message_id || msg?.is_automatic_forward) {
+      try {
+        const { getActiveSession, saveSession } = await import('@/lib/sma/store')
+        const activeSession = await getActiveSession()
+        const forwardId = String(msg.forward_from_message_id || '')
+        if (activeSession && activeSession.channelPostId && forwardId === String(activeSession.channelPostId)) {
+          activeSession.discussionThreadMessageId = msg.message_id
+          if (msg.chat?.id) {
+            activeSession.linkedDiscussionChatId = msg.chat.id
+          }
+          await saveSession(activeSession)
+          console.info(`[sma webhook] Captured discussion thread root message ${msg.message_id} for session ${activeSession.id}`)
+        }
+      }
+      catch (smaErr) {
+        console.warn('[sma webhook] Error checking forwarded SMA thread:', smaErr)
+      }
     }
 
     // 3. Trigger Deploy Hook

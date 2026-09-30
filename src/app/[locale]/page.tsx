@@ -10,6 +10,7 @@ import { getImageMetaMap } from '@/lib/image-meta'
 import { getSnapshotPaginationLinks } from '@/lib/pagination/snapshot-pagination'
 import { enrichPostsWithAccentColors, resolvePinnedPosts } from '@/lib/pinned-posts'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
+import { LiveSmaBanner } from '@/components/sma/live-sma-banner'
 
 export const revalidate = 60
 
@@ -52,6 +53,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <PageFrame channel={channel} currentPath="/" locale={locale} messages={messages} currentLocalePath="/" pageNumber={1}>
+      <LiveSmaBanner />
       {pinned.length > 0 && (
         <PinnedPosts posts={pinned} {...feedProps} />
       )}

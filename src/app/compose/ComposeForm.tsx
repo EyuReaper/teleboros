@@ -1,10 +1,11 @@
 'use client'
 
 import { upload } from '@vercel/blob/client'
-import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, FolderArchive, Globe, Hash, Headphones, Image as ImageIcon, Loader2, Send, Sparkles, UploadCloud, X } from 'lucide-react'
+import { AlertCircle, Check, ExternalLink, Eye, FileText, Film, FolderArchive, Globe, Hash, Headphones, Image as ImageIcon, Loader2, Radio, Send, Sparkles, UploadCloud, X } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useMemo, useState } from 'react'
 import { AudioPlayerCard } from '@/components/audio/audio-player-card'
+import { RmaStudio } from '@/components/sma/rma-studio'
 import { Button } from '@/components/ui/button'
 import { importMarkdownBundle } from '@/lib/bundle-importer'
 import { renderArticleMarkdown } from '@/lib/markdown'
@@ -70,6 +71,7 @@ export function ComposeForm() {
   const [activePreviewTab, setActivePreviewTab] = useState<'telegram' | 'website'>('telegram')
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
   const [editorTab, setEditorTab] = useState<'write' | 'preview'>('write')
+  const [studioMode, setStudioMode] = useState<'compose' | 'rma'>('compose')
   const [draftSaved, setDraftSaved] = useState(false)
 
   const [isCondensing, setIsCondensing] = useState(false)
@@ -670,8 +672,43 @@ export function ComposeForm() {
 
   return (
     <div className="space-y-6">
-      {/* Mobile Tab Switcher */}
-      <div className="flex rounded-lg bg-muted p-1 lg:hidden">
+      {/* Studio Header Mode Switch */}
+      <div className="flex items-center justify-between border-b border-border pb-4">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-muted border border-border">
+          <button
+            type="button"
+            onClick={() => setStudioMode('compose')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              studioMode === 'compose'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Standard Compose</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setStudioMode('rma')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              studioMode === 'rma'
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <Radio className="w-3.5 h-3.5 text-purple-400" />
+            <span>Live RMA & S.M.A Studio</span>
+          </button>
+        </div>
+      </div>
+
+      {studioMode === 'rma' ? (
+        <RmaStudio />
+      ) : (
+        <>
+          {/* Mobile Tab Switcher */}
+          <div className="flex rounded-lg bg-muted p-1 lg:hidden">
         <button
           type="button"
           onClick={() => setMobileTab('edit')}
@@ -1389,6 +1426,8 @@ export function ComposeForm() {
           )}
         </div>
       </div>
+        </>
+      )}
     </div>
   )
 }
