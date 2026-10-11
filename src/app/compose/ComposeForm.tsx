@@ -1315,9 +1315,9 @@ export function ComposeForm() {
 
               {/* Telegram Inline Keyboard Button (Only for Long-Form posts) */}
               {isLongForm && (
-                <div className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 px-4 py-2.5 text-xs font-semibold text-sky-700 dark:text-sky-300 shadow-sm transition-colors text-center">
+                <div className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0ea5e9] via-[#38bdf8] to-[#6366f1] px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-sky-500/25 transition-all hover:brightness-110 active:scale-[0.99] text-center">
                   <span>Read the full article on Teleboros</span>
-                  <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-80" />
+                  <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-90" />
                 </div>
               )}
 

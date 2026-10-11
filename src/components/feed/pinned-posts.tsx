@@ -198,11 +198,31 @@ export function PinnedPosts({
                   </a>
                 </div>
 
-                {currentPost.content && (
-                  <div
-                    className="prose-telegram"
-                    dangerouslySetInnerHTML={{ __html: currentPost.content }}
-                  />
+                {currentPost.isLongForm || currentPost.articleUrl ? (
+                  <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-sky-500/20 bg-sky-500/5 p-3.5">
+                    <div className="min-w-0 flex-1">
+                      {currentPost.content && (
+                        <div
+                          className="line-clamp-2 text-sm text-foreground/90 font-medium leading-relaxed [&_p]:m-0"
+                          dangerouslySetInnerHTML={{ __html: currentPost.content }}
+                        />
+                      )}
+                    </div>
+                    <a
+                      href={currentPost.articleUrl ? (currentPost.articleUrl.startsWith('/posts/') ? localizePath(uiLocale, currentPost.articleUrl) : currentPost.articleUrl) : localizePath(uiLocale, `/posts/${currentPost.id}`)}
+                      className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#0ea5e9] via-[#38bdf8] to-[#6366f1] px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-sky-500/20 transition-all hover:brightness-110 active:scale-[0.99] self-start sm:self-auto"
+                    >
+                      <span>Read article</span>
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </div>
+                ) : (
+                  currentPost.content && (
+                    <div
+                      className="prose-telegram"
+                      dangerouslySetInnerHTML={{ __html: currentPost.content }}
+                    />
+                  )
                 )}
 
                 {currentPost.tags && currentPost.tags.length > 0 && (
@@ -218,18 +238,6 @@ export function PinnedPosts({
                         </Badge>
                       </a>
                     ))}
-                  </div>
-                )}
-
-                {(currentPost.isLongForm || currentPost.articleUrl) && (
-                  <div className="mt-3">
-                    <a
-                      href={currentPost.articleUrl ? (currentPost.articleUrl.startsWith('/posts/') ? localizePath(uiLocale, currentPost.articleUrl) : currentPost.articleUrl) : localizePath(uiLocale, `/posts/${currentPost.id}`)}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-opacity hover:opacity-80"
-                    >
-                      <span>Read full article</span>
-                      <span aria-hidden="true">&rarr;</span>
-                    </a>
                   </div>
                 )}
 
