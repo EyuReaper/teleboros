@@ -28,7 +28,7 @@ export default async function RootPage() {
   const { olderHref } = getSnapshotPaginationLinks(snapshot.pages, 0, locale)
   const channelAvatar = channel.avatar?.startsWith('http')
     ? buildStaticProxyUrl(config.staticProxy, channel.avatar)
-    : (channel.avatar || '/logo.png')
+    : (channel.avatar || '/teleboros(white)icon.jpg')
   const channelUsername = config.telegram || config.channel
 
   const feedProps = {

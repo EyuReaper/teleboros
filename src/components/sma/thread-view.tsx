@@ -31,7 +31,7 @@ export function ThreadView({
   session,
   initialQuestions,
   channelTitle = 'Teleboros',
-  channelAvatar = '/logo.png',
+  channelAvatar = '/teleboros(white)icon.jpg',
 }: ThreadViewProps) {
   const [questions, setQuestions] = useState<SmaQuestion[]>(initialQuestions)
   const [copiedId, setCopiedId] = useState<string | null>(null)

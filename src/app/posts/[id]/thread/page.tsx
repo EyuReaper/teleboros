@@ -46,7 +46,7 @@ export default async function ThreadPage({ params }: ThreadPageProps) {
       session={session}
       initialQuestions={questions}
       channelTitle={config.channel}
-      channelAvatar="/logo.png"
+      channelAvatar="/teleboros(white)icon.jpg"
     />
   )
 }

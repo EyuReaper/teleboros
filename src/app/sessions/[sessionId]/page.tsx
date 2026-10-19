@@ -39,7 +39,7 @@ export default async function SessionTranscriptPage({ params }: SessionTranscrip
       session={session}
       initialQuestions={questions}
       channelTitle={config.channel}
-      channelAvatar="/logo.png"
+      channelAvatar="/teleboros(white)icon.jpg"
     />
   )
 }

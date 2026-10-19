@@ -1242,11 +1242,11 @@ export function ComposeForm() {
               <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-2.5">
                 <div className="flex items-center gap-2.5">
                   <Image
-                    src="/logo.png"
+                    src="/teleboros(white)icon.jpg"
                     alt="Teleboros"
                     width={32}
                     height={32}
-                    className="h-8 w-8 rounded-full object-contain bg-background"
+                    className="h-8 w-8 rounded-full object-cover bg-background"
                   />
                   <div>
                     <div className="flex items-center gap-1.5">
@@ -1335,11 +1335,11 @@ export function ComposeForm() {
               {/* Site Card Header */}
               <div className="flex items-center gap-3">
                 <Image
-                  src="/logo.png"
+                  src="/teleboros(white)icon.jpg"
                   alt="Teleboros"
                   width={40}
                   height={40}
-                  className="h-10 w-10 rounded-full border object-contain"
+                  className="h-10 w-10 rounded-full border object-cover"
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 text-sm">

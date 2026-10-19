@@ -63,7 +63,7 @@ export function PinnedPosts({
 
   const displayName = channelTitle.trim() || channelName
   const username = (channelUsername || channelName).replace(/^@/, '').trim()
-  const avatarSrc = channelAvatar?.trim() || '/logo.png'
+  const avatarSrc = channelAvatar?.trim() || '/teleboros(white)icon.jpg'
   const avatarAlt = displayName
     ? `${displayName}${messages.feed.avatarSuffix}`
     : messages.feed.channelAvatarAlt

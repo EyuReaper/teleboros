@@ -102,7 +102,7 @@ export function PageFrame({
 
   const avatar = channel.avatar?.startsWith('http')
     ? buildStaticProxyUrl(config.staticProxy, channel.avatar)
-    : (channel.avatar || '/logo.png')
+    : (channel.avatar || '/teleboros(white)icon.jpg')
   const telegramChannelHref = getTelegramChannelHref(config.telegramHost, config.telegram, config.channel)
 
   const navItems = [
@@ -199,11 +199,11 @@ export function PageFrame({
                     className="mb-1 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-transform duration-200 hover:scale-105"
                   >
                     <Image
-                      src="/logo.png"
+                      src="/teleboros(white)icon.jpg"
                       alt="Teleboros"
                       width={36}
                       height={36}
-                      className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-contain"
+                      className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover"
                       priority
                     />
                     <span className="sr-only">Teleboros</span>

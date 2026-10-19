@@ -18,11 +18,11 @@ export default async function ComposePage() {
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="mb-2 flex items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/teleboros(white)icon.jpg"
             alt="Teleboros"
             width={40}
             height={40}
-            className="h-10 w-10 rounded-full object-contain"
+            className="h-10 w-10 rounded-full object-cover"
           />
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Compose Studio</h1>
