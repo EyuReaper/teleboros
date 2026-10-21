@@ -771,4 +771,43 @@
     color: inherit;
     background: transparent;
   }
+
+  /* Pele Mermaid Vector Styling & Theming */
+  :root {
+    --pele-bg: transparent;
+    --pele-fg: hsl(var(--foreground));
+    --pele-accent: hsl(var(--primary));
+    --pele-border: hsl(var(--border));
+    --pele-line: hsl(var(--border));
+    --pele-surface: hsl(var(--card));
+    --pele-surface-alt: hsl(var(--muted));
+    --pele-muted: hsl(var(--muted-foreground));
+    --pele-radius: var(--radius, 0.5rem);
+    --pele-font: inherit;
+    --pele-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .dark {
+    --pele-bg: transparent;
+    --pele-fg: hsl(var(--foreground));
+    --pele-accent: hsl(var(--primary));
+    --pele-border: hsl(var(--border));
+    --pele-line: hsl(var(--border));
+    --pele-surface: hsl(var(--card));
+    --pele-surface-alt: hsl(var(--muted));
+    --pele-muted: hsl(var(--muted-foreground));
+  }
+
+  .pele-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .pele-wrapper svg {
+    max-width: 100%;
+    height: auto;
+  }
 }

@@ -93,11 +93,76 @@ export function ContentMermaid() {
 
   // Render diagrams onto DOM
   useEffect(() => {
-    const selector = '.prose-telegram pre code.language-mermaid, .mermaid-diagram-container pre, pre code.language-mermaid, pre.language-mermaid, .mermaid'
+    let isMounted = true
+
+    // 1. Immediately enhance Pele SSR pre-rendered diagrams (zero wait, zero layout shift)
+    const peleElements = Array.from(document.querySelectorAll<HTMLElement>('.pele-wrapper[data-diagram="pele"]'))
+    for (const wrapper of peleElements) {
+      if (wrapper.dataset.cardEnhanced === 'true') continue
+      wrapper.dataset.cardEnhanced = 'true'
+
+      const svgEl = wrapper.querySelector('svg')
+      if (!svgEl) continue
+
+      const svgHtml = svgEl.outerHTML
+      const rawCode = wrapper.dataset.raw || ''
+      mermaidCounter += 1
+      const uniqueId = `pele-svg-${Date.now()}-${mermaidCounter}`
+
+      // Create interactive card
+      const card = document.createElement('div')
+      card.className = 'mermaid-diagram-card group relative my-6 overflow-hidden rounded-2xl border border-border/70 bg-card/60 shadow-sm transition-all hover:border-primary/40 hover:shadow-md not-prose w-full'
+      card.dataset.peleRendered = 'true'
+
+      // Top Toolbar Header
+      const header = document.createElement('div')
+      header.className = 'flex items-center justify-between border-b border-border/40 bg-muted/40 px-3.5 py-2 text-xs font-mono'
+
+      const titleSpan = document.createElement('span')
+      titleSpan.className = 'inline-flex items-center gap-1.5 font-semibold text-muted-foreground'
+      titleSpan.innerHTML = '<span class="inline-block h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span><span>DIAGRAM</span><span class="text-[10px] uppercase tracking-wider text-emerald-500/80 font-sans ml-1">Pele 60fps</span>'
+
+      const actionsDiv = document.createElement('div')
+      actionsDiv.className = 'flex items-center gap-1.5'
+
+      // Zoom button
+      const zoomBtn = document.createElement('button')
+      zoomBtn.type = 'button'
+      zoomBtn.className = 'inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground'
+      zoomBtn.title = 'Zoom and pan diagram'
+      zoomBtn.innerHTML = '<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg><span>Zoom</span>'
+      zoomBtn.onclick = (e) => {
+        e.stopPropagation()
+        openModal({ id: uniqueId, svg: svgHtml, raw: rawCode })
+      }
+
+      actionsDiv.appendChild(zoomBtn)
+      header.appendChild(titleSpan)
+      header.appendChild(actionsDiv)
+      card.appendChild(header)
+
+      // Diagram Body Canvas
+      const body = document.createElement('div')
+      body.className = 'mermaid-body-canvas flex cursor-zoom-in justify-center overflow-x-auto p-5 transition-transform'
+      body.innerHTML = svgHtml
+      body.onclick = () => {
+        openModal({ id: uniqueId, svg: svgHtml, raw: rawCode })
+      }
+      card.appendChild(body)
+
+      // Hint footer on hover
+      const hint = document.createElement('div')
+      hint.className = 'text-center text-[10px] text-muted-foreground/60 pb-2 transition-opacity group-hover:text-muted-foreground'
+      hint.textContent = '💡 Click diagram to open interactive Pan & Zoom viewer'
+      card.appendChild(hint)
+
+      wrapper.replaceWith(card)
+    }
+
+    // 2. Client fallback for any unrendered or dynamic diagrams
+    const selector = '.prose-telegram pre code.language-mermaid, .mermaid-diagram-container[data-mermaid-fallback="true"] pre, pre code.language-mermaid:not([data-pele-rendered]), pre.language-mermaid:not([data-pele-rendered]), .mermaid:not([data-pele-rendered])'
     const codeElements = Array.from(document.querySelectorAll<HTMLElement>(selector))
     if (codeElements.length === 0) return
-
-    let isMounted = true
 
     async function renderMermaidBlocks() {
       try {

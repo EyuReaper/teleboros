@@ -1,5 +1,6 @@
 import type { Tokens } from 'marked'
 import { Marked } from 'marked'
+import { render as renderPele, supports as peleSupports } from 'pele'
 
 export interface ParsedFrontmatter {
   title?: string
@@ -237,6 +238,39 @@ export function renderGraphSparkHtml(raw: string): string {
 }
 
 /**
+ * Escape HTML special characters for attributes.
+ */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+/**
+ * Render diagram code synchronously with Pele (<1.5ms execution)
+ * with zero layout shift and automatic CSS variable theming.
+ * Falls back safely to client-side ESM Mermaid loader if needed.
+ */
+export function renderDiagramFast(code: string): { svg?: string; fallback?: boolean } {
+  try {
+    const trimmed = code.trim()
+    if (peleSupports(trimmed)) {
+      const res = renderPele(trimmed)
+      if (res && res.svg) {
+        return { svg: res.svg }
+      }
+    }
+  }
+  catch {
+    // Graceful fallback to client-side mermaid runtime
+  }
+  return { fallback: true }
+}
+
+/**
  * Configured marked instance with compact article media rendering, Mermaid diagrams,
  * Markdown Graphs (@mdx-graphs), and lightbox zoomable support.
  */
@@ -251,9 +285,13 @@ articleMarked.use({
     code({ text, lang }: Tokens.Code) {
       const normalizedLang = (lang || '').toLowerCase().trim()
 
-      // 1. Mermaid Flowcharts and Diagrams
+      // 1. Mermaid Flowcharts and Diagrams (Powered by Pele SSR with client fallback)
       if (normalizedLang === 'mermaid') {
-        return `<div class="mermaid-diagram-container my-6 flex justify-center not-prose"><pre class="language-mermaid">${text}</pre></div>\n`
+        const fastResult = renderDiagramFast(text)
+        if (fastResult.svg) {
+          return `<div class="pele-wrapper my-6 flex justify-center not-prose" data-diagram="pele" data-raw="${escapeHtml(text)}">${fastResult.svg}</div>\n`
+        }
+        return `<div class="mermaid-diagram-container my-6 flex justify-center not-prose" data-mermaid-fallback="true"><pre class="language-mermaid">${text}</pre></div>\n`
       }
 
       // 2. Markdown Graphs: GraphSpark
