@@ -1,5 +1,6 @@
+import { Buffer } from 'node:buffer'
 import type { NextRequest } from 'next/server'
-import { render as renderPele, supports as peleSupports } from 'pele'
+import { supports as peleSupports, render as renderPele } from 'pele'
 
 export const runtime = 'nodejs'
 
@@ -7,8 +8,6 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const rawCode = searchParams.get('diagram') || searchParams.get('code') || ''
-    const title = searchParams.get('title')?.trim() || 'Architecture Diagram'
-    const format = searchParams.get('format')?.toLowerCase() || 'svg'
 
     if (!rawCode.trim()) {
       return new Response('Missing required ?diagram= parameter', { status: 400 })
@@ -41,8 +40,9 @@ export async function GET(req: NextRequest) {
       },
     })
   }
-  catch (error: any) {
+  catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error)
     console.error('[teleboros] OG Diagram generation failed:', error)
-    return new Response(`Error generating diagram: ${error?.message || error}`, { status: 500 })
+    return new Response(`Error generating diagram: ${message}`, { status: 500 })
   }
 }
