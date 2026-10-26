@@ -286,7 +286,7 @@ export function ContentMermaid() {
 
   return (
     <Dialog open={Boolean(activeDiagram)} onOpenChange={open => !open && closeModal()}>
-      <DialogContent className="max-w-6xl w-[94vw] h-[88vh] flex flex-col p-0 overflow-hidden border-border/80 bg-background/95 backdrop-blur-xl shadow-2xl">
+      <DialogContent showClose={false} className="max-w-6xl w-[94vw] h-[88vh] flex flex-col p-0 overflow-hidden border-border/80 bg-background/95 backdrop-blur-xl shadow-2xl">
         <DialogTitle className="sr-only">Interactive Diagram Viewer</DialogTitle>
 
         {/* Modal Toolbar */}
