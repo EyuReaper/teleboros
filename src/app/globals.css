@@ -150,6 +150,40 @@
   .prose-telegram {
     @apply text-[15px] leading-6 text-foreground;
     word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* Responsive Markdown Tables */
+  .prose-telegram table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: left;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border) / 0.8);
+  }
+
+  .prose-telegram th,
+  .prose-telegram td {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid hsl(var(--border) / 0.6);
+  }
+
+  .prose-telegram th {
+    background-color: hsl(var(--muted) / 0.5);
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    white-space: nowrap;
+  }
+
+  .prose-telegram tr:nth-child(even) td {
+    background-color: hsl(var(--muted) / 0.15);
   }
 
   .prose-telegram :where(p, ul, ol, pre, blockquote, h1, h2, h3, h4) {
@@ -407,6 +441,16 @@
     opacity: 1;
     transform: translateY(0) scale(1);
     pointer-events: auto;
+  }
+
+  @media (hover: none) {
+    .prose-telegram pre .code-copy-button {
+      opacity: 0.85;
+      pointer-events: auto;
+      transform: none;
+      width: 2.25rem;
+      height: 2.25rem;
+    }
   }
 
   .prose-telegram pre .code-copy-button:hover,

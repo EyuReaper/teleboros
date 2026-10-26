@@ -128,9 +128,9 @@ export function ContentMermaid() {
       // Zoom button
       const zoomBtn = document.createElement('button')
       zoomBtn.type = 'button'
-      zoomBtn.className = 'inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground'
+      zoomBtn.className = 'inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 sm:px-2 sm:py-1 min-h-[36px] sm:min-h-0 text-xs sm:text-[11px] font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground touch-manipulation'
       zoomBtn.title = 'Zoom and pan diagram'
-      zoomBtn.innerHTML = '<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg><span>Zoom</span>'
+      zoomBtn.innerHTML = '<svg class="h-4 w-4 sm:h-3.5 sm:w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg><span>Zoom</span>'
       zoomBtn.onclick = (e) => {
         e.stopPropagation()
         openModal({ id: uniqueId, svg: svgHtml, raw: rawCode })
@@ -299,11 +299,11 @@ export function ContentMermaid() {
             </span>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={handleZoomIn}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-muted"
+              className="inline-flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-muted touch-manipulation"
               title="Zoom In (+)"
             >
               <ZoomIn className="h-4 w-4" />
@@ -311,7 +311,7 @@ export function ContentMermaid() {
             <button
               type="button"
               onClick={handleZoomOut}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-muted"
+              className="inline-flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-muted touch-manipulation"
               title="Zoom Out (-)"
             >
               <ZoomOut className="h-4 w-4" />
@@ -319,7 +319,7 @@ export function ContentMermaid() {
             <button
               type="button"
               onClick={handleResetZoom}
-              className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border bg-background text-xs font-medium text-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-1.5 h-10 sm:h-8 px-3 sm:px-2.5 rounded-lg border bg-background text-xs font-medium text-foreground transition-colors hover:bg-muted touch-manipulation"
               title="Reset Zoom & Pan"
             >
               <RotateCcw className="h-3.5 w-3.5" />
@@ -328,7 +328,7 @@ export function ContentMermaid() {
             <button
               type="button"
               onClick={handleCopySource}
-              className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border bg-background text-xs font-medium text-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-1.5 h-10 sm:h-8 px-3 sm:px-2.5 rounded-lg border bg-background text-xs font-medium text-foreground transition-colors hover:bg-muted touch-manipulation"
               title="Copy raw Mermaid source"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
@@ -337,7 +337,7 @@ export function ContentMermaid() {
             <button
               type="button"
               onClick={closeModal}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-rose-500/20 hover:text-rose-500 ml-1"
+              className="inline-flex h-10 w-10 sm:h-8 sm:w-8 items-center justify-center rounded-lg border bg-background text-foreground transition-colors hover:bg-rose-500/20 hover:text-rose-500 ml-1 touch-manipulation"
               title="Close (Esc)"
             >
               <X className="h-4 w-4" />

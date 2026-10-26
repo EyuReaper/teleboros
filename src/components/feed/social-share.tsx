@@ -63,7 +63,7 @@ export function SocialShare({ url, title }: SocialShareProps) {
                   asChild
                   variant="outline"
                   size="sm"
-                  className="h-8 gap-1.5 rounded-full px-3 text-xs text-muted-foreground hover:text-foreground"
+                  className="h-10 sm:h-8 min-h-[40px] sm:min-h-0 gap-2 sm:gap-1.5 rounded-full px-3.5 sm:px-3 text-xs text-muted-foreground hover:text-foreground touch-manipulation"
                 >
                   <a href={link.href} target="_blank" rel="noopener noreferrer">
                     {link.icon}
@@ -81,9 +81,9 @@ export function SocialShare({ url, title }: SocialShareProps) {
                 variant="outline"
                 size="sm"
                 onClick={handleCopy}
-                className="h-8 gap-1.5 rounded-full px-3 text-xs text-muted-foreground hover:text-foreground"
+                className="h-10 sm:h-8 min-h-[40px] sm:min-h-0 gap-2 sm:gap-1.5 rounded-full px-3.5 sm:px-3 text-xs text-muted-foreground hover:text-foreground touch-manipulation"
               >
-                {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
+                {copied ? <Check className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-emerald-500" /> : <Copy className="h-4 w-4 sm:h-3.5 sm:w-3.5" />}
                 <span>{copied ? 'Copied!' : 'Copy Link'}</span>
               </Button>
             </TooltipTrigger>

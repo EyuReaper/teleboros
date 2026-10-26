@@ -492,7 +492,7 @@ export function RmaStudio() {
                     key={mins}
                     type="button"
                     onClick={() => handleStartWrapUp(mins)}
-                    className="flex-1 py-1.5 px-2 rounded-lg bg-background hover:bg-amber-500/10 hover:border-amber-500/30 border border-border text-xs font-mono font-medium transition-colors cursor-pointer"
+                    className="flex-1 min-h-[40px] sm:min-h-0 py-2.5 sm:py-1.5 px-2 rounded-lg bg-background hover:bg-amber-500/10 hover:border-amber-500/30 border border-border text-xs font-mono font-medium transition-colors cursor-pointer touch-manipulation"
                   >
                     {mins}m
                   </button>
@@ -501,13 +501,13 @@ export function RmaStudio() {
             </div>
 
             {/* End & Publish Recap Action */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between pt-1 flex-wrap gap-2">
               <span className="text-xs text-muted-foreground">Conclude session and post editorial recap:</span>
               <button
                 type="button"
                 onClick={handlePublishRecap}
                 disabled={recapPublishing}
-                className="py-2 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer"
+                className="min-h-[44px] sm:min-h-0 py-2.5 sm:py-2 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer touch-manipulation"
               >
                 <Award className="w-3.5 h-3.5" />
                 <span>{recapPublishing ? 'Publishing Recap...' : 'End Session & Publish Recap'}</span>
@@ -692,33 +692,33 @@ export function RmaStudio() {
                       <button
                         type="button"
                         onClick={() => handleTriage(q.id, 'toggle_star')}
-                        className={`p-1.5 rounded-lg border text-xs cursor-pointer ${
+                        className={`min-h-[38px] min-w-[38px] sm:min-h-0 sm:min-w-0 flex items-center justify-center p-2 sm:p-1.5 rounded-lg border text-xs cursor-pointer touch-manipulation ${
                           q.isStarred
                             ? 'bg-amber-500/15 border-amber-500/30 text-amber-400'
                             : 'bg-muted/60 border-border text-muted-foreground hover:text-foreground'
                         }`}
                         title={q.isStarred ? 'Unstar / De-queue' : 'Star / Queue Question'}
                       >
-                        <Star className="w-3.5 h-3.5 fill-current" />
+                        <Star className="w-4 h-4 sm:w-3.5 sm:h-3.5 fill-current" />
                       </button>
 
                       {q.status === 'dismissed' ? (
                         <button
                           type="button"
                           onClick={() => handleTriage(q.id, 'restore')}
-                          className="p-1.5 rounded-lg bg-muted border border-border text-muted-foreground hover:text-foreground text-xs cursor-pointer"
+                          className="min-h-[38px] min-w-[38px] sm:min-h-0 sm:min-w-0 flex items-center justify-center p-2 sm:p-1.5 rounded-lg bg-muted border border-border text-muted-foreground hover:text-foreground text-xs cursor-pointer touch-manipulation"
                           title="Restore"
                         >
-                          <Archive className="w-3.5 h-3.5" />
+                          <Archive className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
                         </button>
                       ) : (
                         <button
                           type="button"
                           onClick={() => handleTriage(q.id, 'dismiss')}
-                          className="p-1.5 rounded-lg bg-muted/60 hover:bg-rose-500/10 hover:border-rose-500/30 border border-border text-muted-foreground hover:text-rose-400 text-xs cursor-pointer"
+                          className="min-h-[38px] min-w-[38px] sm:min-h-0 sm:min-w-0 flex items-center justify-center p-2 sm:p-1.5 rounded-lg bg-muted/60 hover:bg-rose-500/10 hover:border-rose-500/30 border border-border text-muted-foreground hover:text-rose-400 text-xs cursor-pointer touch-manipulation"
                           title="Dismiss question"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
                         </button>
                       )}
                     </div>

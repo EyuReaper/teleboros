@@ -5,7 +5,7 @@ import type { AppLocale } from '@/lib/i18n'
 import type { ChannelInfo } from '@/lib/types'
 import type { LocaleMessages } from '@/locales/en'
 import { useCallback, useEffect, useState } from 'react'
-import { Github, House, Languages, PanelLeftClose, PanelLeftOpen, Pencil, Send, Tag } from 'lucide-react'
+import { Github, House, Languages, Menu, PanelLeftClose, PanelLeftOpen, Pencil, Send, Tag, X } from 'lucide-react'
 import Image from 'next/image'
 import { FeedButton } from '@/components/retention/feed-button'
 import { Button } from '@/components/ui/button'
@@ -146,6 +146,7 @@ export function PageFrame({
   const footerMarkdownHtml = renderInlineMarkdown(config.customFooter)
 
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -182,12 +183,12 @@ export function PageFrame({
 
       <div className={cn(
         'mx-auto grid border-r transition-[grid-template-columns] duration-300',
-        isSidebarCollapsed ? 'grid-cols-1' : 'grid-cols-[60px_minmax(0,1fr)] sm:grid-cols-[72px_minmax(0,1fr)]',
+        isSidebarCollapsed ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-[64px_minmax(0,1fr)] lg:grid-cols-[72px_minmax(0,1fr)]',
         wide ? 'max-w-6xl' : 'max-w-[784px]',
       )}>
         <aside className={cn(
           'sticky top-0 z-10 h-screen border-r bg-background/95 transition-all duration-300',
-          isSidebarCollapsed ? 'hidden w-0 overflow-hidden border-r-0' : 'block',
+          isSidebarCollapsed ? 'hidden w-0 overflow-hidden border-r-0' : 'hidden md:block',
         )}>
           <TooltipProvider delayDuration={150}>
             <div className="flex h-full w-full flex-col items-center gap-1.5 px-1 py-3 sm:gap-2 sm:px-2 sm:py-4">
@@ -419,9 +420,28 @@ export function PageFrame({
         </aside>
 
         <main className="min-w-0">
-          <div className="sticky top-0 z-[5] border-b bg-background/95 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-            <div className="flex items-center justify-between gap-3">
+          <div className="sticky top-0 z-[5] border-b bg-background/95 px-3.5 sm:px-4 py-2.5 sm:py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+            <div className="flex items-center justify-between gap-2.5 sm:gap-3">
               <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                {/* Mobile Navigation Menu Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="md:hidden h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground touch-manipulation"
+                  aria-label="Open navigation menu"
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+
+                {showBack && (
+                  <SidebarBackButton
+                    label={resolvedMessages.post.backToFeed}
+                    buttonClassName="md:hidden h-10 w-10 shrink-0 rounded-full p-0 flex items-center justify-center text-muted-foreground hover:bg-muted/70 hover:text-foreground touch-manipulation"
+                    iconClassName="h-5 w-5"
+                  />
+                )}
+
                 {isSidebarCollapsed && (
                   <TooltipProvider delayDuration={150}>
                     <Tooltip>
@@ -430,7 +450,7 @@ export function PageFrame({
                           variant="ghost"
                           size="icon"
                           onClick={toggleSidebar}
-                          className="h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                          className="hidden md:flex h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground"
                           aria-label="Expand sidebar"
                         >
                           <PanelLeftOpen className="h-5 w-5" />
@@ -441,20 +461,20 @@ export function PageFrame({
                     </Tooltip>
                   </TooltipProvider>
                 )}
-                <a href={localizePath(resolvedLocale, '/')} className="flex min-w-0 items-center gap-3">
+                <a href={localizePath(resolvedLocale, '/')} className="flex min-w-0 items-center gap-2.5 sm:gap-3">
                   <Image
                     src={avatar}
                     alt={channel.title}
-                    width={44}
-                    height={44}
-                    className="h-11 w-11 rounded-full border object-cover"
+                    width={40}
+                    height={40}
+                    className="h-9 w-9 sm:h-11 sm:w-11 rounded-full border object-cover shrink-0"
                     loading="eager"
                   />
                   <div className="min-w-0">
-                    <p className="truncate text-base font-semibold leading-tight">{channel.title}</p>
+                    <p className="truncate text-sm sm:text-base font-semibold leading-tight">{channel.title}</p>
                     {channel.subscriberCount
                       ? (
-                          <p className="truncate text-xs text-muted-foreground">
+                          <p className="truncate text-[11px] sm:text-xs text-muted-foreground">
                             {channel.subscriberCount}
                             {' '}
                             {resolvedMessages.feed.subscribers}
@@ -464,9 +484,164 @@ export function PageFrame({
                   </div>
                 </a>
               </div>
-              <p className="shrink-0 text-sm font-medium text-muted-foreground">{getPageTitle(currentPath, resolvedMessages, pageNumber)}</p>
+              <p className="shrink-0 text-xs sm:text-sm font-medium text-muted-foreground max-w-[110px] sm:max-w-none truncate text-right">
+                {getPageTitle(currentPath, resolvedMessages, pageNumber)}
+              </p>
             </div>
           </div>
+
+          {/* Mobile Navigation Drawer Sheet (for discoverable labeled navigation) */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden fixed inset-0 z-50 flex">
+              <div
+                className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+              <div className="relative z-10 w-[290px] max-w-[85vw] h-full bg-background border-r p-5 shadow-2xl flex flex-col justify-between overflow-y-auto animate-in slide-in-from-left duration-300 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]">
+                <div className="space-y-6">
+                  {/* Branding & Close Button */}
+                  <div className="flex items-center justify-between border-b pb-4">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <Image
+                        src="/teleboros(white)icon.jpg"
+                        alt="Teleboros"
+                        width={36}
+                        height={36}
+                        className="h-9 w-9 rounded-full object-cover shrink-0"
+                      />
+                      <div className="min-w-0">
+                        <span className="font-semibold text-sm block truncate leading-tight">Teleboros</span>
+                        <span className="text-[11px] text-muted-foreground block truncate">v{packageJson.version}</span>
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground touch-manipulation"
+                      aria-label="Close navigation menu"
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </div>
+
+                  {/* Labeled Primary Navigation */}
+                  <nav className="space-y-1">
+                    <a
+                      href={localizePath(resolvedLocale, '/')}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors min-h-[44px]',
+                        isHomeActive
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      )}
+                    >
+                      <House className="h-5 w-5 shrink-0" />
+                      <span>{resolvedMessages.nav.home}</span>
+                    </a>
+
+                    <a
+                      href={localizePath(resolvedLocale, '/tags')}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors min-h-[44px]',
+                        isTagsActive
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      )}
+                    >
+                      <Tag className="h-5 w-5 shrink-0" />
+                      <span>{resolvedMessages.nav.tags}</span>
+                    </a>
+
+                    <a
+                      href="/compose"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors min-h-[44px]',
+                        isComposeActive
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      )}
+                    >
+                      <Pencil className="h-5 w-5 shrink-0" />
+                      <span>Compose</span>
+                    </a>
+
+                    <div className="pt-2">
+                      <CommandPalette
+                        navItems={enabledNavItems}
+                        internalNavItems={internalCommandItems}
+                        customNavItems={customCommandItems}
+                        locale={resolvedLocale}
+                        messages={resolvedMessages}
+                        triggerMode="full"
+                      />
+                    </div>
+                  </nav>
+
+                  {/* Settings & Language Options */}
+                  <div className="space-y-3 pt-3 border-t">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground px-2">Settings</p>
+
+                    <div className="space-y-1">
+                      {SUPPORTED_LOCALES.map(targetLocale => (
+                        <a
+                          key={`mobile-locale-${targetLocale}`}
+                          href={localizePath(targetLocale, activePathForLocaleSwitch)}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={cn(
+                            'flex items-center justify-between px-3.5 py-2 rounded-lg text-xs font-medium min-h-[38px] transition-colors',
+                            targetLocale === resolvedLocale
+                              ? 'bg-muted text-foreground font-semibold'
+                              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50',
+                          )}
+                        >
+                          <span className="flex items-center gap-2">
+                            <Languages className="h-3.5 w-3.5 opacity-70" />
+                            <span>{localeMenuLabels[targetLocale]}</span>
+                          </span>
+                          {targetLocale === resolvedLocale && (
+                            <span className="h-2 w-2 rounded-full bg-primary" />
+                          )}
+                        </a>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between px-3.5 py-2.5 border rounded-xl bg-card">
+                      <span className="text-xs font-medium text-muted-foreground">{resolvedMessages.theme.toggle}</span>
+                      <ThemeToggle
+                        ariaLabel={resolvedMessages.theme.toggle}
+                        className="h-9 w-9 rounded-full bg-muted/60"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* External Social / RSS Actions */}
+                <div className="pt-4 border-t space-y-2">
+                  {telegramChannelHref ? (
+                    <a
+                      href={telegramChannelHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-foreground min-h-[38px] transition-colors"
+                    >
+                      <Send className="h-4 w-4 text-sky-500 shrink-0" />
+                      <span className="truncate">{resolvedMessages.external.telegram}</span>
+                    </a>
+                  ) : null}
+                  <FeedButton
+                    siteUrl={config.siteUrl || 'https://example.com'}
+                    channelUsername={config.telegram || config.channel}
+                    label={resolvedMessages.external.rss}
+                    className="w-full justify-start text-xs text-muted-foreground h-9 px-3"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           {config.hideDescription
             ? null
             : (

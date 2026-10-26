@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { AlignLeft, ChevronDown, ChevronRight, List, X } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export interface TocItem {
   id: string
@@ -19,6 +20,20 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
   const [activeId, setActiveId] = useState<string>('')
   const [isInlineOpen, setIsInlineOpen] = useState(true)
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false)
+  const [isNearBottom, setIsNearBottom] = useState(false)
+
+  // Track scroll proximity to bottom to avoid overlapping comments or footer controls
+  useEffect(() => {
+    function handleScroll() {
+      const scrollY = window.scrollY
+      const docH = document.documentElement.scrollHeight
+      const winH = window.innerHeight
+      setIsNearBottom(docH - (scrollY + winH) < 180)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Fallback client-side extractor if server didn't pass headings
   useEffect(() => {
@@ -168,11 +183,16 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
       </div>
 
       {/* 2. Floating Quick-Access Trigger & Modal for Mobile/Tablets (< xl) */}
-      <div className="xl:hidden fixed bottom-6 right-5 z-40">
+      <div
+        className={cn(
+          'xl:hidden fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] right-[calc(1.25rem+env(safe-area-inset-right,0px))] z-40 transition-all duration-300',
+          isNearBottom ? 'opacity-40 hover:opacity-100 translate-y-1' : 'opacity-100',
+        )}
+      >
         <button
           type="button"
           onClick={() => setIsMobileDrawerOpen(true)}
-          className="flex items-center gap-2 rounded-full border border-primary/20 bg-background/95 px-3.5 py-2 text-xs font-semibold text-foreground shadow-lg backdrop-blur-md transition-all hover:bg-muted hover:scale-105 active:scale-95 cursor-pointer"
+          className="flex items-center gap-2 rounded-full border border-primary/20 bg-background/95 min-h-[44px] px-4 py-2.5 text-xs font-semibold text-foreground shadow-lg backdrop-blur-md transition-all hover:bg-muted hover:scale-105 active:scale-95 cursor-pointer touch-manipulation"
           title="Open Table of Contents"
         >
           <AlignLeft className="h-4 w-4 text-primary" />
@@ -189,7 +209,7 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
             className="fixed inset-0"
             onClick={() => setIsMobileDrawerOpen(false)}
           />
-          <div className="relative z-10 max-h-[75vh] w-full rounded-t-2xl border-t bg-background p-5 shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-300">
+          <div className="relative z-10 max-h-[75vh] w-full rounded-t-2xl border-t bg-background p-5 pb-[calc(1.75rem+env(safe-area-inset-bottom,0px))] shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-300">
             <div className="flex items-center justify-between border-b pb-3 mb-3">
               <div className="flex items-center gap-2 text-sm font-semibold">
                 <AlignLeft className="h-4 w-4 text-primary" />
@@ -201,7 +221,8 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
               <button
                 type="button"
                 onClick={() => setIsMobileDrawerOpen(false)}
-                className="rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
+                className="flex h-11 w-11 sm:h-9 sm:w-9 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer touch-manipulation"
+                aria-label="Close Table of Contents"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -213,7 +234,7 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
                   key={item.id}
                   href={`#${item.id}`}
                   onClick={e => handleScrollTo(e, item.id)}
-                  className={`block truncate transition-colors py-2 px-3 rounded-lg text-sm ${
+                  className={`flex items-center truncate transition-colors min-h-[44px] py-2 px-3 rounded-lg text-sm touch-manipulation ${
                     item.level === 3 ? 'ml-4 text-xs text-muted-foreground/85' : item.level === 4 ? 'ml-6 text-xs text-muted-foreground/75' : 'font-medium'
                   } ${
                     activeId === item.id
@@ -221,7 +242,7 @@ export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfC
                       : 'hover:bg-muted/60 text-foreground/80'
                   }`}
                 >
-                  {item.text}
+                  <span className="truncate">{item.text}</span>
                 </a>
               ))}
             </nav>
