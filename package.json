@@ -44,6 +44,7 @@
     "build": "pnpm sync --og-image --favicon && next build --webpack",
     "start": "next start -p 4321",
     "lint": "eslint .",
+    "test:telegram-html": "tsx scripts/test-telegram-html.ts",
     "lint:fix": "eslint . --fix",
     "sync": "node --dns-result-order=ipv4first --env-file-if-exists=.env --import tsx scripts/sync-static-content.ts",
     "og:image": "node --import tsx scripts/generate-og-image.ts",

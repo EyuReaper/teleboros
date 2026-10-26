@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import { SITE_CONSTANTS } from '@/lib/constant'
 import { saveLongFormPost } from '@/lib/long-form'
 import { broadcastPushNotification } from '@/lib/push'
+import { sanitizeTelegramHtml } from '@/lib/telegram-html'
 
 export async function POST(req: Request) {
   try {
@@ -151,7 +152,9 @@ export async function POST(req: Request) {
     }
 
     // Prepare Telegram text: if short post, send full text; if long-form, send teaser
-    const telegramTextToSend = isLongForm ? (condensedText || text.slice(0, 800)) : text.trim()
+    const telegramTextToSend = sanitizeTelegramHtml(
+      isLongForm ? (condensedText || text.slice(0, 800)) : text.trim(),
+    )
 
     // Inline button attached directly to Telegram message (only for long-form posts)
     const replyMarkupObj = isLongForm
