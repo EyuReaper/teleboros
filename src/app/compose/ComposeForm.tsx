@@ -90,6 +90,7 @@ export function ComposeForm() {
   const [isImportingBundle, setIsImportingBundle] = useState(false)
   const [bundleImportStatus, setBundleImportStatus] = useState<string | null>(null)
   const [isDraggingOverEditor, setIsDraggingOverEditor] = useState(false)
+  const [isDraggingOverBundle, setIsDraggingOverBundle] = useState(false)
   const [inlineUploadActive, setInlineUploadActive] = useState(false)
   const bundleFileInputRef = React.useRef<HTMLInputElement | null>(null)
 
@@ -194,6 +195,19 @@ export function ComposeForm() {
       }
     }
   }, [mediaPreviewUrl])
+
+  // Prevent accidental drops across the window from triggering browser navigation to file:///
+  useEffect(() => {
+    const preventDrag = (e: DragEvent) => {
+      e.preventDefault()
+    }
+    window.addEventListener('dragover', preventDrag)
+    window.addEventListener('drop', preventDrag)
+    return () => {
+      window.removeEventListener('dragover', preventDrag)
+      window.removeEventListener('drop', preventDrag)
+    }
+  }, [])
 
   // Asynchronously render markdown for Website preview with compact zoomable media
   useEffect(() => {
@@ -432,13 +446,27 @@ export function ComposeForm() {
 
   // Handle drag & drop of media files into Markdown editor
   const handleEditorDrop = async (e: React.DragEvent<HTMLTextAreaElement>) => {
+    e.preventDefault()
+    setIsDraggingOverEditor(false)
+
     const files = Array.from(e.dataTransfer?.files || [])
+    if (files.length === 0)
+      return
+
+    // Check if user dropped a Markdown or .zip bundle
+    const bundleFile = files.find(f =>
+      f.name.toLowerCase().endsWith('.zip') ||
+      f.name.toLowerCase().endsWith('.md') ||
+      f.name.toLowerCase().endsWith('.markdown'),
+    )
+    if (bundleFile && files.length === 1) {
+      handleBundleImport(bundleFile)
+      return
+    }
+
     const mediaFiles = files.filter(f => f.type.startsWith('image/') || f.type.startsWith('video/') || f.type.startsWith('audio/'))
     if (mediaFiles.length === 0)
       return
-
-    e.preventDefault()
-    setIsDraggingOverEditor(false)
 
     if (!adminToken.trim()) {
       setStatus({
@@ -747,7 +775,32 @@ export function ComposeForm() {
           className={`space-y-5 ${mobileTab === 'edit' ? 'block' : 'hidden lg:block'}`}
         >
           {/* Markdown & Bundle Import Dropzone */}
-          <div className="rounded-xl border border-dashed border-primary/30 bg-primary/[0.03] p-3.5 transition-colors hover:border-primary/50 hover:bg-primary/[0.06]">
+          <div
+            onDragOver={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsDraggingOverBundle(true)
+            }}
+            onDragLeave={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsDraggingOverBundle(false)
+            }}
+            onDrop={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsDraggingOverBundle(false)
+              const file = e.dataTransfer.files?.[0]
+              if (file) {
+                handleBundleImport(file)
+              }
+            }}
+            className={`rounded-xl border border-dashed p-3.5 transition-all ${
+              isDraggingOverBundle
+                ? 'border-primary bg-primary/10 ring-2 ring-primary/20 scale-[1.01]'
+                : 'border-primary/30 bg-primary/[0.03] hover:border-primary/50 hover:bg-primary/[0.06]'
+            }`}
+          >
             <input
               ref={bundleFileInputRef}
               type="file"
