@@ -15,7 +15,7 @@ import type { TocItem } from '@/components/feed/table-of-contents'
 import { TableOfContents } from '@/components/feed/table-of-contents'
 import { buildStaticProxyUrl, getAppConfig } from '@/lib/config'
 import { getLocaleMessages, localizePath } from '@/lib/i18n'
-import { loadLongFormPost } from '@/lib/long-form'
+import { loadLongFormPost, renderMarkdownToHtml } from '@/lib/long-form'
 import { calculateReadingTime } from '@/lib/reading-time'
 import { resolveSeoImageUrl } from '@/lib/seo'
 import { getStaticSnapshot } from '@/lib/telegram/static-snapshot'
@@ -182,8 +182,36 @@ export async function renderPostPage(locale: AppLocale, id: string) {
 
   const siteUrl = config.siteUrl || 'https://example.com'
 
+  let rawContentHtml = post?.content || ''
+  if (longForm) {
+    if (longForm.text) {
+      try {
+        let renderedHtml = await renderMarkdownToHtml(longForm.text)
+        if (longForm.mediaUrl) {
+          if (longForm.mediaType === 'video') {
+            renderedHtml = `<div class="tgme_widget_message_video_wrap mb-4"><video src="${longForm.mediaUrl}" class="post-video w-full rounded-xl" controls playsinline preload="metadata"></video></div>\n${renderedHtml}`
+          }
+          else if (longForm.mediaType === 'image') {
+            renderedHtml = `<div class="image-list-container mb-4"><img src="${longForm.mediaUrl}" alt="${longForm.title || ''}" class="zoomable rounded-xl" loading="lazy" /></div>\n${renderedHtml}`
+          }
+          else if (longForm.mediaType === 'audio') {
+            const isVoice = /\.(?:ogg|oga|opus)(?:\?|$)/i.test(longForm.mediaUrl)
+            renderedHtml = `<div class="teleboros-audio-player mb-4" data-src="${longForm.mediaUrl}" data-title="${longForm.title || ''}" data-voice="${isVoice ? 'true' : 'false'}"><audio src="${longForm.mediaUrl}" preload="metadata" class="hidden"></audio></div>\n${renderedHtml}`
+          }
+        }
+        rawContentHtml = renderedHtml
+      }
+      catch {
+        rawContentHtml = longForm.html || ''
+      }
+    }
+    else {
+      rawContentHtml = longForm.html || ''
+    }
+  }
+
   const { html: processedContent, headings: tocHeadings } = extractHeadingsAndInjectIds(
-    longForm ? longForm.html : post?.content,
+    rawContentHtml,
   )
 
   const resolvedPost: ChannelPost = longForm

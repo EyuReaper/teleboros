@@ -96,7 +96,7 @@ export function ContentMermaid() {
     let isMounted = true
 
     // 1. Immediately enhance Pele SSR pre-rendered diagrams (zero wait, zero layout shift)
-    const peleElements = Array.from(document.querySelectorAll<HTMLElement>('.pele-wrapper[data-diagram="pele"]'))
+    const peleElements = Array.from(document.querySelectorAll<HTMLElement>('.pele-wrapper'))
     for (const wrapper of peleElements) {
       if (wrapper.dataset.cardEnhanced === 'true') continue
       wrapper.dataset.cardEnhanced = 'true'
