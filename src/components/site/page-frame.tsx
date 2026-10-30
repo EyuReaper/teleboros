@@ -182,7 +182,7 @@ export function PageFrame({
         : null}
 
       <div className={cn(
-        'mx-auto grid border-r transition-[grid-template-columns] duration-300',
+        'mx-auto grid md:border-r transition-[grid-template-columns] duration-300',
         isSidebarCollapsed ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-[64px_minmax(0,1fr)] lg:grid-cols-[72px_minmax(0,1fr)]',
         wide ? 'max-w-6xl' : 'max-w-[784px]',
       )}>
@@ -423,23 +423,23 @@ export function PageFrame({
           <div className="sticky top-0 z-[5] border-b bg-background/95 px-3.5 sm:px-4 py-2.5 sm:py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
             <div className="flex items-center justify-between gap-2.5 sm:gap-3">
               <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-                {/* Mobile Navigation Menu Button */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsMobileMenuOpen(true)}
-                  className="md:hidden h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground touch-manipulation"
-                  aria-label="Open navigation menu"
-                >
-                  <Menu className="h-5 w-5" />
-                </Button>
-
-                {showBack && (
+                {/* Mobile Navigation: Back button on detail pages, Menu drawer button on top-level views */}
+                {showBack ? (
                   <SidebarBackButton
                     label={resolvedMessages.post.backToFeed}
                     buttonClassName="md:hidden h-10 w-10 shrink-0 rounded-full p-0 flex items-center justify-center text-muted-foreground hover:bg-muted/70 hover:text-foreground touch-manipulation"
                     iconClassName="h-5 w-5"
                   />
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsMobileMenuOpen(true)}
+                    className="md:hidden h-10 w-10 shrink-0 rounded-full text-muted-foreground hover:bg-muted/70 hover:text-foreground touch-manipulation"
+                    aria-label="Open navigation menu"
+                  >
+                    <Menu className="h-5 w-5" />
+                  </Button>
                 )}
 
                 {isSidebarCollapsed && (
@@ -659,12 +659,12 @@ export function PageFrame({
 
         {footerMarkdownHtml
           ? (
-              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "col-start-2")}>
+              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "md:col-start-2")}>
                 <div className="[overflow-wrap:anywhere] [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-foreground [&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.9em] [&_strong]:font-semibold" dangerouslySetInnerHTML={{ __html: footerMarkdownHtml }} />
               </footer>
             )
           : (
-              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "col-start-2")}>
+              <footer className={cn("border-t px-4 py-5 text-center text-xs leading-relaxed text-muted-foreground", !isSidebarCollapsed && "md:col-start-2")}>
                 <p>
                   Built with love by
                   {' '}

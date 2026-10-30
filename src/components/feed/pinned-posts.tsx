@@ -163,14 +163,14 @@ export function PinnedPosts({
             transition={{ duration: 0.2 }}
             data-twemoji-scope
           >
-            <div className="flex items-stretch gap-3">
-              <div className="relative w-11 shrink-0">
+            <div className="flex items-stretch gap-2.5 sm:gap-3">
+              <div className="relative w-9 sm:w-11 shrink-0">
                 <Image
                   src={avatarSrc}
                   alt={avatarAlt}
                   width={44}
                   height={44}
-                  className="relative z-[1] h-11 w-11 rounded-full border object-cover"
+                  className="relative z-[1] h-9 w-9 sm:h-11 sm:w-11 rounded-full border object-cover"
                   loading="eager"
                 />
               </div>

@@ -430,14 +430,14 @@ export function AudioPlayerCard({
         </div>
 
         {/* Controls: Speed, Mute & Download */}
-        <div className="flex items-center gap-1.5 sm:gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           {/* Playback Speed Control (1x, 1.5x, 2x) */}
           <button
             type="button"
             onClick={cyclePlaybackRate}
             title={`Playback speed: ${playbackRate}x (Click to switch)`}
             aria-label={`Playback speed: ${playbackRate}x`}
-            className="flex h-10 min-w-10 sm:h-7 sm:min-w-0 items-center justify-center rounded-lg border bg-background/60 px-2.5 sm:px-2 font-mono text-xs sm:text-[11px] font-semibold text-foreground/80 shadow-2xs transition hover:bg-muted hover:text-foreground active:scale-95"
+            className="flex h-8 sm:h-7 min-w-8 sm:min-w-0 items-center justify-center rounded-lg border bg-background/60 px-2 font-mono text-[11px] font-semibold text-foreground/80 shadow-2xs transition hover:bg-muted hover:text-foreground active:scale-95 touch-manipulation"
           >
             {playbackRate}
             x
@@ -448,7 +448,7 @@ export function AudioPlayerCard({
             type="button"
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute' : 'Mute'}
-            className="flex h-10 w-10 sm:h-7 sm:w-7 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground active:scale-95"
+            className="flex h-8 w-8 sm:h-7 sm:w-7 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground active:scale-95 touch-manipulation"
           >
             {isMuted ? <VolumeX className="h-4 w-4 sm:h-3.5 sm:w-3.5" /> : <Volume2 className="h-4 w-4 sm:h-3.5 sm:w-3.5" />}
           </button>
@@ -459,7 +459,7 @@ export function AudioPlayerCard({
             download={downloadFilename}
             aria-label={`Download ${title || 'audio'}`}
             title={`Download ${title || 'audio'}`}
-            className="flex h-10 w-10 sm:h-7 sm:w-7 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground active:scale-95"
+            className="flex h-8 w-8 sm:h-7 sm:w-7 items-center justify-center rounded-lg text-muted-foreground transition hover:bg-muted hover:text-foreground active:scale-95 touch-manipulation"
           >
             <Download className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
           </a>
