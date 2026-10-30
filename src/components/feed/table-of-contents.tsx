@@ -18,9 +18,16 @@ interface TableOfContentsProps {
 export function TableOfContents({ headings: propHeadings, isLongForm }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<TocItem[]>(propHeadings || [])
   const [activeId, setActiveId] = useState<string>('')
-  const [isInlineOpen, setIsInlineOpen] = useState(true)
+  const [isInlineOpen, setIsInlineOpen] = useState(false)
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false)
   const [isNearBottom, setIsNearBottom] = useState(false)
+
+  // Auto-expand TOC by default on desktop viewports (>= 640px)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 640) {
+      setIsInlineOpen(true)
+    }
+  }, [])
 
   // Track scroll proximity to bottom to avoid overlapping comments or footer controls
   useEffect(() => {

@@ -49,22 +49,22 @@ export function PostCard({
   return (
     <motion.article
       variants={feedItemVariants}
-      className="group-post border-b px-4 py-4 transition-colors hover:bg-muted/30"
+      className="group-post border-b px-3.5 sm:px-4 py-4 transition-colors hover:bg-muted/30"
       data-twemoji-scope
     >
-      <div className="flex items-stretch gap-3">
-        <div className="relative w-11 shrink-0">
+      <div className="flex items-stretch gap-2.5 sm:gap-3">
+        <div className="relative w-9 sm:w-11 shrink-0">
           <Image
             src={avatarSrc}
             alt={avatarAlt}
             width={44}
             height={44}
-            className="relative z-[1] h-11 w-11 rounded-full border object-cover"
+            className="relative z-[1] h-9 w-9 sm:h-11 sm:w-11 rounded-full border object-cover"
             loading={index < 2 ? 'eager' : 'lazy'}
           />
           <span
             aria-hidden
-            className="avatar-rail pointer-events-none absolute bottom-0 left-1/2 top-[50px] -translate-x-1/2"
+            className="avatar-rail pointer-events-none absolute bottom-0 left-1/2 top-[42px] sm:top-[50px] -translate-x-1/2"
           />
         </div>
 

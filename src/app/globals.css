@@ -151,6 +151,13 @@
     @apply text-[15px] leading-6 text-foreground;
     word-break: break-word;
     overflow-wrap: anywhere;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .prose-telegram code:not(pre code) {
+    word-break: break-all;
+    overflow-wrap: anywhere;
   }
 
   /* Responsive Markdown Tables */
